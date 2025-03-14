@@ -19,7 +19,7 @@ The **Active Vision** project aims to revolutionize tennis training by leveragin
 - Apply advanced computer vision techniques to extract precise motion data.
 - Track player body movements and racket trajectory for detailed analysis.
 
-### 2. 🏗 Algorithm Development
+### 2. 🔢 Algorithm Development
 - Train machine learning models on processed motion data.
 - Identify and analyze KPIs related to swing performance.
 - Fine-tune algorithms for high accuracy and reliability.
@@ -29,7 +29,7 @@ The **Active Vision** project aims to revolutionize tennis training by leveragin
 - Deliver immediate insights through the interface.
 - Provide actionable feedback for players to improve techniques instantly.
 
-### 4. 📈 User Interface
+### 4. 📱 User Interface
 - Develop a clean, interactive dashboard for players and coaches.
 - Display analyzed data in an accessible and informative manner.
 - Offer detailed reports, progress tracking, and personalized recommendations.
