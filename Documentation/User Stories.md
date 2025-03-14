@@ -117,7 +117,3 @@
 - **Technical Notes:** Speed calculation requires frame-by-frame analysis; ensure accuracy within ±5 km/h.  
 - **Notes:** Option to toggle between metric and imperial units.
 
----
-
-### Summary
-These user stories cover the needs of different personas (Android user, beginner, coach, and advanced player) with varying priorities and complexities. Let me know if you’d like to adjust priorities, add more acceptance criteria, or refine any details!
