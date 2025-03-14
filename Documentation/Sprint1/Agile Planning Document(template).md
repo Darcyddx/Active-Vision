@@ -14,7 +14,7 @@ List structured and clear tasks associated with sprint goals:
 
 | Task ID | Description                                                  | Assigned Member | Estimation (Hours/Points) | Deadline   | Status      |
 | ------- | ------------------------------------------------------------ | --------------- | ------------------------- | ---------- | ----------- |
-| 1       | Collect and label tennis player image datasets               | Kerry           | 5                         | 2025-03-20 | In Progress |
+| 1       | Collect and label tennis player image datasets               | Everyone          | 10                         | 2025-03-20 | In Progress |
 | 2       | Training court key point recognition model (preliminary version) | Lam Peiling     | 8                         | 2025-03-22 | Not Started |
 | 3       | Develop a mobile interface prototype with model integration  | Michael         | 3                         | 2025-03-23 | Not Started |
 |         |                                                              |                 |                           |            |             |
