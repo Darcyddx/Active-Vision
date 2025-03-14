@@ -1,6 +1,3 @@
-以下是您的会议记录转换为Markdown格式的代码：
-
-```md
 # Meeting Minutes
 
 **Date:** March 8, 2025  
