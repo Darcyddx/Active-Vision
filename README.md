@@ -12,7 +12,7 @@ The **Active Vision** project aims to revolutionize tennis training by leveragin
 - **⚡ Real-time Feedback:** Implement a real-time feedback system that provides immediate insights and suggestions to players, enhancing their ability to correct and refine their techniques on the spot.
 - **📊 User-friendly Interface:** Develop an intuitive interface that allows users to interact with the system, view their performance data, and track their progress over time.
 
-## 🛠 Methodology
+## 📌 Methodology
 
 ### 1. 📹 Data Processing
 - Capture high-speed video footage of tennis swings.
