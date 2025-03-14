@@ -7,7 +7,6 @@
 **Attendees:** Everyone in the team and clients  
 
 ## Agenda
-
 - Clarify the focus of Active Vision project for S1 2025
 - List prioritized tasks
 - Assign responsibilities and deadlines
