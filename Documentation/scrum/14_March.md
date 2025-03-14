@@ -1,1 +1,1 @@
-# Scrum - 14/03/2025
+# Daily stand ups - 14/03/2025
