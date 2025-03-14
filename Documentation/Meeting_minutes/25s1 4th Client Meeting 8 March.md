@@ -82,6 +82,3 @@ The team outlined the following prioritized tasks to guide development efforts o
 For **Week 3**, the team decided to focus on **Human Pose Recognition**.  
 
 A follow-up meeting will be scheduled in the **first week of Sprint 1** to distribute responsibilities on prioritized tasks (**March 14, 2025**).
-```
-
-这个Markdown格式的文档可以直接用于GitHub、Notion或其他Markdown支持的工具。你可以复制粘贴到Markdown编辑器中查看效果！需要进一步调整的话，告诉我哦！ 😊
