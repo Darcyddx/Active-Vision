@@ -1,5 +1,6 @@
 # Daily - stand ups 14/03/25
 
+### Everyone (tutorial and client meeting day)
 ## What have I done?
 - Tutorial about our plan and timeline for Sprint1
 - Meeting with clients
