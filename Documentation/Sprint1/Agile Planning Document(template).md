@@ -10,6 +10,10 @@ Clearly define the primary objectives of this sprint:
 
 ## 2. Sprint Backlog
 
+(We will use this function directly from GitHub repo -> Projects -> Team planning -> Backlog)
+
+Examples:
+
 List structured and clear tasks associated with sprint goals:
 
 | Task ID | Description                                                  | Assigned Member | Estimation (Hours/Points) | Deadline   | Status      |
