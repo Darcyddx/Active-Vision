@@ -8,9 +8,7 @@
 
 ## Agenda Items
 
-1. **Explain the Android app codes to Francis and how it works**
-
-2. **Work Done**
+1. **Work Done**
    - Planning for 3 sprints
      - Sprint 1: Player detection
      - Sprint 2: Human pose estimation
@@ -19,7 +17,7 @@
      - https://github.com/yastrebksv/TennisCourtDetector changed network architecture (VGG16 to ResNet)
      - Result: poor
 
-3. **Task Allocation**
+2. **Task Allocation**
    - research on https://github.com/Teoge/DMPR-PS for court keypoints
    - documentation movement (Jira, Notion, Sharepoint -> GitHub)
    - Create user stories
