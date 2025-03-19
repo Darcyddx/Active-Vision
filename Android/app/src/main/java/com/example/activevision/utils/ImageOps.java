@@ -1,4 +1,4 @@
-package com.example.active_vision_qualcomm.utils;
+package com.example.activevision.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -6,7 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.util.Pair;
 
-import com.example.active_vision_qualcomm.data.Bbox;
+import com.example.activevision.data.Bbox;
 
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
