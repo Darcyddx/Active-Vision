@@ -7,9 +7,9 @@
 ## What am I doing next?
 - Explore the codes of DMPR-PS on their GitHub
 
-### Other people
+### Xi Ding
 ## What have I done?
-- 
+- Read the paper of TrackNetV4: Enhancing Fast Sports Object Tracking with Motion Attention Maps and assess the possibility of transfering TrackNet V4 to our project.
 
 ## What am I doing next?
-- 
+- Test TrackNet V4
