@@ -13,3 +13,4 @@
 
 ## What am I doing next?
 - Test TrackNet V4
+- Image preprocessing functions for detection and tracking
