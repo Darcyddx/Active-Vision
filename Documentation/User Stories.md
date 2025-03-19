@@ -1,10 +1,8 @@
----
-
 ### User Story 1
 #### Basic Information
 **ID:** USER-001  
 **Title:** Android Interface for Tennis App  
-**Priority:** High  
+**Priority:** Low  
 
 #### User Story Description
 **As an** Android phone user,  
