@@ -7,7 +7,7 @@
 ## What am I doing next?
 - write ball tracking algorithm for Android app
 
-### Pei Ling Lam
+### Xi Ding
 ## What have I done?
 - Evaluate the performance of TrackNet V4
 
