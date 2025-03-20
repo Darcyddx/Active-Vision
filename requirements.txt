@@ -1,0 +1,11 @@
+# 核心依赖
+tensorflow==2.15.0  # 支持CUDA 12.x
+tensorflow-gpu==2.15.0  # 确保使用GPU
+# keras==2.15.0  # 与tensorflow匹配的版本，理论上不需要另外安装
+numpy==1.22.0
+pillow==10.0.0  # PIL的实现库
+
+# 可能需要的CUDA相关包
+cudatoolkit==12.3
+cudnn==8.9.0
+
