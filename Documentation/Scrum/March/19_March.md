@@ -9,7 +9,7 @@
 
 ### Xi Ding
 ## What have I done?
-- Evaluate the performance of TrackNet V4
+- Build inference environment for TrackNet V4
 
 ## What am I doing next?
 - Explore more accurate methods of player detection in Android app

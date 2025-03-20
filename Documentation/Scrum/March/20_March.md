@@ -14,3 +14,10 @@
 - handling OpenCV native loading and TF Lite delegate management can cause compatibility issues across different Android versions and devices
 - the label tool is using Matlab and it has some bugs on my laptop, trying to fix those bugs
 - some of the codes of the label tool seems to be fixed just for car park slots
+
+### Xi Ding
+## What have I done?
+- Evaluate the performance of TrackNet V4
+
+## What am I doing next?
+- Explore methods of real-time sisualization of detected objects and performance in a video stream
