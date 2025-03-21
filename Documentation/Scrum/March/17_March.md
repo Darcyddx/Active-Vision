@@ -14,3 +14,13 @@
 ## What am I doing next?
 - Test TrackNet V4
 - Image preprocessing functions for detection and tracking
+
+### Yichi Zhang
+
+## What have I done?
+
+- Research on Model Distill 
+
+## What am I doing next?
+
+- Try to distill TrackNetV2 to ResNet_Track in order to improve model performance.
