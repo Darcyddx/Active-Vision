@@ -26,7 +26,7 @@ Large (L): 7-10 SP (Complex, critical dependencies)
 | Task	                                                                | Estimation	  | Dependencies	 | 
 |----------------------------------------------------------------------|--------------|---------------|
 | Collect and preprocess dataset for player detection (bounding boxes) | 	6 SP (M)    |	Dataset availability|
-| Fine-tune YOLO-based or Detectron2 model for player detection	       | 8 SP (L)     |	Dataset preprocessing|
+| Quantize YOLOv8 model for player detection	       | 8 SP (L)     |	Dataset preprocessing|
 | Implement Android app camera feed integration                        | 	5 SP (M)    |	App framework setup|
 | Display detected player bounding boxes on the app	                   | 4 SP (M)     |	Model integration|
 | Test model performance on real-world tennis matches                  | 	6 SP (M)    |	Model training|

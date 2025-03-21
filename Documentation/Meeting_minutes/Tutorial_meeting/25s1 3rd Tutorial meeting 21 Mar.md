@@ -8,7 +8,7 @@
 
 ## Agenda Items
 
-1. **Explain what we have done with tutor.**
+### Explain what we have done with tutor
 
 **Xi Ding**
 - Play around with TrackNet V4
