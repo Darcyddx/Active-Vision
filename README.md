@@ -36,3 +36,13 @@ Dataset/
 | -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | tennis-tracker | The "tennis-tracker" model could be used for detailed game analysis in broadcasting | [tennis-tracker Computer Vision Project](https://universe.roboflow.com/tennistracker-dogbm/tennis-tracker-duufq) |
 | Tennis Model   | /                                                            | [Tennis Model Computer Vision Project](https://universe.roboflow.com/tennis-ai/tennis-model) |
+
+
+
+### TrackNetV2 Model Architecture
+
+![TrackNetV2 Model Architecture](C:\Users\Striker\OneDrive - Australian National University\桌面\ANU\25S1\COMP8715 Project\Active-Vision\resnet-track-architecture.svg)
+
+### ResNet_Track Model Architecture
+
+![ResNet_Track Model Architecture](C:\Users\Striker\OneDrive - Australian National University\桌面\ANU\25S1\COMP8715 Project\Active-Vision\resnet-track-architecture.svg)
