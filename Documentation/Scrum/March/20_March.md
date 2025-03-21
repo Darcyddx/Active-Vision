@@ -22,3 +22,17 @@
 ## What am I doing next?
 - Explore methods of real-time sisualization of detected objects and performance in a video stream
 - Explore methods of tennis court detection
+
+### Yichi Zhang
+
+## What have I done?
+
+- Fix bugs
+  - Format mismatch when loading the model, such as conflicts between SavedModel and H5 formats
+  - The teacher model uses NCHW format while the student model uses NHWC format, which may cause errors during `ChannelConverter` transformation.
+  - The teacher model accepts 9-channel input (three frames of images), while the student model accepts 3-channel input (a single frame)
+  - Insufficient GPU memory, especially when the batch size is set too large.
+
+## What am I doing next?
+
+- Try to use the trained model to predict
