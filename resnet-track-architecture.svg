@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8f9fa" />
+  
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial" font-size="20" text-anchor="middle" font-weight="bold">ResNet_Track Model Architecture</text>
+  
+  <!-- Input -->
+  <rect x="100" y="70" width="600" height="40" rx="5" fill="#b8daff" stroke="#3273dc" />
+  <text x="400" y="95" font-family="Arial" font-size="14" text-anchor="middle">Input (288, 512, 3)</text>
+  
+  <!-- Initial layer -->
+  <rect x="150" y="130" width="500" height="30" rx="5" fill="#c3e6cb" stroke="#28a745" />
+  <text x="400" y="150" font-family="Arial" font-size="12" text-anchor="middle">Initial Conv Block (3x3 Conv → BN → ReLU → 3x3 Conv → BN → ReLU)</text>
+  
+  <!-- Encoder -->
+  <rect x="150" y="180" width="200" height="250" rx="5" fill="#d1ecf1" stroke="#17a2b8" />
+  <text x="250" y="200" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">Encoder</text>
+  
+  <!-- Encoder blocks -->
+  <rect x="170" y="210" width="160" height="40" rx="3" fill="#bee5eb" stroke="#17a2b8" />
+  <text x="250" y="235" font-family="Arial" font-size="12" text-anchor="middle">Block 1 (e1) (144, 256, 32)</text>
+  
+  <rect x="170" y="260" width="160" height="40" rx="3" fill="#bee5eb" stroke="#17a2b8" />
+  <text x="250" y="285" font-family="Arial" font-size="12" text-anchor="middle">Block 2 (e2) (72, 128, 64)</text>
+  
+  <rect x="170" y="310" width="160" height="40" rx="3" fill="#bee5eb" stroke="#17a2b8" />
+  <text x="250" y="335" font-family="Arial" font-size="12" text-anchor="middle">Block 3 (e3) (36, 64, 128)</text>
+  
+  <rect x="170" y="360" width="160" height="40" rx="3" fill="#bee5eb" stroke="#17a2b8" />
+  <text x="250" y="385" font-family="Arial" font-size="12" text-anchor="middle">Block 4 (e4) (18, 32, 256)</text>
+  
+  <!-- Decoder -->
+  <rect x="450" y="180" width="200" height="250" rx="5" fill="#f8d7da" stroke="#dc3545" />
+  <text x="550" y="200" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">Decoder</text>
+  
+  <!-- Decoder blocks -->
+  <rect x="470" y="210" width="160" height="40" rx="3" fill="#f5c6cb" stroke="#dc3545" />
+  <text x="550" y="235" font-family="Arial" font-size="12" text-anchor="middle">Trans1 + Convd1 (36x64x128)</text>
+  
+  <rect x="470" y="260" width="160" height="40" rx="3" fill="#f5c6cb" stroke="#dc3545" />
+  <text x="550" y="285" font-family="Arial" font-size="12" text-anchor="middle">Trans2 + Convd2 (72x128x64)</text>
+  
+  <rect x="470" y="310" width="160" height="40" rx="3" fill="#f5c6cb" stroke="#dc3545" />
+  <text x="550" y="335" font-family="Arial" font-size="12" text-anchor="middle">Trans3 + Convd3 (144x256x32)</text>
+  
+  <rect x="470" y="360" width="160" height="40" rx="3" fill="#f5c6cb" stroke="#dc3545" />
+  <text x="550" y="385" font-family="Arial" font-size="12" text-anchor="middle">Trans4 (288x512x16)</text>
+  
+  <!-- Final layer -->
+  <rect x="150" y="450" width="550" height="30" rx="5" fill="#ffeeba" stroke="#ffc107" />
+  <text x="425" y="470" font-family="Arial" font-size="12" text-anchor="middle">Final Conv Block (3x3 Conv → BN → ReLU → 3x3 Conv → BN → ReLU → 3x3 Conv → Sigmoid)</text>
+  
+  <!-- Output -->
+  <rect x="100" y="500" width="600" height="40" rx="5" fill="#b8daff" stroke="#3273dc" />
+  <text x="400" y="525" font-family="Arial" font-size="14" text-anchor="middle">Output (288, 512, 3)</text>
+  
+  <!-- Skip connections -->
+  <!-- e3 to conv_t1 output -->
+  <path d="M 330 330 L 410 330 L 410 230 L 470 230" fill="none" stroke="#6c757d" stroke-width="2" stroke-dasharray="5,5" />
+  <text x="410" y="220" font-family="Arial" font-size="8" text-anchor="middle">concat</text>
+  
+  <!-- e2 to conv_t2 output -->
+  <path d="M 330 280 L 390 280 L 390 260 L 470 280" fill="none" stroke="#6c757d" stroke-width="2" stroke-dasharray="5,5" />
+  <text x="390" y="250" font-family="Arial" font-size="8" text-anchor="middle">concat</text>
+  
+  <!-- e1 to conv_t3 output -->
+  <path d="M 330 230 L 370 230 L 370 310 L 470 330" fill="none" stroke="#6c757d" stroke-width="2" stroke-dasharray="5,5" />
+  <text x="370" y="300" font-family="Arial" font-size="8" text-anchor="middle">concat</text>
+  
+  <!-- Flow arrows -->
+  <path d="M 250 400 L 250 420 L 550 420 L 550 400" fill="none" stroke="#28a745" stroke-width="1.5" marker-end="url(#arrowhead)" />
+  
+  <!-- Arrow definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#28a745" />
+    </marker>
+  </defs>
+  
+  <!-- ResNet_BottleNeck structure description -->
+  <rect x="640" y="210" width="150" height="170" rx="3" fill="#e2e3e5" stroke="#6c757d" />
+  <text x="715" y="230" font-family="Arial" font-size="10" text-anchor="middle" font-weight="bold">Model Connections</text>
+  <text x="715" y="250" font-family="Arial" font-size="8" text-anchor="middle">e4 → conv_t1 → concat with e3</text>
+  <text x="715" y="270" font-family="Arial" font-size="8" text-anchor="middle">conv_d1 → conv_t2 → concat with e2</text>
+  <text x="715" y="290" font-family="Arial" font-size="8" text-anchor="middle">conv_d2 → conv_t3 → concat with e1</text>
+  <text x="715" y="310" font-family="Arial" font-size="8" text-anchor="middle">conv_d3 → conv_t4 → final</text>
+  <text x="715" y="340" font-family="Arial" font-size="8" text-anchor="middle" font-weight="bold">ResNet_BottleNeck:</text>
+  <text x="715" y="355" font-family="Arial" font-size="8" text-anchor="middle">1x1 Conv → BN → ReLU</text>
+  <text x="715" y="370" font-family="Arial" font-size="8" text-anchor="middle">3x3 Conv → BN → ReLU</text>
+</svg>
