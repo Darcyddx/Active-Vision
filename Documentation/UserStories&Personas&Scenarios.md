@@ -124,11 +124,20 @@
 
 #### Persona Description
 
-- **education and experience*
+- *education and experience*
+  - Played tennis from middle school through college, with a focus on sports science and biomechanics.
+  - 8+ years of competitive tennis experience in regional and amateur tournaments.
+  - Frequently applies data analytics to improve technique.
 
 - relevant interest
+  - Interested in advanced player stats—ball speed, spin rates, and shot angles.
+  - Follows professional tennis circuit closely for training insights.
 - job
+  - Tennis coach at a local sports academy.
+  - Aspires to compete at higher-level tournaments while balancing coaching responsibilities.
 - personalization
+  - Motivated by challenging personal records; sets speed goals for each session.
+  - Enjoys testing new technologies (apps, trackers, sensors) that offer detailed performance metrics.
 
 #### Acceptance Criteria
 1. **Scenario 1:** Measuring ball speed in practice  
