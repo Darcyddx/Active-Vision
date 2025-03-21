@@ -4,3 +4,21 @@
 
 
 
+This code is commonly used in the COCO dataset:
+
+```bash
+Dataset/
+├── train/
+│   ├── image1.jpg
+│   ├── image2.jpg
+│   └── _annotations.coco.json
+├── valid/
+│   ├── image3.jpg
+│   ├── image4.jpg
+│   └── _annotations.coco.json
+└── test/
+    ├── image5.jpg
+    ├── image6.jpg
+    └── _annotations.coco.json
+```
+
