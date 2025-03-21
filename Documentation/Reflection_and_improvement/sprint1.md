@@ -11,4 +11,14 @@
 ### Actionable improvement
 - Try using TrackNetv4 to see whether the performance is better while maintaining its light weight feature. 
 
-## Reflection on TrackNet v4 test
+## Reflection on Trial of using TrackNet v4 to replace with the current ball tracking model
+### The good parts
+- The inference speed of TrackNet v4 is faster than TrackNet v2.
+
+### Challenges
+- In some scenarios, the model does not perform very well. There is not a significant improvement compared with TrackNet v2. There is an example showing in the [test video]().
+
+### Actionable improvement
+- We use the distilled model from ResNet_TrackNet v2 and get better performances. There is an example showing in the [test video]().
+
+
