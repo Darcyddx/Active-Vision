@@ -36,5 +36,5 @@ opencv-python
 
 | SavedModel                                                   | TFLite                                                       |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [Download]([tracknet_distillation_best_0320](https://anu365-my.sharepoint.com/:f:/g/personal/u7690985_anu_edu_au/Eg6ZqbJ4sV9HiyXIG0bm2WgBns2zPKQA4uGsid8OpJbptg?e=Z8UqcH)) | [Download]([tracknetv2_resnet_distillation_uint8.tflite](https://anu365-my.sharepoint.com/:u:/g/personal/u7690985_anu_edu_au/EeglyYm169lKt9RaQRmtD_QBdzn4M8K6YHXnZrgUFra1hg?e=vOfI8W)) |
+| [Download](https://anu365-my.sharepoint.com/:f:/g/personal/u7690985_anu_edu_au/Eg6ZqbJ4sV9HiyXIG0bm2WgBns2zPKQA4uGsid8OpJbptg?e=Z8UqcH) | [Download](https://anu365-my.sharepoint.com/:u:/g/personal/u7690985_anu_edu_au/EeglyYm169lKt9RaQRmtD_QBdzn4M8K6YHXnZrgUFra1hg?e=vOfI8W) |
 
