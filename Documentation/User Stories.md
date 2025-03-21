@@ -115,3 +115,21 @@
 - **Technical Notes:** Speed calculation requires frame-by-frame analysis; ensure accuracy within ±5 km/h.  
 - **Notes:** Option to toggle between metric and imperial units.
 
+---
+### User Story 5
+#### Basic Information
+**ID:** USER-005
+**Title:** Support for Singles and Doubles Tennis Matches on Android
+**Priority:** Medium
+
+#### User Story Description
+**As an** tennis match lover,  
+**I want to** use an Android-compatible interface that allows me to select both singles and doubles match types,  
+**so that** I can conveniently enjoy different tennis match formats on my device.
+
+#### Acceptance Criteria
+1. **Scenario 1:** Choosing singles or doubles match type  
+   - **Given** I am on the match setup screen,  
+   - **When** I select a match type,  
+   - **Then** I can choose between a singles match or a doubles match and proceed accordingly.
+
