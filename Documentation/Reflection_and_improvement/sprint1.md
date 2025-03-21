@@ -16,9 +16,9 @@
 - The inference speed of TrackNet v4 is faster than TrackNet v2.
 
 ### Challenges
-- In some scenarios, the model does not perform very well. There is not a significant improvement compared with TrackNet v2. There is an example showing in the [test video]().
+- In some scenarios, the model does not perform very well. There is not a significant improvement compared with TrackNet v2. There is an example showing in the [test video](https://github.com/Darcyddx/Active-Vision/blob/main/Documentation/Reflection_and_improvement/Asset/test_video1.mp4).
 
 ### Actionable improvement
-- We use the distilled model from ResNet_TrackNet v2 and get better performances. There is an example showing in the [test video]().
+- We use the distilled model from ResNet_TrackNet v2 and get better performances. There is an example showing in the [test video](https://github.com/Darcyddx/Active-Vision/blob/main/Documentation/Reflection_and_improvement/Asset/test_video2.mp4).
 
 
