@@ -31,7 +31,7 @@ Large (L): 7-10 SP (Complex, critical dependencies)
 | Display detected player bounding boxes on the app	                   | 4 SP (M)     |	Model integration|
 | Test model performance on real-world tennis matches                  | 	6 SP (M)    |	Model training|
 | Optimize real-time processing (NPU acceleration, TensorFlow Lite)	   | 7 SP (L)	|Model deployment |
-Sprint goal: Develop player detection with real-time tracking in Android app
+**Sprint goal**: Develop player detection with real-time tracking in Android app
 
 ### Sprint 2 - Player pose estimation
 | Task	                                                              | Estimation	 | Dependencies	    | 
@@ -41,7 +41,7 @@ Sprint goal: Develop player detection with real-time tracking in Android app
 | Overlay key posture points on the app UI                           | 	5 SP       | Pose estimation  |
 | Develop initial real-time feedback system for posture correction	  | 7 SP        | Pose tracking    |
 | Optimize inference time to maintain real-time processing           | 	6 SP       | Model tuning     |
-Sprint goal: Detect human poses and classify tennis movements
+**Sprint goal**: Detect human poses and classify tennis movements
 
 ### Sprint 3 - Court detection
 | Task	                                                               | Estimation	 | Dependencies	       | 
@@ -51,11 +51,11 @@ Sprint goal: Detect human poses and classify tennis movements
 | Replace TrackNetV2 with TrackNetV4 for better ball tracking         | 	8 SP   | -                   |
 | Implement logic for filtering primary ball in multi-ball scenarios	 | 6 SP    | Ball tracking       |
 | Compute real-time ball speed estimation                             | 	3 SP   | Ball tracking       |
-Sprint goal: Detect court keypoints, implement ball speed calculation
+**Sprint goal**: Detect court keypoints, implement ball speed calculation
 
 ## 4. Sprint Backlog
 
-(We will use this function directly from GitHub repo -> Projects -> Team planning -> Backlog)
+(We will use this function directly from GitHub repo -> Projects -> Team planning -> [Backlog](https://github.com/users/Darcyddx/projects/1))
 
 ## 5. Tools and Management Methods
 

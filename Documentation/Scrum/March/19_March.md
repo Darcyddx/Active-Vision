@@ -9,7 +9,17 @@
 
 ### Xi Ding
 ## What have I done?
-- Evaluate the performance of TrackNet V4
+- Build inference environment for TrackNet V4
 
 ## What am I doing next?
 - Explore more accurate methods of player detection in Android app
+
+### Yichi Zhang
+
+## What have I done?
+
+- Finish code of distillation from TrackNetV2 to ResNet_Track
+
+## What am I doing next?
+
+- Debug code and start distillation

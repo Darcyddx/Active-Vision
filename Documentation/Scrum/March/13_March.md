@@ -14,3 +14,4 @@
 
 ## What am I doing next?
 - Search for other available models
+- Research on image preprocessing functions for object detection and tracking

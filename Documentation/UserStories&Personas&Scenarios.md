@@ -9,6 +9,14 @@
 **I want to** have an Android-compatible interface,  
 **so that** I can conveniently use the app on my device.
 
+#### Persona Description
+
+- **education and experience*
+
+- relevant interest
+- job
+- personalization
+
 #### Acceptance Criteria
 1. **Scenario 1:** Accessing the app on an Android device  
    - **Given** I have an Android phone with the app installed,  
@@ -34,6 +42,14 @@
 **As a** tennis beginner,  
 **I want to** see the ball’s trajectory and have my posture and swing detected,  
 **so that** I can quickly learn tennis with basic detection features.
+
+#### Persona Description
+
+- **education and experience*
+
+- relevant interest
+- job
+- personalization
 
 #### Acceptance Criteria
 1. **Scenario 1:** Viewing ball trajectory  
@@ -68,6 +84,14 @@
 **I want to** detect the ball’s position relative to the court,  
 **so that** I can easily see whether the ball lands in or out of bounds.
 
+#### Persona Description
+
+- **education and experience*
+
+- relevant interest
+- job
+- personalization
+
 #### Acceptance Criteria
 1. **Scenario 1:** Checking ball landing position  
    - **Given** I am reviewing a recorded rally,  
@@ -98,6 +122,14 @@
 **I want to** calculate the speed of the ball,  
 **so that** I can further improve my skills.
 
+#### Persona Description
+
+- **education and experience*
+
+- relevant interest
+- job
+- personalization
+
 #### Acceptance Criteria
 1. **Scenario 1:** Measuring ball speed in practice  
    - **Given** I am recording a shot with the app,  
@@ -114,4 +146,59 @@
 - **Dependencies:** US-002 (Ball Trajectory Detection)  
 - **Technical Notes:** Speed calculation requires frame-by-frame analysis; ensure accuracy within ±5 km/h.  
 - **Notes:** Option to toggle between metric and imperial units.
+
+---
+### User Story 5
+#### Basic Information
+**ID:** USER-005
+**Title:** Support for Singles and Doubles Tennis Matches on Android
+**Priority:** Medium
+
+#### User Story Description
+**As an** tennis match lover,  
+**I want to** use an Android-compatible interface that allows me to select both singles and doubles match types,  
+**so that** I can conveniently enjoy different tennis match formats on my device.
+
+#### Persona Description
+
+- **education and experience*
+
+- relevant interest
+- job
+- personalization
+
+#### Acceptance Criteria
+1. **Scenario 1:** Choosing singles or doubles match type  
+   - **Given** I am on the match setup screen,  
+   - **When** I select a match type,  
+   - **Then** I can choose between a singles match or a doubles match and proceed accordingly.
+
+### User Story 6
+
+#### Basic Information
+
+**ID:** USER-006
+**Title:** Tennis Club Manager
+**Priority:** Low
+
+#### User Story Description
+
+**As an** tennis club manager,  
+**I want to** use an integrated tennis analysis program,  
+**so that** I can give my VIPs to record their matches and provide them with cool effects and analysis for their games.
+
+#### Persona Description
+
+- **education and experience*
+
+- relevant interest
+- job
+- personalization
+
+#### Acceptance Criteria
+
+1. **Scenario 1:** Choos  
+   - **Given** I a,  
+   - **When** I ,  
+   - **Then** I can .
 

@@ -1,6 +1,4 @@
----
-
-**Meeting Details**
+# Meeting Details
 
 - **Date:** 14 Mar 2025
 - **Time:** 1:40 PM – 2 PM
@@ -8,9 +6,8 @@
 - **Attendees:** All Team Members, Zara (tutor)
 - **Recorder:** Pei Ling Lam
 
----
 
-**Agenda Items**
+## Agenda Items
 
 1. **Missing Documentation**
    - **Planning and Organization**
