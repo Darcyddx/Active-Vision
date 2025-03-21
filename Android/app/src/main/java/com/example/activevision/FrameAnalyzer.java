@@ -66,7 +66,8 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
 
         this.listener = listener;
 
-        tennisExecutor = new ThreadPoolExecutor(1,
+        tennisExecutor = new ThreadPoolExecutor(
+                1,
                 1,
                 0L,
                 TimeUnit.MILLISECONDS,

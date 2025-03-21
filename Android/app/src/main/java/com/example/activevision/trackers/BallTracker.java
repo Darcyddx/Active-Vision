@@ -113,7 +113,7 @@ public class BallTracker implements AutoCloseable {
         inputType = inputTensor.dataType();
         assert inputShape.length == 4; // 4D Input Tensor: [Batch, Height, Width, Channels]
         assert inputShape[0] == 1; // Batch size is 1
-        assert inputShape[3] == 3; // Input tensor should have 3 channels
+        assert inputShape[3] == 9; // Input tensor should have 3 channels
         // assert inputShape[3] == 9; // Input tensor should have 3 channels
         assert inputType == DataType.UINT8 || inputType == DataType.FLOAT32; // INT8 (Quantized) and FP32 Input Supported
 
@@ -224,26 +224,26 @@ public class BallTracker implements AutoCloseable {
             Size targetSize = new Size(this.getInputWidth(), this.getInputHeight());
             Imgproc.resize(inputMatAbgr, scaledImage, targetSize, 0, 0, Imgproc.INTER_LINEAR);
 
-            // Convert to grayscale image
-            Mat inputMatGray = new Mat();
-            Imgproc.cvtColor(scaledImage, inputMatGray, Imgproc.COLOR_BGR2GRAY);
-            // Normalize the grayscale image to [0, 1] range
-            inputMatGray.convertTo(inputMatGray, CvType.CV_32FC1, 1/255f);
-            // If the model expects quantized inputs (UINT8), apply scaling and zero-point adjustment
-            if (inputType == DataType.UINT8) {
-                Core.divide(inputMatGray, new Scalar(INPUT_SCALE), inputMatGray);
-                Core.add(inputMatGray, new Scalar(INPUT_ZERO_POINT), inputMatGray);
-            }
-            concatList.add(inputMatGray);
-
-//            Mat inputMatRgb = new Mat();
-//            Imgproc.cvtColor(scaledImage, inputMatRgb, Imgproc.COLOR_BGRA2RGB);
-//            inputMatRgb.convertTo(inputMatRgb, CvType.CV_32FC3, 1/255f);
+//            // Convert to grayscale image
+//            Mat inputMatGray = new Mat();
+//            Imgproc.cvtColor(scaledImage, inputMatGray, Imgproc.COLOR_BGR2GRAY);
+//            // Normalize the grayscale image to [0, 1] range
+//            inputMatGray.convertTo(inputMatGray, CvType.CV_32FC1, 1/255f);
+//            // If the model expects quantized inputs (UINT8), apply scaling and zero-point adjustment
 //            if (inputType == DataType.UINT8) {
-//                Core.divide(inputMatRgb, INPUT_SCALE_SCALAR, inputMatRgb);
-//                Core.add(inputMatRgb, INPUT_ZERO_POINT_SCALAR, inputMatRgb);
+//                Core.divide(inputMatGray, new Scalar(INPUT_SCALE), inputMatGray);
+//                Core.add(inputMatGray, new Scalar(INPUT_ZERO_POINT), inputMatGray);
 //            }
-//            concatList.add(inputMatRgb);
+//            concatList.add(inputMatGray);
+
+            Mat inputMatRgb = new Mat();
+            Imgproc.cvtColor(scaledImage, inputMatRgb, Imgproc.COLOR_BGRA2RGB);
+            inputMatRgb.convertTo(inputMatRgb, CvType.CV_32FC3, 1/255f);
+            if (inputType == DataType.UINT8) {
+                Core.divide(inputMatRgb, INPUT_SCALE_SCALAR, inputMatRgb);
+                Core.add(inputMatRgb, INPUT_ZERO_POINT_SCALAR, inputMatRgb);
+            }
+            concatList.add(inputMatRgb);
         }
 
         // Merge all processed Mats into a single Mat with multiple channels
