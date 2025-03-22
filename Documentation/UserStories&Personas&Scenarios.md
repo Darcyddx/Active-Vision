@@ -3,6 +3,7 @@
 **ID:** USER-001  
 **Title:** Android Interface for Tennis App  
 **Priority:** Low  
+**Milestone:** Sprint 3
 
 #### User Story Description
 **As an** Android phone user,  
@@ -11,11 +12,17 @@
 
 #### Persona Description
 
-- **education and experience*
-
+- education and experience
+  - graduate university student majoring in Finance (Bachelor degree).
+  - has a general familiarity with mobile applications and technology but may not have technical expertise in software development. 
+  - comfortable navigating mobile apps and expect a smooth user experience.
 - relevant interest
+  - interested in tennis and sports analytics, likely using the app for tracking performance, analyzing gameplay, or improving skills. 
+  - value convenience, accessibility, and a seamless experience on their Android device.
 - job
+  - work as a accountant in one of the Big4 companies.
 - personalization
+  - prefer an intuitive interface with clear visuals, easy navigation, and real-time feedback.
 
 #### Acceptance Criteria
 1. **Scenario 1:** Accessing the app on an Android device  
@@ -37,6 +44,7 @@
 **ID:** USER-002  
 **Title:** Ball Trajectory and Player Posture Detection for Beginners  
 **Priority:** High  
+**Milestone:** Sprint 1
 
 #### User Story Description
 **As a** tennis beginner,  
@@ -45,11 +53,18 @@
 
 #### Persona Description
 
-- **education and experience*
-
+- education and experience
+  - first year university student studying Bachelor of Genetics.
+  - a beginner in tennis with little to no formal training. 
+  - have limited experience with sports technology and analytics but are comfortable using mobile apps.
 - relevant interest
+  - passionate about learning tennis efficiently and improving their technique.
+  - interested in using technology to accelerate their progress and make training more engaging.
 - job
+  - student, has heavy workload on assignments and labs.
+  - have limited time for in-person coaching and rely on digital tools for self-improvement.
 - personalization
+  - prefers a straightforward, beginner-friendly interface with minimal setup required.
 
 #### Acceptance Criteria
 1. **Scenario 1:** Viewing ball trajectory  
@@ -78,6 +93,7 @@
 **ID:** USER-003  
 **Title:** Ball Position Detection Relative to Court  
 **Priority:** Medium  
+**Milestone:** Sprint 3
 
 #### User Story Description
 **As a** tennis coach,  
@@ -115,7 +131,8 @@
 #### Basic Information
 **ID:** USER-004  
 **Title:** Ball Speed Calculation for Advanced Players  
-**Priority:** Medium  
+**Priority:** Medium 
+**Milestone:** Sprint 3
 
 #### User Story Description
 **As an** advanced tennis player,  
@@ -162,6 +179,7 @@
 **ID:** USER-005
 **Title:** Support for Singles and Doubles Tennis Matches on Android
 **Priority:** Medium
+**Milestone:** Sprint 2
 
 #### User Story Description
 **As an** tennis match lover,  
@@ -189,6 +207,7 @@
 **ID:** USER-006
 **Title:** Tennis Club Manager
 **Priority:** Low
+**Milestone:** 
 
 #### User Story Description
 
