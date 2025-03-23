@@ -1,43 +1,41 @@
-package com.example.active_vision_qualcomm.Trackers;
+package com.example.activevision.trackers;
 
 import android.content.Context;
-
+import android.graphics.Bitmap;
+import android.graphics.RectF;
+import android.text.InputType;
 import android.util.Pair;
 
+import com.example.activevision.data.Bbox;
+import com.example.activevision.tflite_helpers.AIHubDefaults;
+import com.example.activevision.tflite_helpers.TFLiteHelpers;
+import com.example.activevision.utils.ImageOps;
 
-import com.example.active_vision_qualcomm.tflite_helpers.AIHubDefaults;
-import com.example.active_vision_qualcomm.tflite_helpers.TFLiteHelpers;
-
-
-
+import org.opencv.osgi.OpenCVNativeLoader;
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.Delegate;
 import org.tensorflow.lite.Interpreter;
 import org.tensorflow.lite.Tensor;
-
+import org.tensorflow.lite.support.common.TensorProcessor;
 import org.tensorflow.lite.support.common.ops.CastOp;
-
+import org.tensorflow.lite.support.common.ops.DequantizeOp;
 import org.tensorflow.lite.support.common.ops.NormalizeOp;
 import org.tensorflow.lite.support.common.ops.QuantizeOp;
 import org.tensorflow.lite.support.image.ImageProcessor;
-
+import org.tensorflow.lite.support.image.TensorImage;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
 import java.io.IOException;
-
+import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
 import java.security.NoSuchAlgorithmException;
-
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+public class PlayerDetector implements AutoCloseable{
 
-/**
- * PlayerDetector is responsible for detecting players in camera frames with YOLOv8-Nano.
- * It handles model loading, input preprocessing, performing inference, and postprocessing to extract bounding boxes.
- * The class supports different data types for inputs and outputs, including quantized UINT8 and FLOAT32.
- * This implementation is adopt from
- * https://github.com/surendramaran/YOLOv8-TfLite-Object-Detector/blob/main/app/src/main/java/com/surendramaran/yolov8tflite/Detector.kt
- */
-public class PlayerDetector implements AutoCloseable {
     private static final String TAG = "PlayerDetector";
 
     private final float STD = 255.0f;
@@ -65,12 +63,6 @@ public class PlayerDetector implements AutoCloseable {
     private final int OUTPUT_ZERO_POINT;
 
     private final TensorBuffer outputBuffer;
-
-    public PlayerDetector(Context context,
-                         String modelPath) throws IOException, NoSuchAlgorithmException {
-        this(context, modelPath,  AIHubDefaults.delegatePriorityOrder);
-    }
-
     /**
      * Create a player detector with Yolov8-nano for detecting players in camera frames
      * @param context App context.
@@ -80,8 +72,8 @@ public class PlayerDetector implements AutoCloseable {
      * @throws NoSuchAlgorithmException
      */
     public PlayerDetector(Context context,
-                         String modelPath,
-                         TFLiteHelpers.DelegateType[][] delegatePriorityOrder) throws IOException, NoSuchAlgorithmException {
+                          String modelPath,
+                          TFLiteHelpers.DelegateType[][] delegatePriorityOrder) throws IOException, NoSuchAlgorithmException {
 
         // Load TF Lite model
         Pair<MappedByteBuffer, String> modelAndHash = TFLiteHelpers.loadModelFile(context.getAssets(), modelPath);
@@ -139,3 +131,26 @@ public class PlayerDetector implements AutoCloseable {
             delegate.close();
         }
     }
+    /**
+     * Preprocesses a Bitmap image to prepare it for model inference
+     * This includes resizing, letterboxing, normalization
+     * @param image The Bitmap image to preprocess.
+     * @return A ByteBuffer containing the preprocessed input data ready for inference.
+     */
+    public ByteBuffer preprocess(Bitmap image) {
+        Bitmap letterboxedImage;
+        // Apply letterboxing to maintain aspect ratio and fit the model's input size
+        if (image.getHeight() != inputShape[1] || image.getWidth() != inputShape[2]) {
+            letterboxedImage = ImageOps.letterbox(image, new Pair<>(inputShape[1], inputShape[2]), false, false, true, 32);
+        } else {
+            letterboxedImage = image;
+        }
+
+        // Convert type and fill input buffer
+        ByteBuffer inputBuffer;
+        TensorImage tImg = TensorImage.fromBitmap(letterboxedImage);
+        inputBuffer = imageProcessor.process(tImg).getBuffer();
+        return inputBuffer;
+    }
+
+}
