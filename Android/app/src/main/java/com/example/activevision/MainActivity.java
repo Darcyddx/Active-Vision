@@ -104,11 +104,6 @@ public class MainActivity extends AppCompatActivity {
 //                        tfLitePlayerDetModelAsset,
 //                        AIHubDefaults.delegatePriorityOrder
 //                );
-//                playerPoseTracker = new PlayerPoseTracker(
-//                        this,
-//                        tfLitePlayerPoseModelAsset,
-//                        AIHubDefaults.delegatePriorityOrder
-//                );
             } catch (IOException | NoSuchAlgorithmException e) {
                 throw new RuntimeException(e.getMessage());
             }
