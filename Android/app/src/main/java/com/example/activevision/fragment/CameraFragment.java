@@ -204,6 +204,4 @@ public class CameraFragment extends Fragment implements TrackerResListener {
             mFragmentRender.renderPerformanceInfo(fps);
         });
     }
-
-
 }
