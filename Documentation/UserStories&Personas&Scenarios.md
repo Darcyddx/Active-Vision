@@ -97,33 +97,40 @@
 
 #### User Story Description
 **As a** tennis coach,  
-**I want to** detect the ball’s position relative to the court,  
+**I want to** detect the ball’s position relative to the court, to help me make specific plan which are more targeted for tennis players
 **so that** I can easily see whether the ball lands in or out of bounds.
 
 #### Persona Description
 
 - **education and experience*
-
+  - Graduated from the School of Physical Education or Master's Degree in Sports Management
+  - Have rich experience in competition and team guidance
+  - Aspiring to train outstanding tennis players and promote tennis sports development
 - relevant interest
+  - Interested in detailed analytics such as ball speed, trajectory angles, and other performance metrics.
 - job
+  - provide professionl advice for professional tennis players to prepare competitions
+  - tennis Scout(by analysing tennis match recording to find potential talented players
 - personalization
+  - Prefers an intuitive user interface with robust video analysis features that include professional insights.
 
 #### Acceptance Criteria
-1. **Scenario 1:** Checking ball landing position  
-   - **Given** I am reviewing a recorded rally,  
-   - **When** the ball lands,  
-   - **Then** the app marks the ball’s position on a court diagram as "In" or "Out."
+1. **Scenario 1:** Recorded Match Analysis
+   - **Given**  I am reviewing footage from a recent training session or match,
+   - **When** the ball lands during play,
+   - **Then** the app should accurately annotate the ball’s landing position on an interactive court diagram with labels such as "In" or "Out."
 
-2. **Scenario 2:** Real-time detection  
-   - **Given** I am using the app during live practice,  
-   - **When** a ball is hit,  
-   - **Then** the app provides an immediate visual indicator of the ball’s landing zone.
+2. **Scenario 2:** Live Practice Feedback
+   - **Given** I am coaching during a live session,
+   - **When** a ball is struck and lands on the court,
+   - **Then**  the app should immediately provide a visual indicator on the court diagram to show the ball’s landing zone.
 
 #### Additional Information
 - **Related Epic:** Coaching Tools 
-- **Dependencies:** US-001 (Android Interface)
-- **Technical Notes:** Requires court boundary recognition; may need manual calibration for different court sizes, may need color adaptation for different kinds of courts.  
+- **Dependencies:** Requires integration with the Android Interface US-001 (Android Interface)
+- **Technical Notes:**  Implementation requires precise court boundary recognition and might require manual calibration to account for variations in court dimensions and color differences in court surfaces.
 - **Notes:** Coaches may need an export feature for session analysis (future story).
+- **Future Improvement:** Consider adding an export feature for detailed session analysis and player development tracking.
 
 ---
 
