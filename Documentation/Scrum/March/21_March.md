@@ -1,22 +1,35 @@
 # Daily - stand ups 21/03/25
+### Everyone 
+## What have I done?
+- Meeting with the client and tutor
+- Discuss about the Sprint 1's work distribution
+- Reflect on the player detection part
+
+## What am I doing next?
+- Finish each one's work for the Sprint 1
+- Talk with the client about what we have achieved
+
 
 ### Pei Ling Lam
 ## What have I done?
-- research on using tflite on mobile app for tennis tracking
-- analyse the DMPR-PS and see what need to be modified for tennis court
+- Research on using tflite on mobile app for tennis tracking
+- Analyse the DMPR-PS and see what need to be modified for tennis court
 
 ## What am I doing next?
-- continue research on using tflite on mobile app
-- try to modify the DMPR-PS code for data preprocessing
+- Continue research on using tflite on mobile app
+- Try to modify the DMPR-PS code for data preprocessing
 
 ### Yichi Zhang
-
 ## What have I done?
-
 - Try to use the distilled models to predict the trajectory of the ball but find layer unmatch problem
-- draw model architecture diagrams
+- Draw model architecture diagrams
 
 ## What am I doing next?
+- Wait for weekly meeting to plan
 
-- wait for weekly meeting to plan
+### Xi Ding
+## What have I done?
+- Research on Android app camera feed integration
 
+## What am I doing next?
+- Implement Android app camera feed integration

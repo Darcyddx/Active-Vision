@@ -2,16 +2,23 @@
 
 ### Pei Ling Lam
 ## What have I done?
-- apply ball tracking model on mobile app
-- attend tutorial and client meeting
+- Apply ball tracking model on mobile app
+- Attend tutorial and client meeting
 
 ## What am I doing next?
-- draw bounding box on players
+- Draw bounding box on players
 
 ### Xingchen Zhang
 ## What have I done?
-- adding player detector module code
-- finish PlayerDetector Constructor and the preprocess code
+- Adding player detector module code
+- Finish PlayerDetector Constructor and the preprocess code
 
 ## What am I doing next?
-- try to explore deploy other models by using tflite quantilization to be applied in Android apps
+- Try to explore deploy other models by using tflite quantilization to be applied in Android apps
+
+### Xi Ding
+## What have I done?
+- Implement Android app camera feed integration
+
+## What am I doing next?
+- Debug and improve about Android app camera feed integration
