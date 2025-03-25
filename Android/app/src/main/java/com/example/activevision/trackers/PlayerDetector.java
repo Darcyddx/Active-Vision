@@ -153,4 +153,118 @@ public class PlayerDetector implements AutoCloseable{
         return inputBuffer;
     }
 
+    /**
+     * Postprocesses the model's output to extract bounding boxes of detected players.
+     * This involves interpreting the model's predictions, applying confidence thresholds,
+     * and performing NMS to eliminate redundant bounding boxes
+     *
+     * @param outputArray    The flattened output data from the model as a float array.
+     *                       output format for single class:[x1, x2, ..., x_n, y1, y2, ..., y_n, w1, w2, ..., w_n, h1, h2, ..., h_n,
+     *                       conf_cls0_0, conf_cls0_1, ..., conf_cls0_n]
+     * @param inputImgHeight The original input image's height in pixels.
+     * @param inputImgWidth  The original input image's width in pixels.
+     * @return A list of Bbox objects representing detected players. Returns null if no detections are found.
+     */
+    public List<Bbox> postprocess(float[] outputArray, int inputImgHeight, int inputImgWidth) {
+        ArrayList<Bbox> bboxes = new ArrayList<>();
+        int numFeatures = outputShape[1];
+        int numPreds = outputShape[2];
+        // Calculate the scaling factor to map model output back to original image dimensions
+        float r = Math.min(inputShape[1] * 1.0f / inputImgHeight, inputShape[2] * 1.0f / inputImgWidth);
+        // Calculate padding applied during letterboxing to adjust predictions back to the original image coordinates
+        int widthPadding = (int) Math.round((inputShape[2] - inputImgWidth * r) / 2.0f - 0.1);
+        int heightPadding = (int) Math.round((inputShape[1] - inputImgHeight * r) / 2.0f - 0.1);
+        float heightPadRatio = (float) heightPadding / inputShape[1];
+        float widthPadRatio = (float) widthPadding / inputShape[2];
+        for (int i = 0; i < numPreds; i++) {
+            float maxConf = CONF_THRES;
+            int maxIdx = -1;
+            int j = 4;
+            int arrIdx = i + numPreds * j;
+            // Iterate through the confidence scores for each prediction
+            // ignore the confidence score if < maxConf and continue updating the maximum confidence if a higher value is found
+            // track the index of the highest confidence feature
+            while (j < numFeatures) {
+                if (outputArray[arrIdx] > maxConf) {
+                    maxConf = outputArray[arrIdx];
+                    maxIdx = j - 4;
+                }
+                j++;
+                arrIdx += numPreds;
+            }
+
+            // If the highest confidence exceeds the threshold, consider it a valid detection
+            if (maxConf > CONF_THRES) {
+                float cx = outputArray[i] - widthPadRatio;
+                float cy = outputArray[i + numPreds] - heightPadRatio;
+                float w = outputArray[i + numPreds * 2];
+                float h = outputArray[i + numPreds * 3];
+                // Calculate the top-left and bottom-right coordinates of the bounding box
+                float x1 = cx - (w / 2.0f);
+                float y1 = cy - (h / 2.0f);
+                float x2 = cx + (w / 2.0f);
+                float y2 = cy + (h / 2.0f);
+                if (x1 < 0 || x1 > 1) continue;
+                if (y1 < 0 || y1 > 1) continue;
+                if (x2 < 0 || x2 > 1) continue;
+                if (y2 < 0 || y2 > 1) continue;
+                bboxes.add(new Bbox(maxIdx, maxConf, cx, cy, w, h, new RectF(x1, y1, x2, y2)));
+            }
+        }
+        if (bboxes.isEmpty()) {
+            return null;
+        }
+        // Apply NMS to remove redundant overlapping bounding boxes
+        return applyNMS(bboxes);
+    }
+
+    /**
+     * Apply NMS, which selects the bounding boxes with the highest confidence scores and removes others that have
+     * a high IoU with the selected boxes.
+     * @param boxes The list of bounding boxes to process.
+     * @return A list of bounding boxes after NMS has been applied.
+     */
+    private List<Bbox> applyNMS(List<Bbox> boxes) {
+        // Step 1: Sort the bounding boxes in descending order based on their confidence scores.
+        boxes.sort(new Comparator<Bbox>() {
+            @Override
+            public int compare(Bbox b1, Bbox b2) {
+                return Float.compare(b2.getCnf(), b1.getCnf());
+            }
+        });
+        List<Bbox> selectedBoxes = new ArrayList<>();
+        // Step 2: Iterate through the sorted bounding boxes.
+        // At each iteration, select the box with the highest confidence score,
+        // add it to the list of selected boxes, and remove it from the original list.
+        while (!boxes.isEmpty()) {
+            Bbox first = boxes.get(0);
+            selectedBoxes.add(first);
+            boxes.remove(0);
+
+            Iterator<Bbox> iterator = boxes.iterator();
+
+            // Step 3: Compare the selected box with the remaining boxes to calculate IoU.
+            // If the IoU exceeds the predefined threshold, remove the overlapping box.
+            while (iterator.hasNext()) {
+                Bbox nextBox = iterator.next();
+                float iou = calculateIoU(first, nextBox);
+                if (iou >= IOU_THRES) {
+                    iterator.remove();
+                }
+            }
+        }
+        return selectedBoxes;
+    }
+
+    private float calculateIoU(Bbox box1, Bbox box2) {
+        float x1 = Math.max(box1.getRect().left, box2.getRect().left);
+        float y1 = Math.max(box1.getRect().top, box2.getRect().top);
+        float x2 = Math.min(box1.getRect().right, box2.getRect().right);
+        float y2 = Math.min(box1.getRect().bottom, box2.getRect().bottom);
+        float intersectionArea = Math.max(0F, x2 - x1) * Math.max(0F, y2 - y1);
+        float box1Area = box1.getWidth() * box1.getHeight();
+        float box2Area = box2.getWidth() * box2.getHeight();
+        return intersectionArea / (box1Area + box2Area - intersectionArea);
+    }
+
 }
