@@ -154,6 +154,29 @@ public class PlayerDetector implements AutoCloseable{
     }
 
     /**
+     * perform model inferencing with TFLite interpreter
+     * @param inputBuffer The ByteBuffer containing the preprocessed input data.
+     * @return  A TensorBuffer containing the output data from the model.
+     */
+    public TensorBuffer inference(ByteBuffer inputBuffer) {
+        TensorBuffer outputBuffer = TensorBuffer.createFixedSize(
+                outputShape,
+                outputType
+        );
+
+        if (tfLiteInterpreter != null) {
+            tfLiteInterpreter.run(inputBuffer, outputBuffer.getBuffer());
+        }
+        if (outputType == DataType.UINT8) {
+            TensorProcessor tensorProcessor = new TensorProcessor.Builder()
+                    .add(new DequantizeOp(OUTPUT_ZERO_POINT, OUTPUT_SCALE))
+                    .build();
+            outputBuffer = tensorProcessor.process(outputBuffer);
+        }
+        return outputBuffer;
+    }
+
+    /**
      * Postprocesses the model's output to extract bounding boxes of detected players.
      * This involves interpreting the model's predictions, applying confidence thresholds,
      * and performing NMS to eliminate redundant bounding boxes
