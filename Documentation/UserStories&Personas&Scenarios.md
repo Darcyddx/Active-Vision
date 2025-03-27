@@ -227,7 +227,7 @@
 **ID:** USER-006  
 **Title:** Tennis Club Manager  
 **Priority:** Low  
-**Milestone:**   
+**Milestone:**   Have not planned yet, see how it goes
 
 #### User Story Description
 
@@ -237,16 +237,32 @@
 
 #### Persona Description
 
-- **education and experience*
-
-- relevant interest
-- job
-- personalization
+- **education and experience**
+  - Holds a degree or certification in Sports Management, Business Administration, or a related field.
+  - Has several years of experience managing sports facilities or clubs.
+  - Familiar with technology used in sports analytics and passionate about enhancing member experience.
+- **relevant interest**
+  - Interested in leveraging advanced tools to improve member engagement and satisfaction.
+  - Values features that enhance the prestige of the club and attract high-profile members.
+- **job**
+  - Manages day-to-day operations of a tennis club, including organizing events, maintaining facilities, and ensuring member satisfaction.
+  - Responsible for promoting the club’s services to attract new members and retain existing ones.
+- **personalization**
+  - Prefers a professional, sleek interface with features tailored for VIP members.
+  - Expects seamless integration with existing club systems and minimal disruption to workflows.
 
 #### Acceptance Criteria
 
-1. **Scenario 1:** Choos  
-   - **Given** I a,  
-   - **When** I ,  
-   - **Then** I can .
+1. **Scenario 1:** Recording matches for VIP members
+   - **Given** I am logged into the app as a club manager,
+   - **When** I select a VIP member and initiate match recording,
+   - **Then** the app allows me to capture the match with advanced effects and analysis enabled.
+2. **Scenario 2:** Providing analysis to VIP members
+   - **Given** I have recorded a match for a VIP member,
+   - **When** I finalize the session,
+   - **Then** the app generates a detailed report with cool visual effects (e.g., ball trajectory, speed highlights) and sends it to the member.
+3. **Scenario 3:** Managing multiple VIP recordings
+   - **Given** I have multiple VIP members scheduled for recording,
+   - **When** I access the recording queue,
+   - **Then** the app displays a list of pending recordings with options to prioritize or schedule them.
 
