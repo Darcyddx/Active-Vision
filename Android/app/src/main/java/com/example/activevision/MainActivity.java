@@ -32,9 +32,11 @@ public class MainActivity extends AppCompatActivity {
 
     private BallTracker tennisTracker;
 
+    private PlayerDetector playerDetector;
+
     ExecutorService backgroundTaskExecutor = Executors.newSingleThreadExecutor();
     Handler mainLooperHandler = new Handler(Looper.getMainLooper());
-    private PlayerDetector playerDetector;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,9 +65,9 @@ public class MainActivity extends AppCompatActivity {
     private void overToCamera() {
         boolean passToFragment = MainActivity.this.checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
         if (passToFragment) {
-            if (tennisTracker != null) {
+            if (tennisTracker != null && playerDetector != null) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.add(R.id.main_content, CameraFragment.newInstance(tennisTracker));
+                transaction.add(R.id.main_content, CameraFragment.newInstance(tennisTracker, playerDetector));
                 transaction.commit();
             }
         } else {
