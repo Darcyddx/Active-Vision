@@ -38,4 +38,11 @@
 ## What am I doing next?
 - More detailed annotations and logging of the model loading and Delegate configuration flow in the PlayerDetector constructor are provided to facilitate subsequent checking and tuning
 
+### Xingchen Zhang
 
+## What have I done?
+
+- Make the plan of arranging development and deployment among different modules.
+
+## What am I doing next?
+- Handle detection of players using perhaps a separate machine learning model or algorithmic approach.
