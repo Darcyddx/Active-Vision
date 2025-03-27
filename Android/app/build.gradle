@@ -34,6 +34,13 @@ android {
     packagingOptions {
         jniLibs.useLegacyPackaging true
     }
+    sourceSets {
+        main {
+            assets {
+                srcDirs 'src\\main\\assets', 'src\\androidTest\\assets'
+            }
+        }
+    }
 
 }
 
