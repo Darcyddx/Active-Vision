@@ -19,3 +19,10 @@
 - Tried the latest TFLite Release
 ## What am I doing next?
 - Read the NNAPI Delegate technical specification published by the TensorFlow Lite team
+
+### Xingchen Zhang
+## What have I done?
+- Make the plan for the next deployment on devices
+- consider the differences between defferent modules after training phrase
+## What am I doing next?
+- Utilizes TensorFlow Lite to run inference with a pre-trained mode by distillation of Yichi and Zhiyuan
