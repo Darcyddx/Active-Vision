@@ -99,11 +99,11 @@ public class MainActivity extends AppCompatActivity {
                         tfLiteBallTrackModelAsset,
                         AIHubDefaults.delegatePriorityOrder /* AI Hub Defaults */
                 );
-//                playerDetector = new PlayerDetector(
-//                        this,
-//                        tfLitePlayerDetModelAsset,
-//                        AIHubDefaults.delegatePriorityOrder
-//                );
+                playerDetector = new PlayerDetector(
+                        this,
+                        tfLitePlayerDetModelAsset,
+                        AIHubDefaults.delegatePriorityOrder
+                );
             } catch (IOException | NoSuchAlgorithmException e) {
                 throw new RuntimeException(e.getMessage());
             }

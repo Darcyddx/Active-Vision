@@ -63,6 +63,12 @@ public class PlayerDetector implements AutoCloseable{
     private final int OUTPUT_ZERO_POINT;
 
     private final TensorBuffer outputBuffer;
+
+    public PlayerDetector(Context context,
+                          String modelPath) throws IOException, NoSuchAlgorithmException {
+        this(context, modelPath,  AIHubDefaults.delegatePriorityOrder);
+    }
+
     /**
      * Create a player detector with Yolov8-nano for detecting players in camera frames
      * @param context App context.
