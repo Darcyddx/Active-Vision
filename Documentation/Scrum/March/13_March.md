@@ -15,3 +15,20 @@
 ## What am I doing next?
 - Search for other available models
 - Research on image preprocessing functions for object detection and tracking
+
+
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Learn on "Knowledge Distillation"
+
+## What am I doing next?
+
+- Read Pytorch and Tensorflow sample code for knowlede distillation
+
+  
+
+
+

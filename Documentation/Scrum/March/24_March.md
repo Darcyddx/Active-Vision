@@ -28,3 +28,14 @@
 - In the aspect of parallelization, we refer to the idea of pipeline in academic papers
 ## What am I doing next?
 - Trial pipelined parallel architecture
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Implement bounding box rendering on my own defined View
+- Implement YOLOv8 result callback
+
+## What am I doing next?
+
+- Test player detection on Android smartphone

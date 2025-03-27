@@ -23,3 +23,15 @@
 ## What am I doing next?
 
 - Debug code and start distillation
+
+
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Implement and test KL divergence loss for knowledge distillation
+
+## What am I doing next?
+
+- Implement training code for image distillation

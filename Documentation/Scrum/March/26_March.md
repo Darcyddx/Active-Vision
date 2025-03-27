@@ -19,3 +19,14 @@
 - Read the part of NNAPI Delegate technical specification published by the TensorFlow Lite team
 ## What am I doing next?
 - Read the rest of NNAPI Delegate technical specification published by the TensorFlow Lite team
+
+ ### Zhiyuan Lu
+
+## What have I done?
+
+- Do unit testing for YOLOv8 on mobile device
+
+## What am I doing next?
+
+- Research on pose estimation
+

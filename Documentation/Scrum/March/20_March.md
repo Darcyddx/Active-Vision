@@ -43,3 +43,15 @@
 - The operation mechanism of TensorFlow Lite on mobile terminal is studied, and a preliminary understanding of how to load and run TFLite model in Android environment is obtained.
 ## What am I doing next?
 - The feasibility of hardware acceleration (NPU/GPU Delegate) was evaluated, and relevant documentation and official examples were collected.
+
+
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Construct a pipeline with multi-threading to manage ball tracking and player detection to make sure the code is efficient and thread-safe.
+
+## What am I doing next?
+
+- Implement the pre-processing step with ThreadPool.

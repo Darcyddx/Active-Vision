@@ -31,3 +31,14 @@
 - Compiled TensorFlow Lite the priority order of Delegate (CPU to GPU, NPU), and tried to use in the project. TFLiteHelpers DelegateType [] [] delegatePriorityOrder dynamically loaded.
 ## What am I doing next?
 - The influence of image scaling and NormalizeOp on the accuracy of inference results in image preprocessing is studied.
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Read Pytorch and Tensorflow sample code for knowlede distillation
+- Construct the student model (ResNet18+Unet) for TrackNet
+
+## What am I doing next?
+
+- Implement Tensorflow code for knowledge distillation based on TrackNetV2

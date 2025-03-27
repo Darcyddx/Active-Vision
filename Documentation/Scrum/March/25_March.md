@@ -19,3 +19,16 @@
 - Tried the latest TFLite Release
 ## What am I doing next?
 - Read the NNAPI Delegate technical specification published by the TensorFlow Lite team
+
+
+
+ ### Zhiyuan Lu
+
+## What have I done?
+
+- Implement skip detection technique to reduce computational complexity
+
+## What am I doing next?
+
+- Implement a simple thread monitor tool to track number of tasks that a thread can complete in 1 sec.
+

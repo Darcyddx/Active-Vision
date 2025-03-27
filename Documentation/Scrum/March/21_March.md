@@ -33,3 +33,15 @@
 
 ## What am I doing next?
 - Implement Android app camera feed integration
+
+
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Implement the pre-processing step with self-constructed ThreadPool
+
+## What am I doing next?
+
+- Integrate the YOLOv8 model on Android so that it can detect players
