@@ -32,3 +32,9 @@
 
 - Implement a simple thread monitor tool to track number of tasks that a thread can complete in 1 sec.
 
+### Xingchen Zhang
+## What have I done?
+- Make the plan for the next deployment on devices
+- consider the differences between defferent modules after training phrase
+## What am I doing next?
+- Utilizes TensorFlow Lite to run inference with a pre-trained mode by distillation of Yichi and Zhiyuan

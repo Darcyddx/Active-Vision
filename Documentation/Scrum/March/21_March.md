@@ -45,3 +45,9 @@
 ## What am I doing next?
 
 - Integrate the YOLOv8 model on Android so that it can detect players
+### Xingchen Zhang
+## What have I done?
+- test and make comparisons between modules inside the Android devices.
+
+## What am I doing next?
+- learn how to test the actual effect achieved by code developed using the trained module

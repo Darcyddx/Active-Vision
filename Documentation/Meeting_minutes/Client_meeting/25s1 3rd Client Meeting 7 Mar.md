@@ -38,3 +38,7 @@
    - Try replacing the existing model with better model, model distillation
 
 5. **Send emails for weekly updates**
+
+6. **Client Feedback**
+    - Add one condition for the court: the whole court, every corner should be captured when using our app.
+    - Estimate players' pose (backhand/forehand) in pose detection

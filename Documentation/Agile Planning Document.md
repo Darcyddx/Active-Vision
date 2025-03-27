@@ -23,15 +23,17 @@ Large (L): 7-10 SP (Complex, critical dependencies)
 ## 3. Sprint Goals/Milestones
 
 ### Sprint 1 - Player detection
-| Task	                                                                | Estimation	  | Dependencies	 | 
-|----------------------------------------------------------------------|--------------|---------------|
-| Collect and preprocess dataset for player detection (bounding boxes) | 	6 SP (M)    |	Dataset availability|
-| Quantize YOLOv8 model for player detection	       | 8 SP (L)     |	Dataset preprocessing|
-| Implement Android app camera feed integration                        | 	5 SP (M)    |	App framework setup|
-| Display detected player bounding boxes on the app	                   | 4 SP (M)     |	Model integration|
-| Test model performance on real-world tennis matches                  | 	6 SP (M)    |	Model training|
-| Optimize real-time processing (NPU acceleration, TensorFlow Lite)	   | 7 SP (L)	|Model deployment |
+| Task	                                                                | Estimation	  | Dependencies	         | Task allocation     |
+|----------------------------------------------------------------------|--------------|------------------------|---------------------|
+| Collect and preprocess dataset for player detection (bounding boxes) | 6 SP (M)      | Dataset availability    | Kerry               |
+| Quantize YOLOv8 model for player detection	                         | 8 SP (L)      | Dataset preprocessing   | Zhiyuan Lu          |
+| Implement Android app camera feed integration                         | 5 SP (M)      | App framework setup     | Xi Ding             |
+| Display detected player bounding boxes on the app	                 | 4 SP (M)      | Model integration       | Peiling Lam         |
+| Test model performance on real-world tennis matches                  | 6 SP (M)      | Model training          | Yichi Zhang         |
+| Optimize real-time processing (NPU acceleration, TensorFlow Lite)	 | 7 SP (L)      | Model deployment        | Tao Lu              |
+
 **Sprint goal**: Develop player detection with real-time tracking in Android app
+
 
 ### Sprint 2 - Player pose estimation
 | Task	                                                              | Estimation	 | Dependencies	    | 

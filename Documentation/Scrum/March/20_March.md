@@ -55,3 +55,8 @@
 ## What am I doing next?
 
 - Implement the pre-processing step with ThreadPool.
+### Xingchen Zhang
+## What have I done?
+-  test the module code on Android Studio
+## What am I doing next?
+- The implementation includes handling for different types of model quantizations and supports adjustments based on the device's capabilities so it needs more experiment and attempt.

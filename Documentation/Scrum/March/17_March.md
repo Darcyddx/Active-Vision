@@ -32,6 +32,13 @@
 ## What am I doing next?
 - The influence of image scaling and NormalizeOp on the accuracy of inference results in image preprocessing is studied.
 
+### Xingchen Zhang
+## What have I done?
+- Learning the Google tflite tools
+## What am I doing next?
+- Consider to develop the class in Android Studio by using the trained modules.
+
+
 ### Zhiyuan Lu
 
 ## What have I done?

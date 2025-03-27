@@ -1,4 +1,4 @@
-# Daily - stand ups 26/03/25
+# Daily - stand ups 27/03/25
 
 ### Pei Ling Lam
 ## What have I done?
@@ -24,3 +24,11 @@
 ## What am I doing next? 
 
 - Read HRNet code on MMPose
+- Study the effect of quantization strategy (symmetric quantization vs. asymmetric quantization)
+
+
+### Xingchen Zhang
+## What have I done?
+- solve the bug of compiling PlayerDetecor class in Android MainActivity
+## What am I doing next?
+- Explore how to utilize the models deployed in Android Studio to develop functionalbe module to construct app.

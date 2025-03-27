@@ -35,3 +35,13 @@
 ## What am I doing next?
 
 - Implement training code for image distillation
+### Xingchen Zhang
+
+## What have I done?
+
+- Finish code of using distillation from TrackNetV2 to ResNet_Track to deploy on android devices
+
+## What am I doing next?
+
+- Debug code 
+- Consider more functional module
