@@ -14,7 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentTransaction;
-
+import com.example.activevision.trackers.PlayerDetector;
 import com.example.activevision.fragment.CameraFragment;
 import com.example.activevision.tflite_helpers.AIHubDefaults;
 import com.example.activevision.trackers.BallTracker;
@@ -34,8 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     ExecutorService backgroundTaskExecutor = Executors.newSingleThreadExecutor();
     Handler mainLooperHandler = new Handler(Looper.getMainLooper());
-
-
+    private PlayerDetector playerDetector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             // Create a BallTracker object with all available compute units (NPU, GPU, CPU)
             String tfLiteBallTrackModelAsset = this.getResources().getString(R.string.TrackNetModelAssetUINT8);
             // Create player detector
-
+            String tfLitePlayerDetModelAsset = this.getResources().getString(R.string.PlayerDetModelAssetUINT8);
             try {
                 tennisTracker = new BallTracker(
                         this,
