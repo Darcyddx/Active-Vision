@@ -1,7 +1,13 @@
 package com.example.activevision.data;
 
 import android.graphics.RectF;
-
+/**
+ * This class is used to represent bounding box information in an image
+ * encapsulates information such as the position, size
+ * and detection confidence of the bounding box.
+ * Author: Xingchen Zhang
+ * Date: 24/03/2025
+ */
 public class Bbox {
     private int clsId;
     private float cnf;

@@ -17,7 +17,12 @@ import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
 import org.opencv.imgproc.Imgproc;
 
-
+/***
+ * This class provides a range of tools for image preprocessing,
+ * where precise control of the input images is required to optimize model performance.
+ * Author: Xingchen Zhang, lampeiling
+ * Date: 24/03/2025
+ */
 public class ImageOps {
     private ImageOps() {}
     /**

@@ -34,6 +34,16 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+
+
+/**
+ * This class is designed to perform real-time player detection
+ * in Android applications using TensorFlow Lite
+ * Author: Xingchen Zhang, lampeiling
+ * Date: 24/03/2025
+ */
+
 public class PlayerDetector implements AutoCloseable{
 
     private static final String TAG = "PlayerDetector";

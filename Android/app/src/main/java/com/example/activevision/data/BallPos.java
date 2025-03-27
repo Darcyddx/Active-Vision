@@ -1,5 +1,12 @@
 package com.example.activevision.data;
 
+
+/**
+ * This class is designed as an entity class
+ * to represent a ball's position
+ * Author: Xingchen Zhang
+ * Date: 24/03/2025
+ */
 public class BallPos {
     private int x;
     private int y;
