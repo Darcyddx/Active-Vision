@@ -2,10 +2,10 @@
 
 ### Pei Ling Lam
 ## What have I done?
-- add inference function on player detection
+- Add inference function on player detection
 
 ## What am I doing next?
-- continue encoding data preprocessing on DMPR-PS
+- Continue encoding data preprocessing on DMPR-PS
 
 ### Xi Ding
 ## What have I done?

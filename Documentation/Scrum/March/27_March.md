@@ -2,10 +2,10 @@
 
 ### Pei Ling Lam
 ## What have I done?
-- debug player detector
+- Debug player detector
 
 ## What am I doing next? 
-- continue encoding data preprocessing on DMPR-PS
+- Continue encoding data preprocessing on DMPR-PS
 
 ### Tao Lu
 ## What have I done?
@@ -13,7 +13,12 @@
 ## What am I doing next?
 - The effect of quantization strategy (symmetric quantization vs. asymmetric quantization) on model accuracy and inference performance was studied to provide ideas for subsequent optimization.
 
+### Xi Ding
+## What have I done?
+- Compile what we have done for the reflection to the GitHub documentation
 
+## What am I doing next?
+- Continue to explore method of detecting tennis court
 
 ### Zhiyuan Lu
 
