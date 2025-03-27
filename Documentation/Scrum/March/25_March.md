@@ -13,3 +13,9 @@
 
 ## What am I doing next?
 - Continue to explore method of detecting tennis court
+
+ ### Tao Lu
+## What have I done?
+- Tried the latest TFLite Release
+## What am I doing next?
+- Read the NNAPI Delegate technical specification published by the TensorFlow Lite team
