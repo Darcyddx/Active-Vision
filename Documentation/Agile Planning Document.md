@@ -1,15 +1,16 @@
 # Sprint Plan and Task Estimation
 
+
 ## 1. Product Backlog
 
-| Feature                              | Priority | Notes                                                                 |
-|--------------------------------------|----------|-----------------------------------------------------------------------|
-| Player detection                     | High     | Core feature to track relevant players                                |
-| Court detection                      | High     | Require the keypoints to create mini top view map                     |
-| Player pose estimation               | High     | Analyse player's movements                                            |
-| Calculate tennis ball speed          | Medium   | Analyse ball speed                                                    |
-| Replace TrackNetv2 with TrackNetv4   | Medium   | Make the model lightweight and increase performance                   |
-| Improve app user interface           | Low      | Make it easy for users                                                |
+| Feature                              | Priority | Notes                                                        |
+| ------------------------------------ | -------- | ------------------------------------------------------------ |
+| Player detection                     | High     | Core feature to track relevant players                       |
+| Court detection                      | High     | To show player's location and ball dropping points on a mini-map |
+| Player pose estimation               | High     | Analyse player's technical movements                         |
+| Calculate tennis ball speed          | Medium   | Analyse ball speed                                           |
+| Replace TrackNetv2 with TrackNetv4   | Medium   | Make the model lightweight and increase performance          |
+| Improve app user interface           | Low      | User's can easily navigate the APP                           |
 | Improve robustness of existing model | Low      | Improve overall performance including speed of inference and accuracy |
 
 ## 2. Estimation and Velocity Tracking
@@ -22,14 +23,14 @@ Large (L): 7-10 SP (Complex, critical dependencies)
 
 ## 3. Sprint Goals/Milestones
 
-### Sprint 1 - Player detection
+### Sprint 1 - Player detection + Enhance TrackNet Performance
 | Task	                                                                | Estimation	  | Dependencies	         | Task allocation     |
 |----------------------------------------------------------------------|--------------|------------------------|---------------------|
-| Collect and preprocess dataset for player detection (bounding boxes) | 6 SP (M)      | Dataset availability    | Kerry               |
-| Quantize YOLOv8 model for player detection	                         | 8 SP (L)      | Dataset preprocessing   | Zhiyuan Lu          |
+| Train YOLOv8 for human detection on human-related dataset(COCO, CrowdHuman...) | 6 SP (M)      | Model training      | Kerry               |
+| Quantize YOLOv8 model for player detection and deploy the model on Android	| 8 SP (L)      | Model integration | Zhiyuan Lu          |
 | Implement Android app camera feed integration                         | 5 SP (M)      | App framework setup     | Xi Ding             |
-| Display detected player bounding boxes on the app	                 | 4 SP (M)      | Model integration       | Peiling Lam         |
-| Test model performance on real-world tennis matches                  | 6 SP (M)      | Model training          | Yichi Zhang         |
+| Display detected player bounding boxes on the app, co-work with the TrackNet	| 4 SP (M)      | Model integration       | Peiling Lam         |
+| Construct a lightweight segmentation network(student model) and perform knowledge distillation on trained TrackNetV2(teacher model) | 6 SP (M)      | Model enhancement | Yichi Zhang         |
 | Optimize real-time processing (NPU acceleration, TensorFlow Lite)	 | 7 SP (L)      | Model deployment        | Tao Lu              |
 
 **Sprint goal**: Develop player detection with real-time tracking in Android app
