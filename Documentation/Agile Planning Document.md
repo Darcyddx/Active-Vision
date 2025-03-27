@@ -21,6 +21,16 @@ Small (S): 1-3 SP (Easy, minimal dependencies)
 Medium (M): 4-6 SP (Some dependencies, moderate effort)
 Large (L): 7-10 SP (Complex, critical dependencies)
 
+![Burn-down graph for sprint1](https://github.com/user-attachments/assets/4e7177ce-edba-40ab-839e-30481183fa5f)
+
+
+During Sprint 1 of our project, we utilized a Burn-down Chart to closely monitor the progression of tasks and ensure timely completion. This tool depicted the number of remaining tasks over the course of the sprint, ideally demonstrating a downward trajectory as tasks were completed. Initially, we observed a steady decrease in task count, indicating a productive start. However, mid-sprint, there was a noticeable increase in remaining tasks, suggesting the introduction of new tasks or unexpected challenges that were not initially accounted for. Towards the end of the sprint, a sharp decline followed by a slight rise in the task count was evident, highlighting a significant push by the team to wrap up tasks, though some last-minute additions or incomplete tasks slightly altered the expected end trajectory. This Burn-down Chart proved essential for maintaining an overview of project status and dynamically adjusting our strategies to address any arising challenges effectively.
+
+
+
+
+
+
 ## 3. Sprint Goals/Milestones
 
 ### Sprint 1 - Player detection + Enhance TrackNet Performance
