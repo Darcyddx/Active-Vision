@@ -30,3 +30,13 @@
 
 - Research on pose estimation
 
+### Xingchen Zhang
+
+## What have I done?
+
+- check the code bug existed in Android Projects
+
+## What am I doing next?
+
+- Research on tflite development
+
