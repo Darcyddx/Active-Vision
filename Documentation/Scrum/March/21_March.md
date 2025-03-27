@@ -51,3 +51,14 @@
 
 ## What am I doing next?
 - learn how to test the actual effect achieved by code developed using the trained module
+
+
+### Tao Lu
+
+## What have I done?
+
+- The hardware performance of the device is automatically detected at startup, and the optimal model is selected according to the number of CPU/GPU cores and supported delegates.
+
+## What am I doing next?
+
+- In the aspect of parallelization, we refer to the idea of pipeline in academic papers

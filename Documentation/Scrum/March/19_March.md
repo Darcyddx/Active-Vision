@@ -45,3 +45,13 @@
 
 - Debug code 
 - Consider more functional module
+
+### Tao Lu
+
+## What have I done?
+
+- An out-of-bounds check is added to PlayerDetector's output parsing logic to avoid array access exceptions due to irregular shapes.
+
+## What am I doing next?
+
+- The operation mechanism of TensorFlow Lite on mobile terminal is studied, and a preliminary understanding of how to load and run TFLite model in Android environment is obtained.

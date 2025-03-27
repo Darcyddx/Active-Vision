@@ -29,6 +29,13 @@
 - Read Pytorch and Tensorflow sample code for knowlede distillation
 
   
+### Tao Lu
 
+## What have I done?
+
+- Studied the TFLiteHelpers. CreateInterpreterAndDelegatesFromOptions internal implementation, How to use delegatePriorityOrder to load CPU, GPU, NPU and other delegates in sequence
+
+## What am I doing next?
+- More detailed annotations and logging of the model loading and Delegate configuration flow in the PlayerDetector constructor are provided to facilitate subsequent checking and tuning
 
 
