@@ -102,7 +102,7 @@
 
 #### Persona Description
 
-- **education and experience*
+- education and experience
   - Graduated from the School of Physical Education or Master's Degree in Sports Management
   - Have rich experience in competition and team guidance
   - Aspiring to train outstanding tennis players and promote tennis sports development
@@ -148,7 +148,7 @@
 
 #### Persona Description
 
-- *education and experience*
+- education and experience
   - Played tennis from middle school through college, with a focus on sports science and biomechanics.
   - 8+ years of competitive tennis experience in regional and amateur tournaments.
   - Frequently applies data analytics to improve technique.
@@ -181,12 +181,14 @@
 - **Notes:** Option to toggle between metric and imperial units.
 
 ---
+
 ### User Story 5
+
 #### Basic Information
-**ID:** USER-005
-**Title:** Support for Singles and Doubles Tennis Matches on Android
-**Priority:** Medium
-**Milestone:** Sprint 2
+**ID:** USER-005  
+**Title:** Support for Singles and Doubles Tennis Matches on Android  
+**Priority:** Medium  
+**Milestone:** Sprint 2  
 
 #### User Story Description
 **As an** tennis match lover,  
@@ -195,11 +197,22 @@
 
 #### Persona Description
 
-- **education and experience*
+- education and experience
+  - Holds a Bachelor’s degree in sports management or a related field.  
+  - Familiar with mobile applications, particularly sports-related ones, but lacks deep technical knowledge about app development.  
+  - Comfortable using Android devices and expects apps to be user-friendly and responsive.  
 
-- relevant interest
+- relevant interest 
+  - Loves tennis, enjoys both playing for fun and watching matches, with special interest in singles and doubles formats.  
+  - Enjoys tracking match details, scores, and player performance through technology.  
+  - Values flexibility and variety in sports apps to suit different preferences and moods.  
+
 - job
-- personalization
+  - Works as a sports event coordinator at a local community center or a small sports organization.  
+
+- personalization  
+  - Prefers a clean, sporty interface with bold visuals and straightforward options for selecting match types.  
+  - Likes quick access to features without excessive menus, with a focus on real-time updates during matches.
 
 #### Acceptance Criteria
 1. **Scenario 1:** Choosing singles or doubles match type  
@@ -211,10 +224,10 @@
 
 #### Basic Information
 
-**ID:** USER-006
-**Title:** Tennis Club Manager
-**Priority:** Low
-**Milestone:** 
+**ID:** USER-006  
+**Title:** Tennis Club Manager  
+**Priority:** Low  
+**Milestone:**   
 
 #### User Story Description
 

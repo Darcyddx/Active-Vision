@@ -1,7 +1,5 @@
 package com.example.activevision.utils;
 
-
-
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 

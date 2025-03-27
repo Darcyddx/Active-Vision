@@ -6,3 +6,16 @@
 
 ## What am I doing next?
 - continue encoding data preprocessing on DMPR-PS
+
+### Xi Ding
+## What have I done?
+- Debug CameraFragment's code
+
+## What am I doing next?
+- Continue to explore method of detecting tennis court
+
+ ### Tao Lu
+## What have I done?
+- Read the part of NNAPI Delegate technical specification published by the TensorFlow Lite team
+## What am I doing next?
+- Read the rest of NNAPI Delegate technical specification published by the TensorFlow Lite team

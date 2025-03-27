@@ -14,6 +14,7 @@
 ## Reflection on Trial of using TrackNet v4 to replace with the current ball tracking model
 ### The good parts
 - The inference speed of TrackNet v4 is faster than TrackNet v2.
+- The TrackNet v4 is more lightweight thhan TrackNet v2.
 
 ### Challenges
 - In some scenarios, the model does not perform very well. There is not a significant improvement compared with TrackNet v2. There is an example showing in the [test video](https://github.com/Darcyddx/Active-Vision/blob/main/Documentation/Reflection_and_improvement/Asset/test_video1.mp4).

@@ -26,8 +26,10 @@ import com.example.activevision.FragmentRender;
 import com.example.activevision.FrameAnalyzer;
 import com.example.activevision.R;
 import com.example.activevision.data.BallPos;
+import com.example.activevision.data.Bbox;
 import com.example.activevision.result.TrackerResListener;
 import com.example.activevision.trackers.BallTracker;
+import com.example.activevision.trackers.PlayerDetector;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import org.opencv.android.OpenCVLoader;
@@ -43,6 +45,8 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     // TFLite models for tracking
     private BallTracker tennisTracker;
 
+    private PlayerDetector playerDetector;
+
     // Analyzer responsible for processing camera frames
     private FrameAnalyzer analyzer;
 
@@ -56,9 +60,11 @@ public class CameraFragment extends Fragment implements TrackerResListener {
      * @param tracker         The TennisTracker model for ball tracking.
      * @return A new instance of fragment CameraFragment.
      */
-    public static CameraFragment newInstance(BallTracker tracker) {
+    public static CameraFragment newInstance(BallTracker tracker,
+                                             PlayerDetector playerDetector) {
         CameraFragment fragment = new CameraFragment();
         fragment.tennisTracker = tracker;
+        fragment.playerDetector = playerDetector;
         return fragment;
     }
 
@@ -71,7 +77,7 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // analyzer = new FrameAnalyzer(tennisTracker, playerDetector, this);
-        analyzer = new FrameAnalyzer(tennisTracker, this);
+        analyzer = new FrameAnalyzer(tennisTracker, playerDetector,this);
 
     }
 
@@ -195,6 +201,13 @@ public class CameraFragment extends Fragment implements TrackerResListener {
             mFragmentRender.renderBallPos(ballPositions,
                     tennisTracker.getInputWidth(),
                     tennisTracker.getInputHeight());
+        });
+    }
+
+    @Override
+    public void onPlayerDetCallback(List<Bbox> bboxes) {
+        requireActivity().runOnUiThread(() -> {
+            mFragmentRender.renderPlayerPos(bboxes);
         });
     }
 
