@@ -22,3 +22,6 @@
 - Familiarize with the work model and quantization.
 - Mock up the app interface using Figma.
 - Define the goal and timeline for this semester.
+
+## Client Feedback
+- Good work. Create a clear user interface.

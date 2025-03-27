@@ -23,3 +23,6 @@
    - Create user stories
    - Create personas
    - research on human pose estimation (find journal articles)
+
+3. **Client Feedback**
+- Check if there exist other existing court detector, and someone continue researching on the car park tool.

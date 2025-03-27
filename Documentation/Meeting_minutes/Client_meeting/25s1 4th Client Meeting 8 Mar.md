@@ -80,3 +80,6 @@ The team outlined the following prioritized tasks to guide development efforts o
 For **Week 3**, the team decided to focus on **Human Pose Recognition**.  
 
 A follow-up meeting will be scheduled in the **first week of Sprint 1** to distribute responsibilities on prioritized tasks (**March 14, 2025**).
+
+### 4. Client Feedback
+- Check the timeline and set priorities straight.

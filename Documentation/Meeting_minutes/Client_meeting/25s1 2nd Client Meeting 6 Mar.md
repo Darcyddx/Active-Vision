@@ -28,3 +28,6 @@
 - **Main ball tracking** instead of other captured balls and calculating the speed.
 - **Challenging scenarios** such as illumination.
 - **Multiple players and pose estimation.**
+
+## 4. Client Feedback
+- Try replace TrackNet v2 with TrackNet v4 and test with the accuracy as it gives better accuracy from v2 and similar light weight to work on mobile app.
