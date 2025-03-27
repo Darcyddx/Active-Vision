@@ -26,9 +26,7 @@ Large (L): 7-10 SP (Complex, critical dependencies)
 
 During Sprint 1 of our project, we utilized a Burn-down Chart to closely monitor the progression of tasks and ensure timely completion. This tool depicted the number of remaining tasks over the course of the sprint, ideally demonstrating a downward trajectory as tasks were completed. Initially, we observed a steady decrease in task count, indicating a productive start. However, mid-sprint, there was a noticeable increase in remaining tasks, suggesting the introduction of new tasks or unexpected challenges that were not initially accounted for. Towards the end of the sprint, a sharp decline followed by a slight rise in the task count was evident, highlighting a significant push by the team to wrap up tasks, though some last-minute additions or incomplete tasks slightly altered the expected end trajectory. This Burn-down Chart proved essential for maintaining an overview of project status and dynamically adjusting our strategies to address any arising challenges effectively.
 
-
-
-
+![Velocity](https://github.com/Darcyddx/Active-Vision/tree/main/Documentation/Reflection_and_improvement/Asset/Velocity_Chart.png)
 
 
 ## 3. Sprint Goals/Milestones
@@ -47,7 +45,7 @@ During Sprint 1 of our project, we utilized a Burn-down Chart to closely monitor
 
 
 ### Sprint 2 - Player pose estimation
-| Task	                                                              | Estimation	 | Dependencies	    | 
+| Task	                                                              | Estimation	 | Dependencies	    |
 |--------------------------------------------------------------------|-------------|------------------|
 | Integrate OpenPose/MediaPipe for pose estimation                   | 	7 SP       | Player detection |
 | Extract and classify tennis postures (forehand, backhand)	         | 8 SP        | Pose model setup |
@@ -57,7 +55,7 @@ During Sprint 1 of our project, we utilized a Burn-down Chart to closely monitor
 **Sprint goal**: Detect human poses and classify tennis movements
 
 ### Sprint 3 - Court detection
-| Task	                                                               | Estimation	 | Dependencies	       | 
+| Task	                                                               | Estimation	 | Dependencies	       |
 |---------------------------------------------------------------------|---------|---------------------|
 | Implement court keypoints detection                                 | 	9 SP   | Dataset availability |
 | Map detected players to the correct court area	                     | 6 SP    | Court keypoints     |
