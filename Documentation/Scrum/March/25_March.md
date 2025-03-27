@@ -6,3 +6,10 @@
 
 ## What am I doing next?
 - continue encoding data preprocessing on DMPR-PS
+
+### Xi Ding
+## What have I done?
+- Debug CameraFragment's code
+
+## What am I doing next?
+- Continue to explore method of detecting tennis court
