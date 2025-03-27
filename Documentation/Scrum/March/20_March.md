@@ -36,3 +36,10 @@
 ## What am I doing next?
 
 - Try to use the trained model to predict
+
+
+### Tao Lu
+## What have I done?
+- The operation mechanism of TensorFlow Lite on mobile terminal is studied, and a preliminary understanding of how to load and run TFLite model in Android environment is obtained.
+## What am I doing next?
+- The feasibility of hardware acceleration (NPU/GPU Delegate) was evaluated, and relevant documentation and official examples were collected.

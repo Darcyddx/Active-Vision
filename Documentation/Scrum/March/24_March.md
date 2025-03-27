@@ -22,3 +22,9 @@
 
 ## What am I doing next?
 - Debug and improve about Android app camera feed integration
+
+### Tao Lu
+## What have I done?
+- In the aspect of parallelization, we refer to the idea of pipeline in academic papers
+## What am I doing next?
+- Trial pipelined parallel architecture
