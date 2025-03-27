@@ -11,4 +11,4 @@
 ## What have I done?
 - By referring to the accuracy evaluation methods after quantization in some papers, the quantitative evaluation indexes of detection results (mAP, Recall, Precision, etc.) were preliminatively developed
 ## What am I doing next?
-- The effect of quantization strategy (symmetric quantization vs. asymmetric quantization) on model accuracy and inference performance was studied to provide ideas for subsequent optimization.
+- Study the effect of quantization strategy (symmetric quantization vs. asymmetric quantization)
