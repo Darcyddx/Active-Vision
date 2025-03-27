@@ -1,3 +1,21 @@
+## Table of Contents
+
+- [Reflection on quantizing tennis tracking model TrackNet v2](#reflection-on-quantizing-tennis-tracking-model-tracknet-v2)
+  - [The good parts](#the-good-parts)
+  - [The challenges](#the-challenges)
+  - [Actionable improvement](#actionable-improvement)
+- [Reflection on Trial of using TrackNet v4 to replace with the current ball tracking model](#reflection-on-trial-of-using-tracknet-v4-to-replace-with-the-current-ball-tracking-model)
+  - [The good parts](#the-good-parts-1)
+  - [Challenges](#challenges)
+  - [Actionable improvement](#actionable-improvement-1)
+- [Reflection on successes](#reflection-on-successes)
+- [Area of Improvements](#area-of-improvements)
+- [Key lessons learned during the sprint](#key-lessons-learned-during-the-sprint)
+- [Actionable improvements](#actionable-improvements)
+- [Task estimations and velocity tracking](#task-estimations-and-velocity-tracking)
+- [Evaluation based on reflection](#evaluation-based-on-reflection)
+
+
 ## Reflection on quantizing tennis tracking model TrackNet v2
 
 ### The good parts
@@ -80,7 +98,7 @@ In addition, balancing accuracy and efficiency is always a key problem. The Trac
 
 In summary, Sprint successfully implemented several key features, but we also deeply recognized the potential challenges in mobile deployment, precision control and hardware adaptation. We will continue to learn and improve the overall performance of the application. 
 
-## actionable improvements 
+## Actionable improvements 
 First of all, in our AI tennis tracking project, the TrackNet model has demonstrated effective tennis ball detection and trajectory prediction by using deep learning-based heatmap analysis. However, the system currently suffers from a high false-positive (FP) rate, where non-ball objects (e.g., shadows, spectators, or camera artifacts) are frequently misclassified as the tennis ball. This introduces significant noise into the tracking pipeline. To address this issue, we would apply Kalman Filters or Optical Flow to refine TrackNet’s outputs. These methods use motion patterns to filter out illogical detections. For example, if a "ball" suddenly appears far from its expected path or remains static, the algorithm flags it as noise and predicts the ball’s true position. Such method might reduce false alarms while keeping processing fast for real-time use. 
 
 In addition, we have integrated YOLOv8 on mobile devices for real-time human detection, prioritizing speed and accuracy. While I implemented frame-skipping mechanism to reduce computational load, efficiency remains limited on mobile devices. To optimize, we will integrate lightweight tracking algorithms (ByteTrack/SORT) to propagate detections across skipped frames. The tracking algorithm will "remember" detected people across skipped frames, so YOLOv8 doesn’t need to check every frame. As a result, including tracking algorithms would benefit real-time performance on edge devices without sacrificing robustness. 
