@@ -8,11 +8,13 @@ import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageProxy;
 
 import com.example.activevision.data.BallPos;
+import com.example.activevision.data.Bbox;
 import com.example.activevision.result.FrameRes;
 import com.example.activevision.result.TrackerResListener;
 import com.example.activevision.threadings.NamingThreadFactory;
 import com.example.activevision.threadings.PreprocessThreadPool;
 import com.example.activevision.trackers.BallTracker;
+import com.example.activevision.trackers.PlayerDetector;
 
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
@@ -34,6 +36,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
     private static final String TAG = "FrameAnalyzer";
 
     private final BallTracker tennisTracker;
+    private final PlayerDetector playerDetector;
 
     // Listener to dispatch results and performance metrics
     private final TrackerResListener listener;
@@ -46,6 +49,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
     private final ConcurrentHashMap<Long, FrameRes> resultsMap = new ConcurrentHashMap<>();
 
     private final ThreadPoolExecutor tennisExecutor;
+    private final ThreadPoolExecutor playerExecutor;
 
     // Frame counters
     private final AtomicLong frameCounter = new AtomicLong(1); // Global frame index for tracking
@@ -59,11 +63,14 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
 
     private final int skipDetIdx = 2;
 
+    private volatile List<Bbox> lastPlayerBboxes = null;
+
 
     public FrameAnalyzer(BallTracker tennisTracker,
+                         PlayerDetector playerDetector,
                          TrackerResListener listener) {
         this.tennisTracker = tennisTracker;
-
+        this.playerDetector = playerDetector;
         this.listener = listener;
 
         tennisExecutor = new ThreadPoolExecutor(
@@ -75,6 +82,16 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
                         Comparator.comparingLong(task -> ((PrioritizedTask) task).getFrameIndex())
                 ),
                 new NamingThreadFactory("BallTrackThread"));
+
+        playerExecutor = new ThreadPoolExecutor(
+                1, 1, 0L, TimeUnit.MILLISECONDS,
+                // new LinkedBlockingQueue<Runnable>(),
+                new PriorityBlockingQueue<>(
+                        128,
+                        Comparator.comparingLong(task -> ((PrioritizedTask) task).getFrameIndex())
+                ),
+                new NamingThreadFactory("PlayerDetThread")
+        );
 
     }
     @Override
@@ -90,6 +107,15 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
         // to store results for current frame
         FrameRes saveRes = new FrameRes(frameIdx);
         resultsMap.put(frameIdx, saveRes);
+
+        // or skip detection in every {skipDetIdx-1} frame(s) to enhance performance
+        if (frameIdx % skipDetIdx == 1) {
+            PreprocessThreadPool.getInstance().submitTask(
+                    new PlayerDetTask(frameIdx, input, frameHeight, frameWidth)
+            );
+        } else {
+            playerSkipDetection(frameIdx);
+        }
 
         // Perform ball tracking (requires 3 consecutive frames)
         mLock.lock();
@@ -111,6 +137,32 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
     }
 
     /**
+     * Skips the player detection/pose estimation task
+     * This method is called when a frame is skipped from player detection.
+     *
+     * @param frameIdx The index of the current frame
+     */
+    private void playerSkipDetection(long frameIdx) {
+        // If there are no player bounding boxes in the previous detection
+        // then pose estimation must also be null
+        if (lastPlayerBboxes == null) {
+            FrameRes frameRes = resultsMap.get(frameIdx);
+            if (frameRes != null) {
+                frameRes.setPlayerDetList(null);
+            }
+            return;
+        }
+
+        // Otherwise, reuse them
+        FrameRes res = resultsMap.get(frameIdx);
+        if (res != null) {
+            res.setPlayerDetList(lastPlayerBboxes);
+        }
+        retrieveFrameResult();
+
+    }
+
+    /**
      * Retrieves completed results from the results map in sequential order, starting from the next frame to retrieve.
      * If a frame is complete, removes it and callback results.
      */
@@ -128,7 +180,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
             nextFrameToRetrieve.incrementAndGet();
 
             listener.onBallPosCallback(res.getBallPositions());
-
+            listener.onPlayerDetCallback(res.getPlayerDetList());
 
             // Calculate FPS
             completedFramesCnt.incrementAndGet();
@@ -211,6 +263,54 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
+        }
+    }
+
+    public class PlayerDetTask implements Runnable {
+        private final long frameIdx;
+        private final Bitmap inputBitmap;
+        private final int inputHeight;
+        private final int inputWidth;
+
+        public PlayerDetTask(long frameIdx, Bitmap inputBitmap, int inputHeight, int inputWidth) {
+            this.frameIdx = frameIdx;
+            this.inputBitmap = inputBitmap;
+            this.inputHeight = inputHeight;
+            this.inputWidth = inputWidth;
+        }
+
+        @Override
+        public void run() {
+            try {
+                ByteBuffer playerDetInput = playerDetector.preprocess(inputBitmap);
+
+                playerExecutor.submit(new PrioritizedTask(frameIdx, () -> {
+                    TensorBuffer outputBuffer = playerDetector.inference(playerDetInput);
+                    List<Bbox> bboxes = playerDetector.postprocess(outputBuffer.getFloatArray(), inputHeight, inputWidth);
+                    FrameRes res = resultsMap.get(frameIdx);
+                    if (res != null) {
+                        res.setPlayerDetList(bboxes);
+                        lastPlayerBboxes = bboxes;
+                    }
+                    // Trigger pose estimation if players were detected
+//                    if (bboxes != null && !bboxes.isEmpty()) {
+//                        submitPoseEstimationTask(frameIdx, inputBitmap, bboxes);
+//                    } else {
+//                        if (res != null) {
+//                            res.setFrameKps(null);
+//                            lastKeypoints = null;
+//                            retrieveFrameResult();
+//                        }
+//                    }
+
+                }));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        private void submitPoseEstimationTask(long frameIdx, Bitmap inputBitmap, List<Bbox> bboxes) {
+           //TODO: TO be implement
         }
     }
 }
