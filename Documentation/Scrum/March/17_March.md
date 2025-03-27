@@ -31,3 +31,9 @@
 - Compiled TensorFlow Lite the priority order of Delegate (CPU to GPU, NPU), and tried to use in the project. TFLiteHelpers DelegateType [] [] delegatePriorityOrder dynamically loaded.
 ## What am I doing next?
 - The influence of image scaling and NormalizeOp on the accuracy of inference results in image preprocessing is studied.
+
+### Xingchen Zhang
+## What have I done?
+- Learning the Google tflite tools
+## What am I doing next?
+- Consider to develop the class in Android Studio by using the trained modules.
