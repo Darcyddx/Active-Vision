@@ -28,6 +28,13 @@ During Sprint 1 of our project, we utilized a Burn-down Chart to closely monitor
 
 ![Velocity_Chart](https://github.com/user-attachments/assets/3f259167-2dfa-48a5-8416-f763942c2ac9)
 
+The velocity chart for "Active Vision" provides insights into the team's performance across three iterations, highlighting both planned and completed story points. In Iteration 1 (W03), the team planned to complete 2 story points but only managed to finish 1, indicating a significant gap between expectations and actual delivery. 
+
+Moving to Iteration 2 (W04), the team planned to complete 19 story points but delivered only 10, which represents an improvement in terms of total output compared to Iteration 1 but still shows a notable shortfall. This discrepancy might indicate that the team is gradually increasing its capacity but is still facing challenges in accurately estimating or executing tasks.
+
+In Iteration 3 (W04), the team planned to complete 26 story points and successfully delivered 18, showing continued growth in productivity. Although there is still a gap between planned and done, the team has demonstrated consistent progress over the iterations, suggesting improved planning accuracy and execution efficiency. However, the persistent gap highlights areas where further refinement in estimation or process optimization may be needed.
+
+Overall, the chart reveals a positive trend in the team's ability to deliver more work over time, but it also underscores the need for ongoing improvements in planning accuracy and addressing any bottlenecks that prevent full completion of planned work. Continuous monitoring and adaptation will be crucial to achieving higher alignment between planned and actual velocities.
 
 ## 3. Sprint Goals/Milestones
 
