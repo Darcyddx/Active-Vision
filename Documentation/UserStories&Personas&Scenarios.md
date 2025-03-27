@@ -185,10 +185,10 @@
 ### User Story 5
 
 #### Basic Information
-**ID:** USER-005
-**Title:** Support for Singles and Doubles Tennis Matches on Android
-**Priority:** Medium
-**Milestone:** Sprint 2
+**ID:** USER-005  
+**Title:** Support for Singles and Doubles Tennis Matches on Android  
+**Priority:** Medium  
+**Milestone:** Sprint 2  
 
 #### User Story Description
 **As an** tennis match lover,  
@@ -224,10 +224,10 @@
 
 #### Basic Information
 
-**ID:** USER-006
-**Title:** Tennis Club Manager
-**Priority:** Low
-**Milestone:** 
+**ID:** USER-006  
+**Title:** Tennis Club Manager  
+**Priority:** Low  
+**Milestone:**   
 
 #### User Story Description
 
