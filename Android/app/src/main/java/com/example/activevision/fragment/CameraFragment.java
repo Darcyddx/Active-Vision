@@ -37,6 +37,20 @@ import org.opencv.android.OpenCVLoader;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+
+
+
+/**
+ * This class Manage camera interface and life cycle.
+ * This is where to process camera video streams and pass
+ * frames to analysis or detection algorithms
+ * Author: Xi Ding
+ * Date: 25/03/2025
+ */
+
+
+
+
 public class CameraFragment extends Fragment implements TrackerResListener {
     private PreviewView mPreviewView;
     // Custom view for rendering detected objects

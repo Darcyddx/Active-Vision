@@ -43,54 +43,29 @@
 ### Actionable improvement
 - We use the distilled model from ResNet_TrackNet v2 and get better performances. There is an example showing in the [test video](https://github.com/Darcyddx/Active-Vision/blob/main/Documentation/Reflection_and_improvement/Asset/test_video2.mp4).
 
+
+
+`The following is the reflection for the whole sprint 1 period`
+
 ## Reflection on successes
-- Project Planning and Organization 
+Our project had many great achievements. A clear and well-structured Product Backlog was established, with tasks categorized by priority to ensure alignment with project goals. This prioritization was complemented by adopting an appropriate task estimation method, which significantly enhanced our team’s understanding of task complexity. Additionally, leveraging Github Projects as an agile tool proved invaluable, as it seamlessly integrated code, documentation, tasks, and status updates into a cohesive workflow. This not only streamlined communication but also provided full transparency across all stages of product development.
 
-   - Successfully established a clear Product Backlog and reasonably categorized it by priority. 
+Another key area of success was user requirements analysis. Six detailed user stories were crafted, each representing different user groups, including beginners, coaches, and advanced players. These user stories were meticulously designed with clear acceptance criteria, ensuring that feature completeness could be easily verified during development. Furthermore, function priorities were strategically set to focus on core features first. For instance, ball tracking was prioritized for initial deployment on mobile devices, followed by player detection in Sprint 1. This phased approach ensured that critical functionalities were delivered promptly while maintaining flexibility for future iterations.
 
-   - Adopted an appropriate task estimation method, making it easier for the team to understand task complexity. 
-
-   - Using Github Project as the agile tools during product development, easily linked code, documentation, tasks and status together. 
-
-- User Requirements Analysis 
-
-   - Defined six detailed user stories covering different user groups (beginners, coaches, advanced players, etc.). 
-
-   - Each user story included clear acceptance criteria, facilitating the verification of feature completeness. 
-
-   - Set function priorities appropriately, ensuring that core features are developed first, we will first do ball tracking and deploy it on mobile, and then complete player detection for our Sprint 1. 
-
-- Technical Architecture 
-
-   - Selected an appropriate technology stack, using Android and adaptive devices for testing. 
-
-   - Planned multiple backups to improve model performance, as model distillation, use TrackNetV4 instead of TrackNetV2. 
-
-   - Considered mobile optimization, including NPU acceleration and the use of TensorFlow Lite. 
+On the technical front, the project benefited from a carefully selected technology stack tailored to the project's needs. Android was chosen as the primary platform, with adaptive devices used for testing to ensure compatibility across various hardware configurations. To enhance model performance, multiple backup strategies were implemented, such as model distillation and the decision to upgrade from TrackNetV2 to TrackNetV4. Mobile optimization was another critical consideration, with efforts focused on leveraging NPU acceleration and TensorFlow Lite to improve efficiency and reduce latency on mobile devices.
 
 ## Area of Improvements 
 
-- Documentation Timeliness 
+While the project achieved significant milestones, there are several areas where improvements can be made to enhance overall effectiveness. One notable area is documentation timeliness. Although documentation was maintained throughout the project, there were instances where updates lagged behind the actual progress. To address this, it is essential to establish a more disciplined approach to ensure that all documents are updated in detail and in real-time as the project evolves. This will not only improve clarity but also serve as a reliable reference for future iterations or handovers.
 
-   - Ensure that all documents are updated in detail as the project progresses.. 
+Task dependencies also present an opportunity for improvement. While interdependencies among tasks were acknowledged, their descriptions were often too vague, leading to potential confusion during execution. Providing more detailed explanations of these dependencies would enable better task prioritization and resource allocation. For example, creating a dependency matrix or visual flowchart could help the team understand how individual tasks contribute to broader objectives, thereby fostering a more cohesive workflow.
 
-- Task Dependencies 
+Risk assessment, although addressed through the establishment of a risk management mechanism, could benefit from more quantifiable evaluations. While risks were identified, the specific impacts of some risks were not thoroughly assessed. To strengthen this process, it is recommended to introduce specific monitoring indicators and early warning mechanisms for each identified risk. Additionally, developing more robust tackling strategies—such as contingency plans or fallback options—would further mitigate potential disruptions.
 
-   - Descriptions of dependencies among some tasks are not specific enough. 
+Finally, progress tracking requires refinement to ensure that milestones are met consistently and transparently. Currently, the lack of a detailed progress tracking mechanism has led to occasional gaps in accountability. Introducing milestone checkpoints at regular intervals, along with standardized progress report templates, would provide a clearer picture of the project’s trajectory. This would not only facilitate timely identification of bottlenecks but also allow for proactive adjustments to keep the project on track.
 
-   - It is suggested to provide more detailed explanations of task interdependencies to facilitate better task prioritization. 
-
-- Risk Assessment 
-
-   - Although a risk management mechanism was established, more quantifiable assessments of the specific impacts of some risks are needed. 
-
-   - It is recommended to add specific monitoring indicators and early warning mechanisms for each risk, better with more tackling strategies. 
-
-- Progress Tracking 
-
-   - A more detailed progress tracking mechanism needs to be established. 
-
-   - It is suggested to add specific milestone checkpoints and progress report templates. 
+By addressing these areas for improvement while building on the successes achieved, the team can further enhance its ability to deliver high-quality results efficiently and effectively.
+The combination of strategic planning, user-centric design, and technical innovation has been instrumental in driving the project forward. However, continuous refinement in documentation, task management, risk assessment, and progress tracking will be crucial to sustaining momentum and achieving long-term success.
 
 ## Key lessons learned during the sprint 
 In this short iteration (Sprint), our team completed various core functions from player detection, tennis ball tracking, and replacing TrackNet v4 with TrackNet v2. By using quantitative models and enabling hardware acceleration such as NPU, we have achieved stable and impressive real-time detection results on the mobile side and also maintained high compatibility across multiple models. Here are the key lessons. 

@@ -40,3 +40,13 @@
 
 - Research on tflite development
 
+### Yichi Zhang
+
+## What have I done?
+
+- Searching for existing tennis shot recognition models
+
+## What am I doing next?
+
+- Research on tennis shot pose dataset, dig deeper with its classification and previous usage
+- read some relevant research paper and examples

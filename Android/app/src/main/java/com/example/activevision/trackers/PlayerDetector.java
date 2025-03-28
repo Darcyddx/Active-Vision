@@ -38,9 +38,11 @@ import java.util.Map;
 
 
 /**
- * This class is designed to perform real-time player detection
- * in Android applications using TensorFlow Lite
- * Author: Xingchen Zhang, lampeiling
+ * The class handles the loading and execution of TensorFlow Lite models, with the capability to process
+ * images using TensorFlow Lite's Interpreter. It provides functionality to preprocess image data, perform
+ * inference, and postprocess the inference results to extract meaningful insights such as player positions
+ * and actions in a given frame.
+ * Author: Xingchen Zhang, lampeiling, tao lu
  * Date: 24/03/2025
  */
 

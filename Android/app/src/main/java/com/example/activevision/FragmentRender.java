@@ -18,7 +18,14 @@ import com.example.activevision.data.Bbox;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.jar.Attributes;
+
+/**
+ * The class includes methods for setting and updating the positions of tennis balls and player bounding boxes, which are
+ * scaled and rendered according to the dimensions of the view. It also displays the frames per second (fps) rate to help
+ * monitor the performance of the tracking system in real-time.
+ * Author: Zhiyuan Lu
+ * Date: 21/03/2025
+ */
 
 public class FragmentRender extends View {
     private final ReentrantLock mLock = new ReentrantLock();

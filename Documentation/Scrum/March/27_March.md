@@ -37,3 +37,15 @@
 - solve the bug of compiling PlayerDetecor class in Android MainActivity
 ## What am I doing next?
 - Explore how to utilize the models deployed in Android Studio to develop functionalbe module to construct app.
+
+### Yichi Zhang
+
+## What have I done?
+
+- Study the MoveNet documentation and try to track some easiest skeleton with the pre-trained models
+- Conduct the meeting to sort and organize the documentation for Sprint 1, also a brief summary of Sprint 1 result.
+
+## What am I doing next?
+
+- Study the code in tennis_action_recognition and tennis_shot_recognition
+- Learn the basic implementation of CNN and LSTM
