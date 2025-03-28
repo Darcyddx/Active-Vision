@@ -35,7 +35,13 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * The BallTracker class integrates TensorFlow Lite for model inference to detect and track
+ * the position of tennis balls in video frames. It leverages optimized machine learning models
+ * and hardware acceleration using delegates like GPU and NPU to achieve real-time performance.
+ * Author: Zhiyuan Lu
+ * Date: 21/03/2025
+ */
 public class BallTracker implements AutoCloseable {
     private static final String TAG = "TennisTracker";
 
