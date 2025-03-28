@@ -39,3 +39,14 @@
 ## What am I doing next?
 
 - Test player detection on Android smartphone
+
+### Yichi Zhang
+
+## What have I done?
+
+- Configure the right environment that TrackNet V4 can run
+- Test ball tracking under real world tennis play scenario
+
+## What am I doing next?
+
+- Test TrackNet V4 and see how it perform

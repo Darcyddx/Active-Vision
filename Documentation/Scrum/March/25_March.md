@@ -38,3 +38,15 @@
 - consider the differences between defferent modules after training phrase
 ## What am I doing next?
 - Utilizes TensorFlow Lite to run inference with a pre-trained mode by distillation of Yichi and Zhiyuan
+
+
+
+### Yichi Zhang
+
+## What have I done?
+
+- Test three runnable models: TrackNetV2 after finetuned, TrackNetV2 distilled on ResNet, TrackNetV4 and compare their performance on personal computer and mobile devices.
+
+## What am I doing next?
+
+- Collaborate with team members and discuss about tech selection for future usage.
