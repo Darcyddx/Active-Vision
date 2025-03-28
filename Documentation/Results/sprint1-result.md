@@ -6,7 +6,7 @@ We have integrated the player detection model (`YOLOv8n`) alongside `TrackNet` o
 
 This pipeline efficiently handles each camera frame by performing only minimal operations (like bitmap conversion and queueing) on the main thread, then delegating heavier tasks to specialized thread pools. Player detection and ball tracking each follow a clear flow—preprocess on the `PreprocessThreadPool`, then run inference on dedicated single-thread executors, which prevents race condition as `tfliteInterpreter` is not thread-safe. Postprocessing writes results into a thread-safe map, and a final retrieval step checks frames in sequence to dispatch complete data to the UI. By cleanly separating tasks and carefully managing concurrency, this design supports straightforward scalability for future expansions such as pose estimation and court tracking.
 
-![program_architecture](.\Asset\program_architecture.png)
+![program_architecture](./Asset/program_architecture.png)
 
 Based on the architecture workflow given above, here's a summary:
 
