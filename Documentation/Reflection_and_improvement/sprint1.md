@@ -1,5 +1,9 @@
 ## Table of Contents
 
+- [Table of Contents](#table-of-contents)
+- [Complete Tasks](#complete-tasks)
+  - [Player Detection On Android](#player-detection-on-android)
+  - [TrackNet Knowledge Distillation](#tracknet-knowledge-distillation)
 - [Reflection on quantizing tennis tracking model TrackNet v2](#reflection-on-quantizing-tennis-tracking-model-tracknet-v2)
   - [The good parts](#the-good-parts)
   - [The challenges](#the-challenges)
@@ -14,7 +18,6 @@
 - [Actionable improvements](#actionable-improvements)
 - [Task estimations and velocity tracking](#task-estimations-and-velocity-tracking)
 - [Evaluation based on reflection](#evaluation-based-on-reflection)
-
 
 ## Reflection on quantizing tennis tracking model TrackNet v2
 
