@@ -33,6 +33,22 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+
+/**
+ * Provides utility methods to facilitate the loading, configuration, and utilization of TensorFlow Lite models
+ * with advanced delegate options for optimized execution on Android devices.
+ * This class encapsulates operations related to:
+     * - Loading TensorFlow Lite models from Android asset resources.
+     * - Dynamically configuring and applying TensorFlow Lite Delegates such as GPU and Qualcomm's Neural Processing Unit (QNN NPU)
+     to accelerate model inference based on the device capabilities.
+     * - Creating and managing TensorFlow Lite Interpreter instances tailored with specific delegate configurations
+     to maximize performance and efficiency.
+ * Author: Zhiyuan Lu
+ * Date: 21/03/2025
+ */
+
+
+
 public class TFLiteHelpers {
     private static final String TAG = "QualcommTFLiteHelpers";
 

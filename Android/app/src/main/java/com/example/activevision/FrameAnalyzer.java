@@ -30,7 +30,13 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
-
+/**
+ * The BallTracker class integrates TensorFlow Lite for model inference to detect and track
+ * the position of tennis balls in video frames. It leverages optimized machine learning models
+ * and hardware acceleration using delegates like GPU and NPU to achieve real-time performance.
+ * Author: Zhiyuan Lu
+ * Date: 21/03/2025
+ */
 public class FrameAnalyzer implements ImageAnalysis.Analyzer {
 
     private static final String TAG = "FrameAnalyzer";

@@ -8,6 +8,14 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+
+/**
+ * It is responsible for managing a thread pool that performs various preprocessing tasks
+ * such as image processing or data loading.
+ * Author: Zhiyuan Lu
+ * Date: 21/03/2025
+ */
+
 public class PreprocessThreadPool {
     private static volatile PreprocessThreadPool instance = null;
 
