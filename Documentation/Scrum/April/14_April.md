@@ -6,3 +6,10 @@
 
 ## What am I doing next? 
 - explore other court detection method
+
+### Xi Ding
+## What have I done?
+- research on how to integrate OpenPose for pose estimation
+
+## What am I doing next? 
+- develop and integrate OpenPose/MediaPipe for pose estimation
