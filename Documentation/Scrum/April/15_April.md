@@ -6,3 +6,14 @@
 
 ## What am I doing next? 
 - develop and integrate OpenPose/MediaPipe for pose estimation
+
+### Yichi Zhang
+
+## What have I done?
+
+- do research on previous tennis pose estimation work, [THETIS: THree Dimensional Tennis Shots
+  A human action dataset](https://openaccess.thecvf.com/content_cvpr_workshops_2013/W08/papers/Gourgari_THETIS_Three_Dimensional_2013_CVPR_paper.pdf)
+
+## What am I doing next? 
+
+- collect pose estimation dataset

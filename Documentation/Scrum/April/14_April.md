@@ -13,3 +13,13 @@
 
 ## What am I doing next? 
 - develop and integrate OpenPose/MediaPipe for pose estimation
+
+### Yichi Zhang
+
+## What have I done?
+
+- Learn to differentiate basic tennis movements and learn to differentiate advanced tennis movements
+
+## What am I doing next? 
+
+- do research on previous tennis pose estimation work
