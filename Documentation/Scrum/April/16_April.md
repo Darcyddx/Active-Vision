@@ -16,3 +16,13 @@
 ## What am I doing next? 
 
 - Organize datasets to fit existing pre-training and fine-tuning codes
+
+### Pei Ling Lam
+
+## What have I done?
+
+- label tennis court dataset manually on roboflow (100 images)
+
+## What am I doing next? 
+
+- continue to label
