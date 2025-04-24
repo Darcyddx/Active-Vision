@@ -1,9 +1,9 @@
-# Daily - stand ups 17/04/25
+# Daily - stand ups 21/04/25
 
 ### Pei Ling Lam
 ## What have I done?
 
-- Trained court dataset using ResNet18 as backbone + MLP
+- Trained court dataset using ResNet34 as backbone + MLP
 
 ## What am I doing next? 
 
