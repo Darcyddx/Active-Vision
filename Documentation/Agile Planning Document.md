@@ -67,7 +67,6 @@ Overall, the chart reveals a positive trend in the team's ability to deliver mor
 | Implement court keypoints detection                                 | 	9 SP   | Dataset availability |
 | Map detected players to the correct court area	                     | 6 SP    | Court keypoints     |
 | Replace TrackNetV2 with TrackNetV4 for better ball tracking         | 	8 SP   | -                   |
-| Implement logic for filtering primary ball in multi-ball scenarios	 | 6 SP    | Ball tracking       |
 | Compute real-time ball speed estimation                             | 	3 SP   | Ball tracking       |
 **Sprint goal**: Detect court keypoints, implement ball speed calculation
 
