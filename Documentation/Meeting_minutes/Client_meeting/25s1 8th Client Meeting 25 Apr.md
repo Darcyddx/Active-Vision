@@ -3,7 +3,7 @@
 - **Date:** 25 April 2025
 - **Time:** 10.09 AM –  10.32 AM
 - **Location:** Zoom
-- **Attendees:** All Team Members, Arjun Raj (Client)
+- **Attendees:** All Team Members (except Tao Lu), Arjun Raj (Client)
 - **Recorder:** Pei Ling Lam
 
 ## Agenda Items
@@ -16,9 +16,9 @@
    - draft a delivery plan and email to stakeholders next week
 
 3. **Task Allocation**
-    - XingChen Zhang: app UI, calculate ball speed
-    - Xi Ding: 
-    - Zhiyuan Lu and Yichi Zhang: pose estimation
+    - XingChen Zhang: calculate ball speed
+    - Xi Ding: integrate OpenPose/MediaPipe for pose estimation
+    - Zhiyuan Lu and Yichi Zhang: pose estimation model
     - Pei Ling Lam: integrating court detection model
 
 5. **Client Feedback**
