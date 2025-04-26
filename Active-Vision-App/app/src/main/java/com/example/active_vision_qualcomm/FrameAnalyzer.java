@@ -1,0 +1,410 @@
+package com.example.active_vision_qualcomm;
+
+import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.util.Log;
+import android.util.Pair;
+
+import androidx.annotation.NonNull;
+import androidx.camera.core.ImageAnalysis;
+import androidx.camera.core.ImageProxy;
+
+import com.example.active_vision_qualcomm.Trackers.PlayerDetector;
+import com.example.active_vision_qualcomm.Trackers.PlayerPoseEstimator;
+import com.example.active_vision_qualcomm.Trackers.PlayerPoseTracker;
+import com.example.active_vision_qualcomm.Trackers.TennisTracker;
+import com.example.active_vision_qualcomm.data.BallPos;
+import com.example.active_vision_qualcomm.data.Bbox;
+import com.example.active_vision_qualcomm.data.KeyPoint;
+import com.example.active_vision_qualcomm.data.PoseInferenceInfo;
+import com.example.active_vision_qualcomm.data.PosePreprocessInfo;
+import com.example.active_vision_qualcomm.result.FrameRes;
+import com.example.active_vision_qualcomm.data.PreprocessData;
+import com.example.active_vision_qualcomm.result.TrackerResListener;
+import com.example.active_vision_qualcomm.threadings.PreprocessThreadPool;
+
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
+
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.locks.ReentrantLock;
+
+/**
+ * To analyze captured frames by combining machine learning models. The implementation pipeline:
+ *   1) Producer-Captures frames and preprocesses them using a thread pool, stores the processed frames in the priority queue (sorted by frame index)
+ *   2) Consumer-Fetches the preprocessed frame from the priority queue, passes to single-thread executor for inference. (IMPORTANT: tflite interpreter is not thread-safe)
+ *   3) Uses an HandlerThread to manage inference scheduling.
+ *   4) Retrieves results in order and calculates the FPS.
+ */
+public class FrameAnalyzer implements ImageAnalysis.Analyzer {
+
+    private final TennisTracker tennisTracker;
+    private final PlayerDetector playerDetector;
+
+    private final PlayerPoseTracker playerPoseTracker;
+    private final PlayerPoseEstimator playerPoseEstimator;
+
+    // Listener to dispatch results and performance metrics
+    private final TrackerResListener listener;
+
+    // Queue to store three consecutive frames for ball tracking
+    private final Queue<Bitmap> frameBuffer = new ConcurrentLinkedQueue<>();
+    private final ReentrantLock mLock = new ReentrantLock(); // Lock to synchronize frame buffer operations
+
+    // Queues to hold preprocessed data.
+    private final PriorityBlockingQueue<PreprocessData<Pair<Bitmap, ByteBuffer>>> playerDetInputPq = new PriorityBlockingQueue<>();
+    private final PriorityBlockingQueue<PreprocessData<ByteBuffer>> ballTrackInputPq = new PriorityBlockingQueue<>();
+
+    private final PriorityBlockingQueue<PreprocessData<List<PosePreprocessInfo>>> poseEstInputPq = new PriorityBlockingQueue<>();
+
+
+    // Map to store partial or complete results for each frame
+    private final ConcurrentHashMap<Long, FrameRes> resultsMap = new ConcurrentHashMap<>();
+
+    // Thread pool for preprocessing frames
+    //private final ThreadPoolExecutor executor;
+
+    // Separate single-thread executors for model inferences
+    private final ExecutorService playerExecutor;
+    private final ExecutorService tennisExecutor;
+
+    private final ExecutorService poseExecutor;
+
+
+    // HandlerThread for coordinating inference scheduling
+    private final HandlerThread inferenceThread;
+    private final Handler inferenceHandler;
+
+    // Frame counters
+    private final AtomicLong frameCounter = new AtomicLong(1); // Global frame index for tracking
+    private final AtomicLong nextFrameToRetrieve = new AtomicLong(1); // Next frame index to retrieve results
+
+    // Performance monitoring variables
+    private volatile long completedFpsCnt = 0; // FPS count
+    private final AtomicLong completedFramesCnt = new AtomicLong(0); // Number of completed frames in the last second
+    private long lastTic = System.currentTimeMillis(); // Timestamp for FPS calculation
+
+    private int cameraCapturedHeight;
+
+    private int cameraCapturedWidth;
+
+    private final int skipDetIdx = 2;
+
+    private List<Bbox> lastPlayerBboxes = null;
+    private List<List<KeyPoint>> lastKeypoints = null;
+
+    /**
+     * Constructor to initialize the frame analyzer pipeline.
+     * @param tennisTracker TensorFlow Lite model for ball tracking.
+     * @param playerDetector TensorFlow Lite model for player detection.
+     * @param listener Callback to handle results and performance updates.
+     */
+    public FrameAnalyzer(TennisTracker tennisTracker,
+                         PlayerDetector playerDetector,
+                         PlayerPoseTracker playerPoseTracker, PlayerPoseEstimator playerPoseEstimator,
+                         TrackerResListener listener) {
+        this.tennisTracker = tennisTracker;
+        this.playerDetector = playerDetector;
+        this.playerPoseTracker = playerPoseTracker;
+        this.playerPoseEstimator = playerPoseEstimator;
+        this.listener = listener;
+
+        // Initialize single-thread executors for inference (one for each model)
+        playerExecutor = java.util.concurrent.Executors.newSingleThreadExecutor();
+        tennisExecutor = java.util.concurrent.Executors.newSingleThreadExecutor();
+        poseExecutor = java.util.concurrent.Executors.newSingleThreadExecutor();
+
+
+        // Initialize a HandlerThread for orchestrating inference tasks
+        inferenceThread = new HandlerThread("InferenceCoordinatorThread");
+        inferenceThread.start();
+        inferenceHandler = new Handler(inferenceThread.getLooper());
+
+    }
+
+    public int getCameraCapturedHeight() {
+        return cameraCapturedHeight;
+    }
+
+    public int getCameraCapturedWidth() {
+        return cameraCapturedWidth;
+    }
+
+    /**
+     * Called by CameraX for each frame to process.
+     * Converts the frame to a Bitmap, preprocesses it, and schedules inferences for models.
+     */
+    @Override
+    public void analyze(@NonNull ImageProxy image) {
+        // Step 1: Convert the ImageProxy to Bitmap for further processing
+        int frameWidth = image.getWidth();
+        int frameHeight = image.getHeight();
+        cameraCapturedHeight = frameHeight;
+        cameraCapturedWidth = frameWidth;
+//        Bitmap input = Bitmap.createBitmap(frameWidth, frameHeight, Bitmap.Config.ARGB_8888);
+//        ByteBuffer buffer = image.getPlanes()[0].getBuffer();
+//        buffer.rewind();
+//        input.copyPixelsFromBuffer(buffer);
+        Bitmap input = image.toBitmap();
+
+        // Step 2: Assign a unique frame index
+        long frameIdx = frameCounter.getAndIncrement();
+
+        // Step 3: Create an empty result container for this frame and store it in the hashmap
+        FrameRes res = new FrameRes(frameIdx);
+        resultsMap.put(frameIdx, res);
+
+        if (frameIdx % skipDetIdx == 1) {
+            // Step 4: Preprocess the frame for player detection and schedule inference
+            PreprocessThreadPool.getInstance().submitTask(() -> {
+                ByteBuffer playerDetInput = playerDetector.preprocess(input);
+                playerDetInputPq.put(new PreprocessData<>(frameIdx, new Pair<>(input, playerDetInput))); // Enqueue preprocessed data
+
+                // Schedule player detection inference
+                inferenceHandler.post(() -> {
+                    try {
+                        runPlayerDet(frameHeight, frameWidth);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                });
+            });
+        } else {
+            playerSkipDetection(frameIdx);
+        }
+
+
+        // Step 5: Collect 3 consecutive frames for ball tracking
+        mLock.lock();
+        try {
+            frameBuffer.add(input);
+            if (frameBuffer.size() == 3) {
+                // Once 3 frames are collected, preprocess for ball tracking
+                List<Bitmap> framesToProcess = new ArrayList<>(frameBuffer);
+                frameBuffer.clear();
+
+                PreprocessThreadPool.getInstance().submitTask(() -> {
+                    ByteBuffer ballTrackerInput = tennisTracker.preprocess(framesToProcess);
+                    ballTrackInputPq.put(new PreprocessData<>(frameIdx, ballTrackerInput)); // Enqueue preprocessed data
+
+                    // Schedule ball tracking inference
+                    inferenceHandler.post(() -> {
+                        try {
+                            runBallTracker();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                });
+            }
+        } finally {
+            mLock.unlock();
+        }
+
+        // Release the image to avoid memory leaks
+        image.close();
+    }
+
+
+    /**
+     * Runs ball tracking inference on the tennisExecutor and stores the results.
+     * @throws InterruptedException if the thread is interrupted while waiting.
+     */
+    private void runBallTracker() throws InterruptedException {
+        PreprocessData<ByteBuffer> processedData = ballTrackInputPq.poll(); // Retrieve the preprocessed frame if container is not empty
+        if (processedData != null) {
+            long idx = processedData.getFrameIndex();
+            ByteBuffer inputBuffer = processedData.getData();
+
+            // Run ball tracking inference on one thread
+            tennisExecutor.submit(() -> {
+                TensorBuffer outputBuffer = tennisTracker.inference(inputBuffer);
+                List<BallPos> tennisPosList = tennisTracker.postprocess(outputBuffer);
+
+                // Store the results for this frame
+                FrameRes frameRes = resultsMap.get(idx);
+                if (frameRes != null) {
+                    frameRes.setBallPosList(tennisPosList);
+                }
+
+                // Attempt to retrieve completed results
+                retrieveFrameResult();
+            });
+        }
+    }
+
+    /**
+     * Runs player detection inference on the playerExecutor and stores the results.
+     * @param inputHeight Height of the input frame.
+     * @param inputWidth Width of the input frame.
+     * @throws InterruptedException if the thread is interrupted while waiting.
+     */
+    private void runPlayerDet(int inputHeight, int inputWidth) throws InterruptedException {
+        PreprocessData<Pair<Bitmap, ByteBuffer>> processedData = playerDetInputPq.poll(); // Retrieve the next preprocessed frame
+        if (processedData != null) {
+            long idx = processedData.getFrameIndex();
+            ByteBuffer inputBuffer = processedData.getData().second;
+
+            // Run player detection inference on one thread
+            playerExecutor.submit(() -> {
+                TensorBuffer outputBuffer = playerDetector.inference(inputBuffer);
+                float[] inf = outputBuffer.getFloatArray();
+                List<Bbox> bboxes = playerDetector.postprocess(inf, inputHeight, inputWidth);
+                // Store the results for this frame
+                FrameRes frameRes = resultsMap.get(idx);
+                if (bboxes != null && !bboxes.isEmpty()) {
+                    lastPlayerBboxes = bboxes;
+                    Bitmap originBitmap = processedData.getData().first;
+                    PreprocessThreadPool.getInstance().submitTask(() -> {
+                        List<PosePreprocessInfo> posePreInfoList = playerPoseTracker.preprocess(originBitmap, bboxes);
+                        poseEstInputPq.put(new PreprocessData<>(idx, posePreInfoList));
+                        inferenceHandler.post(() -> {
+                            try {
+                                runPoseEst(); // define runPoseEst similarly to runBallTracker or runPlayerDet
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                    });
+                } else {
+                    lastKeypoints = null;
+                    if (frameRes != null) {
+                        frameRes.setFrameKps(null);
+                    }
+                }
+                if (frameRes != null) {
+                    lastPlayerBboxes = bboxes; // <--- store for reuse
+                    frameRes.setPlayerDetList(bboxes);
+                }
+
+                // Attempt to retrieve completed results
+                retrieveFrameResult();
+            });
+        }
+    }
+
+    private void runPoseEst() throws InterruptedException {
+        PreprocessData<List<PosePreprocessInfo>> processedData = poseEstInputPq.poll();
+        if (processedData != null) {
+            long idx = processedData.getFrameIndex();
+            List<PosePreprocessInfo> posePreList = processedData.getData();
+            poseExecutor.submit(() -> {
+                List<PoseInferenceInfo> outputs = playerPoseTracker.inference(posePreList);
+                List<List<KeyPoint>> frameKps = playerPoseTracker.postprocess(outputs);
+
+                // Store the results for this frame
+                FrameRes frameRes = resultsMap.get(idx);
+                if (frameRes != null) {
+                    frameRes.setFrameKps(frameKps);
+                }
+                lastKeypoints = frameKps;
+                // Attempt to retrieve completed results
+                retrieveFrameResult();
+            });
+        }
+    }
+
+    private void playerSkipDetection(long frameIdx) {
+        if (lastPlayerBboxes == null) {
+            FrameRes frameRes = resultsMap.get(frameIdx);
+            if (frameRes != null) {
+                frameRes.setFrameKps(null);
+                frameRes.setPlayerDetList(null);
+            }
+            return;
+        }
+
+        // Otherwise, reuse them
+        FrameRes res = resultsMap.get(frameIdx);
+        if (res != null) {
+            res.setPlayerDetList(lastPlayerBboxes);
+            res.setFrameKps(lastKeypoints);
+        }
+        retrieveFrameResult();
+
+    }
+
+    /**
+     * Retrieves completed results from the results map in sequential order, starting from the next frame to retrieve.
+     * If a frame is complete, removes it and callback results.
+     */
+    private void retrieveFrameResult() {
+        while (true) {
+            long retrieveIdx = nextFrameToRetrieve.get();
+            FrameRes res = resultsMap.get(retrieveIdx);
+            if (res == null || !res.isComplete()) {
+                // Stop if no result or result is incomplete
+                break;
+            }
+
+            // Remove the completed frame
+            resultsMap.remove(retrieveIdx);
+            nextFrameToRetrieve.incrementAndGet();
+
+            // 获取结果
+            List<BallPos> ballPositions = res.getBallPositions();
+            List<Bbox> bboxes = res.getPlayerDetList();
+            List<List<KeyPoint>> frameKps = res.getFrameKps();
+
+            // 更新UI
+            if (listener != null) {
+                listener.onBallPosCallback(ballPositions);
+                listener.onPlayerDetCallback(bboxes);
+                listener.onPlayerPoseCallback(frameKps);
+
+                // 执行动作识别
+                if (frameKps != null && !frameKps.isEmpty()) {
+                    // 假定只跟踪第一个玩家
+                    float[] actionProb = playerPoseEstimator.classifyKeypoints(
+                        frameKps.get(0), 
+                        cameraCapturedWidth, 
+                        cameraCapturedHeight
+                    );
+                    if (actionProb != null) {
+                        // 由于接口中没有onActionPredictCallback方法，我们可以通过其他方式处理动作识别结果
+                        // 例如：可以将结果记录到日志中，或者通过其他回调方法传递
+                        Log.d("FrameAnalyzer", "Action probabilities: S=" + actionProb[0] + 
+                            ", B=" + actionProb[1] + ", N=" + actionProb[2] + ", F=" + actionProb[3]);
+                        listener.onActionPredictCallback(actionProb);
+                    }
+                }
+            }
+
+            // Calculate FPS
+            completedFramesCnt.incrementAndGet();
+            long currentTic = System.currentTimeMillis();
+            if (currentTic - lastTic >= 1000) {
+                completedFpsCnt = completedFramesCnt.get();
+                completedFramesCnt.set(0);
+                lastTic = currentTic;
+                Log.d("FrameAnalyzer", "Completed FPS: " + completedFpsCnt);
+                if (listener != null) {
+                    listener.onPerformanceCallback(completedFpsCnt);
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Shuts down all threads and executors used by the pipeline.
+     */
+    public void shutdownExecutor() {
+        PreprocessThreadPool.getInstance().shutdown();
+        playerExecutor.shutdownNow();
+        tennisExecutor.shutdownNow();
+        poseExecutor.shutdown();
+        inferenceThread.quitSafely();
+    }
+}

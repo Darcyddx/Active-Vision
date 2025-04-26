@@ -1,0 +1,172 @@
+package com.example.active_vision_qualcomm.Trackers;
+
+import android.content.Context;
+import android.util.Pair;
+
+import com.example.active_vision_qualcomm.data.KeyPoint;
+import com.example.active_vision_qualcomm.tflite_helpers.AIHubDefaults;
+import com.example.active_vision_qualcomm.tflite_helpers.TFLiteHelpers;
+
+import org.tensorflow.lite.DataType;
+import org.tensorflow.lite.Delegate;
+import org.tensorflow.lite.Interpreter;
+import org.tensorflow.lite.Tensor;
+
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.MappedByteBuffer;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+public class PlayerPoseEstimator implements AutoCloseable {
+    private Interpreter tfLiteInterpreter;
+    private DataType inputType;
+    private DataType outputType;
+    private int[] inputShape;
+    private int[] outputShape;
+    private float inputScale = 1.0f;
+    private int inputZeroPoint = 0;
+    private float outputScale = 1.0f;
+    private int outputZeroPoint = 0;
+
+    // 缓存最近30帧的关键点序列
+    private final List<float[]> sequenceBuffer = new ArrayList<>();
+    // 最后一次计算的概率结果
+    private float[] lastProbabilities = null;
+
+    public PlayerPoseEstimator(Context context, String modelPath,
+                               TFLiteHelpers.DelegateType[][] delegatePriorityOrder) throws IOException, NoSuchAlgorithmException {
+        // 加载TFLite模型文件
+        // 假设模型文件存储在assets，使用TFLiteHelpers工具加载
+         Pair<MappedByteBuffer, String> modelAndHash = TFLiteHelpers.loadModelFile(context.getAssets(), modelPath);
+
+        Pair<Interpreter, Map<TFLiteHelpers.DelegateType, Delegate>> iResult = TFLiteHelpers.CreateInterpreterAndDelegatesFromOptions(
+                modelAndHash.first,
+                delegatePriorityOrder,
+                AIHubDefaults.numCPUThreads,
+                context.getApplicationInfo().nativeLibraryDir,
+                context.getCacheDir().getAbsolutePath(),
+                modelAndHash.second
+        );
+        tfLiteInterpreter = iResult.first;
+        // 获取模型输入/输出张量信息
+        Tensor inTensor = tfLiteInterpreter.getInputTensor(0);
+        Tensor outTensor = tfLiteInterpreter.getOutputTensor(0);
+        inputType = inTensor.dataType();
+        outputType = outTensor.dataType();
+        inputShape = inTensor.shape();    // 应为 [1, 30, 26]
+        outputShape = outTensor.shape();  // 应为 [1, 4]
+        // 如果是量化模型，则记录量化参数（scale和zeroPoint）
+        if (inputType == DataType.UINT8 || inputType == DataType.INT8) {
+            inputScale = inTensor.quantizationParams().getScale();
+            inputZeroPoint = inTensor.quantizationParams().getZeroPoint();
+        }
+        if (outputType == DataType.UINT8 || outputType == DataType.INT8) {
+            outputScale = outTensor.quantizationParams().getScale();
+            outputZeroPoint = outTensor.quantizationParams().getZeroPoint();
+        }
+    }
+
+    /**
+     * 添加一帧的关键点并在缓冲满30帧时执行动作分类。
+     * @param keypoints 当前帧检测到的关键点列表（长度应包含17个关键点，包含鼻子、肩、肘、腕、髋、膝、踝等）
+     * @param frameWidth 当前帧图像宽度（用于归一化坐标）
+     * @param frameHeight 当前帧图像高度
+     * @return 如果已推理则返回4长度的概率数组[serve, backhand, neutral, forehand]；否则返回null
+     */
+    public synchronized float[] classifyKeypoints(List<KeyPoint> keypoints, int frameWidth, int frameHeight) {
+        if (keypoints == null || keypoints.isEmpty()) {
+            // 若当前帧无人体关键点，清空缓冲避免旧数据干扰
+            sequenceBuffer.clear();
+            lastProbabilities = null;
+            return null;
+        }
+
+        // 提取13个关键点（去除眼睛耳朵等），构建长度26的特征向量
+        int[] usefulIndices = {0, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}; // 鼻子和主要关节点
+        float[] featureVec = new float[usefulIndices.length * 2];
+        int j = 0;
+        for (int idx : usefulIndices) {
+            KeyPoint kp = keypoints.get(idx);
+            // 获取坐标
+            float x = (float) kp.getPoint().x;
+            float y = (float) kp.getPoint().y;
+            // 如果需要，进行归一化，将坐标缩放到0~1区间
+            x /= frameWidth;
+            y /= frameHeight;
+            featureVec[j++] = x;
+            featureVec[j++] = y;
+        }
+
+        // 将该帧特征加入序列缓冲
+        sequenceBuffer.add(featureVec);
+        if (sequenceBuffer.size() > 30) {
+            // 若超过30帧，移除最早的一帧，实现滑动窗口
+            sequenceBuffer.remove(0);
+        }
+
+        // 未达到30帧，不进行推理
+        if (sequenceBuffer.size() < 30) {
+            return null;
+        }
+
+        // 构建输入张量 [1,30,26]
+        // 将30帧特征复制到一个一维数组或直接创建多维数组
+        float[][][] inputSeq = new float[1][30][26];
+        for (int t = 0; t < 30; t++) {
+            inputSeq[0][t] = sequenceBuffer.get(t);
+        }
+        // 执行推理，根据模型输入类型选择合适的数据格式
+        if (inputType == DataType.FLOAT32) {
+            // 浮点模型，直接输入浮点数组
+            float[][] output = new float[1][4];
+            tfLiteInterpreter.run(inputSeq, output);
+            lastProbabilities = output[0];
+        } else {
+            // 量化模型，需要将浮点输入转换为uint8/int8
+            ByteBuffer inputBuffer = ByteBuffer.allocateDirect(30 * 26);  // 780字节
+            inputBuffer.order(ByteOrder.nativeOrder());
+            for (int t = 0; t < 30; t++) {
+                for (int k = 0; k < 26; k++) {
+                    // 将浮点按scale和zeroPoint量化为uint8
+                    int quantVal = Math.round(sequenceBuffer.get(t)[k] / inputScale + inputZeroPoint);
+                    // 确保在0~255范围内
+                    if (quantVal < 0) quantVal = 0;
+                    if (quantVal > 255) quantVal = 255;
+                    inputBuffer.put((byte) quantVal);
+                }
+            }
+            // 准备输出缓冲区
+            ByteBuffer outputBuffer = ByteBuffer.allocateDirect(4);
+            outputBuffer.order(ByteOrder.nativeOrder());
+            tfLiteInterpreter.run(inputBuffer, outputBuffer);
+            
+            outputBuffer.rewind();
+            // 将输出缓冲区的4个字节解量化为概率值
+            lastProbabilities = new float[4];
+            for (int i = 0; i < 4; i++) {
+                int quantOut = outputBuffer.get() & 0xFF;  // 读出无符号uint8值
+                lastProbabilities[i] = (quantOut - outputZeroPoint) * outputScale;
+            }
+        }
+        return lastProbabilities;
+    }
+
+    /**
+     * 获取最近一次推理的击球动作概率结果。
+     */
+    public synchronized float[] getLastProbabilities() {
+        return lastProbabilities;
+    }
+
+    @Override
+    public void close() {
+        if (tfLiteInterpreter != null) {
+            tfLiteInterpreter.close();
+            tfLiteInterpreter = null;
+        }
+    }
+}

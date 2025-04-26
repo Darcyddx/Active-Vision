@@ -1,0 +1,17 @@
+{
+  "installationFolder": "C:\\Users\\Striker\\StudioProjects\\Active-Vision-App\\opencv\\build\\intermediates\\prefab_package\\release\\prefab",
+  "gradlePath": ":opencv",
+  "packageInfo": {
+    "packageName": "opencv",
+    "packageSchemaVersion": 2,
+    "packageDependencies": [],
+    "modules": [
+      {
+        "moduleName": "opencv_jni_shared",
+        "moduleHeaders": "C:\\Users\\Striker\\StudioProjects\\Active-Vision-App\\opencv\\native\\jni\\include",
+        "moduleExportLibraries": [],
+        "abis": []
+      }
+    ]
+  }
+}

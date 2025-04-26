@@ -1,0 +1,87 @@
+plugins {
+    alias(libs.plugins.android.application)
+}
+
+android {
+    namespace 'com.example.active_vision_qualcomm'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.active_vision_qualcomm"
+        minSdk 31
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        resValue("string", "TrackNetModelAssetFP16", project.properties["tracknet_fp16_tfLiteModelAsset"])
+        resValue("string", "TrackNetModelAssetUINT8", project.properties["tracknet_uint8_tfLiteModelAsset"])
+        resValue("string", "PlayerDetModelAssetUINT8", project.properties["player_det_uint8_tfLiteModelAsset"])
+        resValue("string", "PoseEstLiteHrModelAssetUINT8", project.properties["pose_est_litehrnet_uint8_tfLiteModelAsset"])
+        resValue("string", "PoseEstLiteHrModelAssetFP16", project.properties["pose_est_litehrnet_fp16_tfLiteModelAsset"])
+        resValue("string", "PoseEstMobileModelAssetFP16", project.properties["pose_est_mobilenet_fp16_tfLiteModelAsset"])
+        resValue("string", "PoseEstRNNModelAsset", project.properties["pose_est_rnn_tfLiteModelAsset"])
+        resValue("string", "PoseEstRNNUnrolledModelAsset", project.properties["pose_est_rnn_unrolledModelAsset"])
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    packagingOptions {
+        jniLibs.useLegacyPackaging true
+    }
+    sourceSets {
+        main {
+            assets {
+                srcDirs 'src/main/assets', 'src/AndroidTestassets', 'src/androidTest/assets'
+            }
+        }
+    }
+}
+
+dependencies {
+
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.activity
+    implementation libs.constraintlayout
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+
+    api 'org.tensorflow:tensorflow-lite:2.16.1'
+    api 'org.tensorflow:tensorflow-lite-support:0.4.4'
+    implementation 'org.tensorflow:tensorflow-lite-gpu:2.16.1'
+    implementation 'org.tensorflow:tensorflow-lite-gpu-api:2.16.1'
+    implementation 'org.tensorflow:tensorflow-lite-gpu-delegate-plugin:0.4.4'
+    implementation 'org.tensorflow:tensorflow-lite-select-tf-ops:2.16.1'
+
+    implementation 'com.qualcomm.qti:qnn-runtime:2.27.0'
+    implementation 'com.qualcomm.qti:qnn-tflite-delegate:2.27.0'
+
+    // CameraX core library using the camera2 implementation
+    def camerax_version = "1.5.0-alpha03"
+    // The following line is optional, as the core library is included indirectly by camera-camera2
+    implementation "androidx.camera:camera-core:${camerax_version}"
+    implementation "androidx.camera:camera-camera2:${camerax_version}"
+    // If you want to additionally use the CameraX Lifecycle library
+    implementation "androidx.camera:camera-lifecycle:${camerax_version}"
+    // If you want to additionally use the CameraX VideoCapture library
+    // implementation "androidx.camera:camera-video:${camerax_version}"
+    // If you want to additionally use the CameraX View class
+    implementation "androidx.camera:camera-view:${camerax_version}"
+
+    implementation project(':opencv')
+
+
+}
