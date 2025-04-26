@@ -55,7 +55,7 @@ public class FragmentRender extends View {
     private final Paint mKpsLinePaint = new Paint();
 
     private Paint mActionProbPaint;
-    private static final String[] ACTION_LABELS = {"发球", "反手", "中立", "正手"};
+    private static final String[] ACTION_LABELS = {"Serve", "Backhand", "Neutral", "Forehand"};
     private static final int[] ACTION_COLORS = {Color.RED, Color.BLUE, Color.GRAY, Color.GREEN};
     private static final String TAG = FragmentRender.class.getSimpleName();// 日志标签
 
