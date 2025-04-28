@@ -198,7 +198,9 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
             List<BallPos> ballPosList = res.getBallPositions();
             if (ballPosList != null && !ballPosList.isEmpty()) {
                 BallPos firstBall = ballPosList.get(0);  // take first ball
-                ballHitAnalyzer.update(firstBall, System.currentTimeMillis());
+                if (firstBall != null) {
+                    ballHitAnalyzer.update(firstBall, System.currentTimeMillis());
+                }
             }
             // Calculate FPS
             completedFramesCnt.incrementAndGet();

@@ -38,6 +38,9 @@ public class BallHitAnalyzer{
      * @param timestamp Current frame timestamp (milliseconds)
      */
     public void update(BallPos ballPos, long timestamp) {
+        if (ballPos == null) {
+            return;
+        }
         BallRecord current = new BallRecord(ballPos.getX(), ballPos.getY(), timestamp);
         history.add(current);
 
