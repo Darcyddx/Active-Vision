@@ -35,6 +35,8 @@ public class FragmentRender extends View {
     private final Paint mBallPosPaint = new Paint();
     private final Paint mTextColor = new Paint();
     private final Paint mPlayerDetPaint = new Paint();
+    private Float lastSpeedKmh = null;  // ball speed
+    private String lastShotType = null; // ball hit type
 
     public FragmentRender(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -70,6 +72,10 @@ public class FragmentRender extends View {
             }
         }
         canvas.drawText("FPS: " + fps, 50, 50, mTextColor);
+        if (lastSpeedKmh != null && lastShotType != null) {
+            String speedInfo = String.format("Speed: %.1f km/h (%s)", lastSpeedKmh, lastShotType);
+            canvas.drawText(speedInfo, 50, 120, mTextColor);
+        }
         mLock.unlock();
     }
 
@@ -115,6 +121,17 @@ public class FragmentRender extends View {
 
     public void renderPerformanceInfo(long fps) {
         this.fps = fps;
+        invalidate();
+    }
+
+    public void renderBallSpeed(float speedKmh, String shotType) {
+        mLock.lock();
+        try {
+            this.lastSpeedKmh = speedKmh;
+            this.lastShotType = shotType;
+        } finally {
+            mLock.unlock();
+        }
         invalidate();
     }
 }

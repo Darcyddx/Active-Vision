@@ -7,8 +7,11 @@ import androidx.annotation.NonNull;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageProxy;
 
+import com.example.activevision.data.BallHitResult;
 import com.example.activevision.data.BallPos;
 import com.example.activevision.data.Bbox;
+
+import com.example.activevision.result.BallHitAnalyzerListener;
 import com.example.activevision.result.FrameRes;
 import com.example.activevision.result.TrackerResListener;
 import com.example.activevision.threadings.NamingThreadFactory;
@@ -46,7 +49,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
 
     // Listener to dispatch results and performance metrics
     private final TrackerResListener listener;
-
+    private final BallHitAnalyzer ballHitAnalyzer;
     // Queue to store three consecutive frames for ball tracking
     private final Queue<Bitmap> frameBuffer = new ConcurrentLinkedQueue<>();
     private final ReentrantLock mLock = new ReentrantLock(); // Lock to synchronize frame buffer operations
@@ -74,9 +77,11 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
 
     public FrameAnalyzer(BallTracker tennisTracker,
                          PlayerDetector playerDetector,
-                         TrackerResListener listener) {
+                         TrackerResListener listener, BallHitAnalyzer ballHitAnalyzer) {
         this.tennisTracker = tennisTracker;
         this.playerDetector = playerDetector;
+
+        this.ballHitAnalyzer = ballHitAnalyzer;
         this.listener = listener;
 
         tennisExecutor = new ThreadPoolExecutor(
@@ -98,6 +103,8 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
                 ),
                 new NamingThreadFactory("PlayerDetThread")
         );
+
+
 
     }
     @Override
@@ -188,6 +195,11 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
             listener.onBallPosCallback(res.getBallPositions());
             listener.onPlayerDetCallback(res.getPlayerDetList());
 
+            List<BallPos> ballPosList = res.getBallPositions();
+            if (ballPosList != null && !ballPosList.isEmpty()) {
+                BallPos firstBall = ballPosList.get(0);  // take first ball
+                ballHitAnalyzer.update(firstBall, System.currentTimeMillis());
+            }
             // Calculate FPS
             completedFramesCnt.incrementAndGet();
             long currentTic = System.currentTimeMillis();

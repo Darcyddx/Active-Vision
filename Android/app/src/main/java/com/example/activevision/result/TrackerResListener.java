@@ -13,4 +13,5 @@ public interface TrackerResListener {
     // to get fps result
     void onPerformanceCallback(long fps);
 
+    void onShotInfoCallback(String shotType, float speedKmh);
 }
