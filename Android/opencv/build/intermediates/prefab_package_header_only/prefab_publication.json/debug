@@ -1,5 +1,5 @@
 {
-  "installationFolder": "D:\\Active-Vision\\Android\\opencv\\build\\intermediates\\prefab_package\\debug\\prefab",
+  "installationFolder": "C:\\Users\\13819\\StudioProjects\\Active-Vision\\Android\\opencv\\build\\intermediates\\prefab_package\\debug\\prefab",
   "gradlePath": ":opencv",
   "packageInfo": {
     "packageName": "opencv",
@@ -8,7 +8,7 @@
     "modules": [
       {
         "moduleName": "opencv_jni_shared",
-        "moduleHeaders": "D:\\Active-Vision\\Android\\opencv\\native\\jni\\include",
+        "moduleHeaders": "C:\\Users\\13819\\StudioProjects\\Active-Vision\\Android\\opencv\\native\\jni\\include",
         "moduleExportLibraries": [],
         "abis": []
       }

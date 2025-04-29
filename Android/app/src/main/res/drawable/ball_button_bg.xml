@@ -1,0 +1,6 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="#D4FF00" /> <!-- 网球主色 -->
+    <stroke android:width="4dp" android:color="#AEEA00"/> <!-- 模拟缝线边框 -->
+    <size android:width="200dp" android:height="200dp" />
+</shape>

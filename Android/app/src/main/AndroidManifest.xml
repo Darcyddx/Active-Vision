@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
 
     <application
@@ -14,20 +16,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ActiveVision"
         tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
 
         <uses-native-library
             android:name="libcdsprpc.so"
-            android:required="false" />
-
-        <!-- For GPUv2 delegate -->
+            android:required="false" /> <!-- For GPUv2 delegate -->
         <uses-native-library
             android:name="libOpenCL.so"
-            android:required="false"/>
+            android:required="false" />
 
         <activity
-            android:name=".MainActivity"
-            android:screenOrientation="landscape"
-            android:exported="true">
+            android:name=".StartupActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

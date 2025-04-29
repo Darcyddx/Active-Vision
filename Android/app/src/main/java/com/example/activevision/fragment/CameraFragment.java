@@ -63,7 +63,6 @@ public class CameraFragment extends Fragment implements TrackerResListener {
 
     // Analyzer responsible for processing camera frames
     private FrameAnalyzer analyzer;
-
     public CameraFragment() {
         // Required empty public constructor
     }
