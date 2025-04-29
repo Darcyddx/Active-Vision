@@ -3,7 +3,7 @@
 **ID:** USER-001  
 **Title:** Android Interface for Tennis App  
 **Priority:** Low  
-**Milestone:** Sprint 3
+**Milestone:** Sprint 2
 
 #### User Story Description
 **As an** Android phone user,  
@@ -93,7 +93,7 @@
 **ID:** USER-003  
 **Title:** Ball Position Detection Relative to Court  
 **Priority:** Medium  
-**Milestone:** Sprint 3
+**Milestone:** Sprint 1
 
 #### User Story Description
 **As a** tennis coach,  
