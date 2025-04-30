@@ -9,6 +9,15 @@
 
 - Try on other models
 
+### Xi Ding
+## What have I done?
+
+- Explore the calculation of ball speed
+
+## What am I doing next? 
+
+- cooperate with Xingchen to design algorithm for ball speed calculation
+
 ### Xingchen Zhang
 ## What have I done?
 

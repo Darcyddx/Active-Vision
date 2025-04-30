@@ -9,7 +9,14 @@
 
 - research how other people train court (badminton for example)
 
+### Xi Ding
+## What have I done?
 
+- Explore the calculation of ball speed
+
+## What am I doing next? 
+
+- cooperate with Xingchen to design algorithm for ball speed calculation
 
 
 ### Xingchen Zhang
