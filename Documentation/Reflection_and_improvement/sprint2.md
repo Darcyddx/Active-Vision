@@ -45,12 +45,41 @@ In summary, Agile's sprint-based structure and ongoing collaboration with the cl
 
 ## Reflection on successes
 
+
 ## Area of Improvements
 
+
 ## Key lessons learned during the sprint
+1.  **Integrating External Libraries Needs Careful Planning:**
+    *   Adding tools like OpenPose or MediaPipe wasn't just a coding task. We spent significant time setting up the necessary configurations, making sure the versions were compatible with our existing project, and figuring out how to correctly feed our player detection data into the pose estimation model.
+    *   There were unexpected small issues, like specific installation steps and understanding the exact input format the library needed. This "setup" and "learning curve" took up a noticeable chunk of the 7 SP estimated for integration.
+    *   **Lesson:** For future sprints involving new, complex libraries, we should specifically budget time not just for *using* the library, but also for *installing, configuring, and learning* its basics. Estimations should account for potential setup hurdles.
+
+2.  **Defining Specific Poses is Complex and Iterative:**
+    *   Trying to classify "forehand" vs. "backhand" using just the skeleton points (pose estimation output) proved quite challenging. We realized that people perform these poses differently – variations in style, speed, and even camera angle made it hard to create simple rules (like "if elbow angle is X, it's a forehand").
+    *   We likely spent time trying different rules, testing them on various video clips, and finding they didn't always work. The 8 SP for this task reflects this difficulty.
+    *   **Lesson:** Simple rules might not be enough for reliable pose classification. We need clearer definitions, possibly more examples (data) of each pose, or maybe even explore slightly more advanced classification techniques later. Getting this right requires testing with lots of different examples early on.
+
+3.  **Real-Time Performance is a Major Hurdle:**
+    *   Getting the pose estimation model to run fast enough for a smooth, real-time experience was a significant challenge, as reflected in the 6 SP dedicated to optimization. We found that running the complex pose models on every single video frame could slow down the app considerably or use too much battery.
+    *   We had to investigate *why* it was slow (e.g., model size, image resolution) and experiment with solutions like using a simpler model, reducing the input video size, or finding smarter ways to process the frames.
+    *   **Lesson:** Performance for real-time features cannot be an afterthought. We must consider the processing speed right from the beginning when choosing models and designing the workflow. Optimization isn't just a final polish; it's a core part of making real-time feedback usable. We need to keep monitoring performance as we add more features.
+
+4.  **Dependencies Between Tasks Can Cause Bottlenecks:**
+    *   We saw how tightly connected our tasks were. For example, work on overlaying posture points and developing the feedback system couldn't really start properly until the basic pose estimation was working reasonably well.
+    *   If the pose estimation was inaccurate or delayed, it directly impacted multiple other tasks.
+    *   **Lesson:** We need to be very mindful of these dependencies when planning sprints. If a critical task like pose estimation is proving difficult, it puts other related tasks at risk. We should communicate blockers clearly and perhaps think about building temporary data or simpler versions so other work can continue in parallel where possible.
+
+5.  **Translating Pose Data into Useful Feedback Requires Thought:**
+    *   Simply drawing the skeleton points on the screen is one thing, but turning that information into helpful coaching advice is another level of complexity. We learned that just knowing the joint positions isn't enough.
+    *   We need to figure out *what* the user needs to know and how to translate the raw angles and positions from the pose model into that simple, actionable advice. This required thinking about the *meaning* behind the pose, not just the data itself.
+    *   **Lesson:** Building an effective feedback system requires more than just technical skill. It needs an understanding of tennis technique and careful consideration of how to present information clearly to the user. We should probably involve user testing or expert input early to make sure the feedback we plan to give is actually helpful and easy to understand.
 
 ## Actionable improvements
 
+
 ## Task estimations and velocity tracking
 
+
 ## Evaluation based on reflection
+
