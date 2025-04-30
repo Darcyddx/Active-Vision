@@ -9,3 +9,15 @@
 ## What am I doing next? 
 
 - draw mini map with the court
+
+
+
+### Pei Ling Lam
+## What have I done?
+
+- attended client meeting
+- explore the android monitor
+
+## What am I doing next? 
+
+- consider deploy teammates' model
