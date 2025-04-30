@@ -8,3 +8,13 @@
 ## What am I doing next? 
 
 - deploy onnx to tflite
+
+
+### Xingchen Zhang
+## What have I done?
+
+- creat the code of BallHit class to calculate the ball speed in apps
+
+## What am I doing next? 
+
+- to show the number in camera
