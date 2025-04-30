@@ -18,6 +18,7 @@ android {
         resValue("string", "TrackNetModelAssetFP16", project.properties["tracknet_fp16_tfLiteModelAsset"])
         resValue("string", "TrackNetModelAssetUINT8", project.properties["tracknet_uint8_tfLiteModelAsset"])
         resValue("string", "PlayerDetModelAssetUINT8", project.properties["player_det_uint8_tfLiteModelAsset"])
+        resValue("string", "CourtDetectionModelAssetOnnx", project.properties["court_det_detectron2_uint8_onnxModelAsset"])
     }
 
     buildTypes {
@@ -42,6 +43,10 @@ android {
         }
     }
 
+    aaptOptions {
+        noCompress "onnx" // Prevent .onnx model from being compressed
+    }
+
 }
 
 dependencies {
@@ -62,6 +67,9 @@ dependencies {
 
     implementation 'com.qualcomm.qti:qnn-runtime:2.26.0'
     implementation 'com.qualcomm.qti:qnn-tflite-delegate:2.26.0'
+
+    implementation 'com.microsoft.onnxruntime:onnxruntime-android:latest.release'
+    implementation 'com.microsoft.onnxruntime:onnxruntime-extensions-android:latest.release'
 
     // CameraX core library using the camera2 implementation
     def camerax_version = "1.5.0-alpha03"

@@ -15,6 +15,7 @@ import com.example.activevision.threadings.NamingThreadFactory;
 import com.example.activevision.threadings.PreprocessThreadPool;
 import com.example.activevision.trackers.BallTracker;
 import com.example.activevision.trackers.PlayerDetector;
+import com.example.activevision.trackers.CourtDetector;
 
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
@@ -30,6 +31,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
+
+import ai.onnxruntime.OrtSession;
+
 /**
  * The BallTracker class integrates TensorFlow Lite for model inference to detect and track
  * the position of tennis balls in video frames. It leverages optimized machine learning models
@@ -43,6 +47,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
 
     private final BallTracker tennisTracker;
     private final PlayerDetector playerDetector;
+    private final CourtDetector courtDetector;
 
     // Listener to dispatch results and performance metrics
     private final TrackerResListener listener;
@@ -56,6 +61,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
 
     private final ThreadPoolExecutor tennisExecutor;
     private final ThreadPoolExecutor playerExecutor;
+    private final ThreadPoolExecutor courtExecutor;
 
     // Frame counters
     private final AtomicLong frameCounter = new AtomicLong(1); // Global frame index for tracking
@@ -74,9 +80,11 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
 
     public FrameAnalyzer(BallTracker tennisTracker,
                          PlayerDetector playerDetector,
+                         CourtDetector courtDetector,
                          TrackerResListener listener) {
         this.tennisTracker = tennisTracker;
         this.playerDetector = playerDetector;
+        this.courtDetector = courtDetector;
         this.listener = listener;
 
         tennisExecutor = new ThreadPoolExecutor(
@@ -98,6 +106,16 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
                 ),
                 new NamingThreadFactory("PlayerDetThread")
         );
+
+        courtExecutor = new ThreadPoolExecutor(
+                1,
+                1,
+                0L,
+                TimeUnit.MILLISECONDS,
+                new PriorityBlockingQueue<>(128,
+                        Comparator.comparingLong(task -> ((PrioritizedTask) task).getFrameIndex())
+                ),
+                new NamingThreadFactory("CourtDetThread"));
 
     }
     @Override
@@ -122,6 +140,12 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
         } else {
             playerSkipDetection(frameIdx);
         }
+
+
+        // perform court detection task
+        PreprocessThreadPool.getInstance().submitTask(
+                new CourtDetTask(frameIdx, frameIdx, input, frameHeight, frameWidth)
+        );
 
         // Perform ball tracking (requires 3 consecutive frames)
         mLock.lock();
@@ -187,6 +211,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
 
             listener.onBallPosCallback(res.getBallPositions());
             listener.onPlayerDetCallback(res.getPlayerDetList());
+            listener.onCourtDetCallback(res.getCourtKps());
 
             // Calculate FPS
             completedFramesCnt.incrementAndGet();
@@ -208,6 +233,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
         PreprocessThreadPool.getInstance().shutdown();
 
         tennisExecutor.shutdownNow();
+        courtExecutor.shutdownNow();
 
     }
 
@@ -317,6 +343,42 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
 
         private void submitPoseEstimationTask(long frameIdx, Bitmap inputBitmap, List<Bbox> bboxes) {
            //TODO: TO be implement
+        }
+    }
+
+    public class CourtDetTask implements Runnable {
+        private final long frameIdx;
+        private final Bitmap inputBitmap;
+        private final int inputHeight;
+        private final int inputWidth;
+
+        public CourtDetTask(long frameIdx, Bitmap inputBitmap, int inputHeight, int inputWidth) {
+            this.frameIdx = frameIdx;
+            this.inputBitmap = inputBitmap;
+            this.inputHeight = inputHeight;
+            this.inputWidth = inputWidth;
+        }
+
+        @Override
+        public void run() {
+            try {
+                float[][][][] courtDetInput = courtDetector.preprocess(inputBitmap);
+
+                courtExecutor.submit(new PrioritizedTask(frameIdx, () -> {
+                    OrtSession.Result outputs = courtDetector.inference(inputTensorData);
+                    float[][][] courtkps = courtDetector.postprocess(outputs);
+
+                    // Store the results for this frame
+                    FrameRes frameRes = resultsMap.get(frameIdx);
+                    if (frameRes != null) {
+                        frameRes.setCourtKps(courtkps);
+                    }
+                    retrieveFrameResult();
+
+                }));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

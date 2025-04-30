@@ -30,6 +30,7 @@ import com.example.activevision.data.Bbox;
 import com.example.activevision.result.TrackerResListener;
 import com.example.activevision.trackers.BallTracker;
 import com.example.activevision.trackers.PlayerDetector;
+import com.example.activevision.trackers.CourtDetector;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import org.opencv.android.OpenCVLoader;
@@ -61,6 +62,8 @@ public class CameraFragment extends Fragment implements TrackerResListener {
 
     private PlayerDetector playerDetector;
 
+    private CourtDetector courtDetector;
+
     // Analyzer responsible for processing camera frames
     private FrameAnalyzer analyzer;
 
@@ -75,10 +78,12 @@ public class CameraFragment extends Fragment implements TrackerResListener {
      * @return A new instance of fragment CameraFragment.
      */
     public static CameraFragment newInstance(BallTracker tracker,
-                                             PlayerDetector playerDetector) {
+                                             PlayerDetector playerDetector,
+                                             CourtDetector courtDetecto) {
         CameraFragment fragment = new CameraFragment();
         fragment.tennisTracker = tracker;
         fragment.playerDetector = playerDetector;
+        fragment.courtDetector = courtDetector;
         return fragment;
     }
 
@@ -91,7 +96,7 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // analyzer = new FrameAnalyzer(tennisTracker, playerDetector, this);
-        analyzer = new FrameAnalyzer(tennisTracker, playerDetector,this);
+        analyzer = new FrameAnalyzer(tennisTracker, playerDetector,courtDetector, this);
 
     }
 
@@ -222,6 +227,15 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     public void onPlayerDetCallback(List<Bbox> bboxes) {
         requireActivity().runOnUiThread(() -> {
             mFragmentRender.renderPlayerPos(bboxes);
+        });
+    }
+
+    @Override
+    public void onCourtDetCallback(float[][][] courtKps) {
+        requireActivity().runOnUiThread(() -> {
+            mFragmentRender.renderCourtPos(courtKps,
+                    analyzer.getCameraCapturedWidth(),
+                    analyzer.getCameraCapturedHeight());
         });
     }
 

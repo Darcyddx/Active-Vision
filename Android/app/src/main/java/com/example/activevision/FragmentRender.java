@@ -16,6 +16,7 @@ import com.example.activevision.data.BallPos;
 import com.example.activevision.data.Bbox;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -32,9 +33,20 @@ public class FragmentRender extends View {
     private long fps;
     private List<BallPos> ballPositions = new ArrayList<>();
     private List<Bbox> playerDetBoxes = new ArrayList<>();
+    private final float[][] courtKeyPoints = new float[14][2];
     private final Paint mBallPosPaint = new Paint();
     private final Paint mTextColor = new Paint();
     private final Paint mPlayerDetPaint = new Paint();
+    private final Paint courtkpPaint = new Paint();
+    private final Paint courtLinePaint = new Paint();
+
+    private final int[][] connections = {
+            {0, 1}, {0, 10}, {1, 2}, {1, 4},
+            {2, 3}, {2, 6}, {3, 13},
+            {4, 5}, {4, 7}, {5, 6}, {5, 8}, {6, 9},
+            {7, 11}, {7, 8}, {8, 9}, {9, 12}, {10, 11},
+            {11, 12}, {12, 13}
+    };
 
     public FragmentRender(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -51,6 +63,13 @@ public class FragmentRender extends View {
         mPlayerDetPaint.setColor(Color.YELLOW); // Set bounding box color
         mPlayerDetPaint.setStyle(Paint.Style.STROKE); // Outline only
         mPlayerDetPaint.setStrokeWidth(5f); // Thickness of the bounding box
+
+        courtkpPaint.setColor(Color.GREEN);
+        courtkpPaint.setStyle(Paint.Style.FILL);
+
+        courtLinePaint.setColor(Color.GREEN);
+        courtLinePaint.setStyle(Paint.Style.STROKE);
+        courtLinePaint.setStrokeWidth(4f);
 
 
     }
@@ -69,6 +88,31 @@ public class FragmentRender extends View {
                 canvas.drawRect(box.getRect(), mPlayerDetPaint);
             }
         }
+
+        // draw court keypoints
+        for (int i = 0; i < 14; i++) {
+            float x = this.courtKeyPoints[i][0];
+            float y = this.courtKeyPoints[i][1];
+
+            canvas.drawCircle(x, y, 6f, this.courtkpPaint);
+
+        }
+
+        // draw court lines
+        for (int[] line : this.connections) {
+            int i1 = line[0];
+            int i2 = line[1];
+            float x1 = this.courtKeyPoints[i1][0];
+            float y1 = this.courtKeyPoints[i1][1];
+            float x2 = this.courtKeyPoints[i2][0];
+            float y2 = this.courtKeyPoints[i2][1];
+
+            if (x1 >= 0 && x2 >= 0 && y1 >= 0 && y2 >= 0) {
+                canvas.drawLine(x1, y1, x2, y2, this.courtLinePaint);
+            }
+        }
+
+
         canvas.drawText("FPS: " + fps, 50, 50, mTextColor);
         mLock.unlock();
     }
@@ -110,6 +154,32 @@ public class FragmentRender extends View {
             this.playerDetBoxes.add(new Bbox(box.getClsId(), box.getCnf(), cx, cy, width, height,
                     new RectF(left, top, right, bottom)));
         }
+        invalidate();
+    }
+
+    public void renderCourtPos(float[][][] courtKps, int inputWidth, int inputHeight) {
+        if (courtKps == null) {
+            invalidate();
+            return;
+        }
+
+        // Clear old keypoints
+        for (int i = 0; i < this.courtKeyPoints.length; i++) {
+            Arrays.fill(this.courtKeyPoints[i], 0f);
+        }
+
+        float scaleX = (float) inputWidth / 640f;
+        float scaleY = (float) inputHeight / 640f;
+
+        float[][] keypoints = courtKps[0]; // [14][3]
+
+        for (int i = 0; i < 14; i++) {
+
+            this.courtKeyPoints[i][0] = keypoints[i][0] * scaleX;
+            this.courtKeyPoints[i][1] = keypoints[i][1] * scaleY;
+        }
+
+        // Request redraw of the view
         invalidate();
     }
 
