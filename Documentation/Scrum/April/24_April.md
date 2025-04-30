@@ -8,3 +8,12 @@
 ## What am I doing next? 
 
 - draw mini map with the court
+
+### Xingchen Zhang
+## What have I done?
+
+- Explore the ball hitting action recognition model
+
+## What am I doing next? 
+
+- consider the availability among these methods.

@@ -8,3 +8,15 @@
 ## What am I doing next? 
 
 - research how other people train court (badminton for example)
+
+
+
+
+### Xingchen Zhang
+## What have I done?
+
+- Explore the calculation of ball speed and hitting posture method
+
+## What am I doing next? 
+
+- decide to choose available method applied and consider the delay when using camera

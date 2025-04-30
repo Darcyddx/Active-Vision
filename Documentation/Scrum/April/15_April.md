@@ -27,3 +27,10 @@
 ## What am I doing next? 
 
 - continue to label
+
+### Xingchen Zhang
+## What have I done?
+- studied and get familiar with the relevant OpenPose packages and operations.
+
+## What am I doing next? 
+- develop and integrate MediaPipe for pose estimation
