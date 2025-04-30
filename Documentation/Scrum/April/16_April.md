@@ -26,3 +26,13 @@
 ## What am I doing next? 
 
 - continue to label
+
+### Xingchen Zhang
+
+## What have I done?
+
+- write down agile planning document
+
+## What am I doing next? 
+
+- Combining the experience of the responsible students in model development to achieve results
