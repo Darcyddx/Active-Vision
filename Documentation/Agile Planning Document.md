@@ -21,6 +21,7 @@ Small (S): 1-3 SP (Easy, minimal dependencies)
 Medium (M): 4-6 SP (Some dependencies, moderate effort)
 Large (L): 7-10 SP (Complex, critical dependencies)
 
+### Sprint 1
 ![Burn-down graph for sprint1](https://github.com/user-attachments/assets/4e7177ce-edba-40ab-839e-30481183fa5f)
 
 
@@ -35,6 +36,10 @@ Moving to Iteration 2 (W04), the team planned to complete 19 story points but de
 In Iteration 3 (W04), the team planned to complete 26 story points and successfully delivered 18, showing continued growth in productivity. Although there is still a gap between planned and done, the team has demonstrated consistent progress over the iterations, suggesting improved planning accuracy and execution efficiency. However, the persistent gap highlights areas where further refinement in estimation or process optimization may be needed.
 
 Overall, the chart reveals a positive trend in the team's ability to deliver more work over time, but it also underscores the need for ongoing improvements in planning accuracy and addressing any bottlenecks that prevent full completion of planned work. Continuous monitoring and adaptation will be crucial to achieving higher alignment between planned and actual velocities.
+
+### Sprint 2
+
+![Sprint2](https://github.com/user-attachments/assets/d6774145-5c34-4d54-ae38-984adf65bcc6)
 
 ## 3. Sprint Goals/Milestones
 
