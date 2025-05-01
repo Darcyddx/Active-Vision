@@ -2,7 +2,7 @@
 
 - [Table of Contents](#table-of-contents)
 - [Complete Tasks](#complete-tasks)
-  - [Player Keypoints Detection/Pose Estimation On Android](#player-keypoints-detection/Pose-estimation-on-android)
+  - [Player Keypoints Detection Pose Estimation On Android](#player-keypoints-detection-pose-estimation-on-android)
   - [Tennis Swing Recognition on Android](#tennis-swing-recognition-on-android)
 - [Successes from Sprint 1](#Successes from Sprint 1)
   - [Challenges Faced](#challenges-faced)
@@ -10,7 +10,7 @@
   - [Feedback from Sprint 1 Review](#feedback-from-sprint-1-review)
   - [Actions Based on Feedback](#actions-based-on-feedback)
   - [Reflection on Agile Methodology and Weekly Client Feedback](#reflection-on-agile-methodology-and-weekly-client-feedback)
-- [Player Keypoints Detection/Pose Estimation On Android](#Player Keypoints Detection/Pose Estimation On Android)
+- [Player Keypoints Detection Pose Estimation On Android](#player-keypoints-detection-pose-estimation-on-android)
   - [The good parts](#the-good-parts-1)
   - [Challenges](#challenges-1)
   - [Actionable improvement](#actionable-improvement-1)
@@ -72,7 +72,7 @@ Although feedback in some weeks was minimal, the presence of a structured channe
 
 In summary, Agile's sprint-based structure and ongoing collaboration with the client fostered a focused, iterative, and responsive development cycle. It allowed us to maintain momentum while staying aligned with both technical goals and user expectations.
 
-## Player Keypoints Detection / Pose Estimation on Android
+## Player Keypoints Detection Pose Estimation on Android
 
 ### The good parts 1
 * **Light-weight model choice.** Replacing MoveNet with **MobileNetV2-based keypoint detection** cut the TFLite file to ~4.3 MB after FP16 quantisation, keeping memory overhead low for mid-tier devices.  
