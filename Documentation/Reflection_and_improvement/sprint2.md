@@ -2,7 +2,7 @@
 
 - [Table of Contents](#table-of-contents)
 - [Complete Tasks](#complete-tasks)
-  - [Player Keypoints Detection/Pose Estimation On Android](#player-keypoints-detection/pose-estimation-on-android)
+  - [Player Keypoints Detection/Pose Estimation On Android](#player-keypoints-detection/Pose-estimation-on-android)
   - [Tennis Swing Recognition on Android](#tennis-swing-recognition-on-android)
 - [Successes from Sprint 1](#Successes from Sprint 1)
   - [Challenges Faced](#challenges-faced)
@@ -14,7 +14,7 @@
   - [The good parts](#the-good-parts-1)
   - [Challenges](#challenges-1)
   - [Actionable improvement](#actionable-improvement-1)
-- [Tennis Swing Recognition on Android](#Tennis Swing Recognition on Android)
+- [Tennis Swing Recognition on Android](#tennis-swing-recognition-on-android)
   - [The good parts](#the-good-parts-2)
   - [Challenges](#challenges-2)
   - [Actionable improvement](#actionable-improvement-2)
