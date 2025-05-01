@@ -17,13 +17,13 @@
 - [Tennis Swing Recognition on Android](#Tennis Swing Recognition on Android)
   - [The good parts](#the-good-parts-2)
   - [Challenges](#challenges-2)
-  - [Actionable improvement](#actionable-improvement-1)
+  - [Actionable improvement](#actionable-improvement-2)
 - [Reflection on successes](#reflection-on-successes)
 - [Area of Improvements](#area-of-improvements)
 - [Key lessons learned during the sprint](#key-lessons-learned-during-the-sprint)
 - [Actionable improvements](#actionable-improvements)
 - [Task estimations and velocity tracking](#task-estimations-and-velocity-tracking)
-- [Evaluation based on reflection](#Evaluation based on reflection)
+- [Evaluation based on reflection](#evaluation-based-on-reflection)
 
 
 
