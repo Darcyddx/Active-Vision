@@ -4,7 +4,7 @@
 - [Complete Tasks](#complete-tasks)
   - [Player Keypoints Detection Pose Estimation On Android](#player-keypoints-detection-pose-estimation-on-android)
   - [Tennis Swing Recognition on Android](#tennis-swing-recognition-on-android)
-- [Successes from Sprint 1](#Successes from Sprint 1)
+- [Successes from Sprint 1](#successes-from-sprint-1)
   - [Challenges Faced](#challenges-faced)
   - [Areas for Improvement](#areas-for-improvement)
   - [Feedback from Sprint 1 Review](#feedback-from-sprint-1-review)
