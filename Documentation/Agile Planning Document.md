@@ -57,7 +57,6 @@ Overall, the chart reveals a positive trend in the team's ability to deliver mor
 | Integrate OpenPose/MediaPipe for pose estimation                   | 	7 SP       | Player detection |
 | Extract and classify tennis postures (forehand, backhand)	         | 8 SP        | Pose model setup |
 | Overlay key posture points on the app UI                           | 	5 SP       | Pose estimation  |
-| Develop initial real-time feedback system for posture correction	  | 7 SP        | Pose tracking    |
 | Optimize inference time to maintain real-time processing           | 	6 SP       | Model tuning     |
 **Sprint goal**: Detect human poses and classify tennis movements
 
