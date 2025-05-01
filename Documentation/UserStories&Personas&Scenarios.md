@@ -36,7 +36,7 @@
 - **Dependencies:** None
 - **Technical Notes:** Ensure compatibility with Android device NPU.  
 - **Notes:** Test on multiple even old Android devices for consistency.
-- **Related Issues:** 
+- **Related Issues:** [#9](https://github.com/Darcyddx/Active-Vision/issues/9), [#14](https://github.com/Darcyddx/Active-Vision/issues/14),, [#23](https://github.com/Darcyddx/Active-Vision/issues/23), [#26](https://github.com/Darcyddx/Active-Vision/issues/26), [#27](https://github.com/Darcyddx/Active-Vision/issues/27), [#36](https://github.com/Darcyddx/Active-Vision/issues/36), [#39](https://github.com/Darcyddx/Active-Vision/issues/39),[#40](https://github.com/Darcyddx/Active-Vision/issues/40), [#42](https://github.com/Darcyddx/Active-Vision/issues/42), [#46](https://github.com/Darcyddx/Active-Vision/issues/46), [#47](https://github.com/Darcyddx/Active-Vision/issues/47)
 
 ---
 
