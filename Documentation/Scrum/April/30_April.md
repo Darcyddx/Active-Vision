@@ -24,3 +24,13 @@
 ## What am I doing next? 
 
 - correct the reasonable speed and do some modifications
+
+### Yichi Zhang
+
+## What have I done?
+
+- Debug the Android Project
+
+## What am I doing next? 
+
+- Implement result visualization by annotating keypoints on the video frames and debug

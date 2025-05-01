@@ -8,3 +8,13 @@
 ## What am I doing next? 
 
 - setup android studio environment
+
+### Yichi Zhang
+
+## What have I done?
+
+- Integrate pose estimation models into the Android project.
+
+## What am I doing next? 
+
+- Debug

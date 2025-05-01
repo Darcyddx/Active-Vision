@@ -17,3 +17,13 @@
 ## What am I doing next? 
 
 - deploy method in github repository
+
+### Yichi Zhang
+
+## What have I done?
+
+- Convert the trained TensorFlow RNN models to TensorFlow Lite format to ensure they can run on mobile devices
+
+## What am I doing next? 
+
+- Met some error and try to fix it.

@@ -21,3 +21,15 @@
 ## What am I doing next? 
 
 - consider deploy teammates' model
+
+
+
+### Yichi Zhang
+
+## What have I done?
+
+- Adjust the RNN model input format to make it can detect dynamic actions rather than static poses
+
+## What am I doing next? 
+
+- Debug and train model

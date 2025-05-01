@@ -27,3 +27,14 @@
 ## What am I doing next? 
 
 - decide to choose available method applied and consider the delay when using camera
+
+### Yichi Zhang
+
+## What have I done?
+
+- Annotate some new dataset and check all the format, well-prepared for the model training.
+
+## What am I doing next? 
+
+- Review the principles of existing models, understand how it work
+

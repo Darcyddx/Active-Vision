@@ -26,3 +26,14 @@
 ## What am I doing next? 
 
 - take consideration of Integrated Model effect in Android devices
+
+### Yichi Zhang
+
+## What have I done?
+
+- Review the principles of existing models, understand how it work
+
+## What am I doing next? 
+
+- Focus on MobileNetV2 existing application and explore how to detect tennis player pose with keypoints
+

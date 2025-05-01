@@ -16,3 +16,13 @@
 
 ## What am I doing next? 
 - develop and integrate OpenPose/MediaPipe for pose estimation
+
+### Yichi Zhang
+
+## What have I done?
+
+- Organize datasets to fit existing pre-training and fine-tuning codes.
+
+## What am I doing next? 
+
+- Annotate some new dataset and check all the format, well-prepared for the model training.

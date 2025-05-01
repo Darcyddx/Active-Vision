@@ -8,3 +8,13 @@
 ## What am I doing next? 
 
 - debugging on the training script
+
+### Yichi Zhang
+
+## What have I done?
+
+- Select and fine-tune a suitable pose estimation model, learn RNN and LSTM, two basic methods to distinguish one shot pose
+
+## What am I doing next? 
+
+- Build RNN training code

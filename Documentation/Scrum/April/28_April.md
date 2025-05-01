@@ -18,3 +18,13 @@
 ## What am I doing next? 
 
 - to show the number in camera
+
+### Yichi Zhang
+
+## What have I done?
+
+- Perform FP16 quantization to reduce the model size and improve inference speed
+
+## What am I doing next? 
+
+- Integrate pose estimation models into the Android project.

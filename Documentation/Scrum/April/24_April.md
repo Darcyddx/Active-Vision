@@ -17,3 +17,13 @@
 ## What am I doing next? 
 
 - consider the availability among these methods.
+
+### Yichi Zhang
+
+## What have I done?
+
+- Build RNN training code
+
+## What am I doing next? 
+
+- Adjust the RNN model input format to make it can detect dynamic action
