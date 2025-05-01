@@ -21,9 +21,7 @@
 
 ### Xi Ding
 ## What have I done?
+- Researched and identified key posture points relevant to the app’s use case and defined their visual representation 
 
-- Set up the basic layout for the camera view in the app
-
-## What am I doing next? 
-
-- Added the necessary camera permission request to the app's manifest file
+## What am I doing next?
+- Analyze the app’s UI layout to determine optimal placement for posture point overlays without obstructing critical elements

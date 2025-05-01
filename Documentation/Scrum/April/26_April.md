@@ -12,11 +12,10 @@
 ### Xi Ding
 ## What have I done?
 
-- Implement camera start and stop management to make sure the camera starts when the activity resumes and stops when it pauses.
+- Built a prototype for rendering posture points dynamically on the UI and tested it with sample data for initial functionality
 
-## What am I doing next? 
-
-- Made sure the camera starts when the screen is active and stops correctly when the app is paused
+## What am I doing next?
+- Implement logic to adjust posture point positions based on user interactions or device orientation, ensuring responsiveness
 
 ### Xingchen Zhang
 ## What have I done?

@@ -22,8 +22,7 @@
 ### Xi Ding
 ## What have I done?
 
-- Cleaned up the camera integration code
+- Implemented logic for posture point repositioning based on user interactions and device orientation, verifying responsiveness across screen sizes
 
-## What am I doing next? 
-
-- Add basic checks to handle cases where camera permission might not be granted by the user.
+## What am I doing next?
+- Conduct user testing to evaluate the visibility and usability of the posture point overlays, collecting feedback

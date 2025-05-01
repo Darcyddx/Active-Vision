@@ -12,11 +12,10 @@
 ### Xi Ding
 ## What have I done?
 
-- Integrate the Android CameraX library to access the device camera
+- Analyzed the app’s UI layout and identified suitable areas for posture point overlays, ensuring minimal interference with core UI elements
 
-## What am I doing next? 
-
-- Focused on the initial configuration to get a camera instance
+## What am I doing next?
+- Design mockups for the posture point overlays, focusing on clarity and alignment with the app’s visual style
 
 ### Xingchen Zhang
 ## What have I done?

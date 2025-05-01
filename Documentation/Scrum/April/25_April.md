@@ -13,11 +13,10 @@
 ### Xi Ding
 ## What have I done?
 
-- Connect the camera preview stream to the UI element
+- Created mockups for posture point overlays, ensuring aesthetic consistency, and gathered initial feedback from the design team
 
-## What am I doing next? 
-
-- Manage to get the live camera feed showing on the screen
+## What am I doing next?
+- Develop a prototype to dynamically render posture points on the UI, testing integration with sample data
 
 ### Xingchen Zhang
 ## What have I done?

@@ -22,8 +22,8 @@
 ### Xi Ding
 ## What have I done?
 
-- Debug with camera feed integration codes
+- Refined the posture point overlay system, improving performance, visual clarity, and resolving bugs from user testing feedback
 
-## What am I doing next? 
+## What am I doing next?
 
-- test whether camera feed integration codes can run correctly in mobile phones
+- Finalize the implementation, document the feature, and prepare for deployment with a final stakeholder review

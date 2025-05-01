@@ -38,8 +38,7 @@
 ### Xi Ding
 ## What have I done?
 
-- Finished with camera feed integration codes
+- Finalized the posture point overlay implementation
 
-## What am I doing next? 
-
-- check with ball speed algorithm's correctness
+### What am I doing next?
+- Compile documentations and review
