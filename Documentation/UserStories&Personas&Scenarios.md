@@ -86,7 +86,7 @@
 - **Dependencies:** US-001 (Android Interface)
 - **Technical Notes:** Requires integration with device camera and basic ML model for the detections.  
 - **Notes:** Focus on simplicity for beginners; avoid overwhelming with too many functions.
-- **Related Issues:** 
+- **Related Issues:** [#21](https://github.com/Darcyddx/Active-Vision/issues/21), [#36](https://github.com/Darcyddx/Active-Vision/issues/36)
 
 ---
 
