@@ -15,15 +15,15 @@
 
 ## 2. Estimation and Velocity Tracking
 
+### Sprint 1
+
 Each task is estimated based on its complexity and dependencies. Time is allocated in story points (SP) where:
 
 Small (S): 1-3 SP (Easy, minimal dependencies)
 Medium (M): 4-6 SP (Some dependencies, moderate effort)
 Large (L): 7-10 SP (Complex, critical dependencies)
 
-### Sprint 1
 ![Burn-down graph for sprint1](https://github.com/user-attachments/assets/4e7177ce-edba-40ab-839e-30481183fa5f)
-
 
 During Sprint 1 of our project, we utilized a Burn-down Chart to closely monitor the progression of tasks and ensure timely completion. This tool depicted the number of remaining tasks over the course of the sprint, ideally demonstrating a downward trajectory as tasks were completed. Initially, we observed a steady decrease in task count, indicating a productive start. However, mid-sprint, there was a noticeable increase in remaining tasks, suggesting the introduction of new tasks or unexpected challenges that were not initially accounted for. Towards the end of the sprint, a sharp decline followed by a slight rise in the task count was evident, highlighting a significant push by the team to wrap up tasks, though some last-minute additions or incomplete tasks slightly altered the expected end trajectory. This Burn-down Chart proved essential for maintaining an overview of project status and dynamically adjusting our strategies to address any arising challenges effectively.
 
@@ -40,6 +40,20 @@ Overall, the chart reveals a positive trend in the team's ability to deliver mor
 ### Sprint 2
 
 ![Sprint2](https://github.com/user-attachments/assets/d6774145-5c34-4d54-ae38-984adf65bcc6)
+
+The velocity chart for **"Active Vision"** outlines the progression of planned versus completed (done) story points across four iterations: *Before Mid-term*, *Week07*, *Week08*, and *Week09*. This visualization helps assess the team’s planning accuracy and delivery performance over time.
+
+In the **Before Mid-term** phase, the team planned 26 story points but only completed 18. This initial gap reflects early-stage challenges, potentially due to underestimating task complexity or overcommitting. It sets a baseline for measuring future improvement.
+
+During **Week07**, planned work increased to 30 points, with 22 story points completed. This iteration marks a clear productivity improvement—both in total completed work and in narrowing the gap between planned and done. The increase in completed story points may indicate better familiarity with project scope and improved team coordination.
+
+In **Week08**, planning rose significantly to 39 story points, yet only 23 were delivered. While there is a slight improvement in actual velocity compared to the previous week, the growing gap suggests either over-ambitious planning or potential execution bottlenecks that limited output.
+
+By **Week09**, the team planned the highest amount of work—46 story points—and delivered 36. This is the best performance across all iterations, both in terms of absolute completed work and the ratio of planned-to-done (nearly 78%). It suggests that the team has matured in its sprint planning and execution capacity.
+
+Overall, there is a steady upward trend in both planned and completed story points, indicating improving productivity. The gap between planned and completed work decreases over time, especially in Week09, which shows strong planning-execution alignment. The team should continue refining estimation practices, ensuring workload matches realistic capacity, and identifying early blockers that may limit progress.
+
+Would you like this formatted into a slide or report section?
 
 ## 3. Sprint Goals/Milestones
 
