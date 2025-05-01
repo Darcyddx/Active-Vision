@@ -26,3 +26,15 @@
 
 ## What am I doing next?
 - Conduct user testing to evaluate the visibility and usability of the posture point overlays, collecting feedback
+
+
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Finish transfer python implementation to JAVA, and test the keypoints-detection code on Android
+
+## What am I doing next?
+
+- Integrate keypoints-detection code with ball tracking, player detection models

@@ -27,3 +27,17 @@
 ## What am I doing next?
 
 - Finalize the implementation, document the feature, and prepare for deployment with a final stakeholder review
+
+
+
+
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Refine thread-pool from pre-defined `Executors` to my own defined `ThreadPoolExecutor` with fixed pool size to avoid OOM error
+
+## What am I doing next?
+
+- Test keypoints detection logic

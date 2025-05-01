@@ -37,3 +37,12 @@
 
 - Focus on MobileNetV2 existing application and explore how to detect tennis player pose with keypoints
 
+### Zhiyuan Lu
+
+## What have I done?
+
+- Select some images from COCO-Pose dataset, and convert LiteHRNet onnx model to tflite int8
+
+## What am I doing next? 
+
+- Figure out how to perform LiteHRNet post-processing from mmpose library.

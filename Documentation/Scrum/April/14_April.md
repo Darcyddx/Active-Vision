@@ -23,3 +23,15 @@
 ## What am I doing next? 
 
 - do research on previous tennis pose estimation work
+
+
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Learn different keypoints estimation algorithm (HRNet, LiteHRNet, OpenPose...)
+
+## What am I doing next? 
+
+- Read through these papers, go through the code.

@@ -39,3 +39,15 @@
 ## What am I doing next? 
 
 - Debug and train model
+
+
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Implement inverse of the affine transformation matrix to transfer the coodinates back to the original image's coodinate system
+
+## What am I doing next? 
+
+- Transfer the python implementation code to JAVA

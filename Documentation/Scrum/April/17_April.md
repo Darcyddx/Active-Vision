@@ -26,3 +26,14 @@
 ## What am I doing next? 
 
 - Annotate some new dataset and check all the format, well-prepared for the model training.
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Based on player detection results (bounding box information), figure out how to crop players from image and scale to 256 * 192
+- Write python code for affine transformation
+
+## What am I doing next? 
+
+- Test the code for player cropping.

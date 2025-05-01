@@ -35,3 +35,15 @@
 ## What am I doing next? 
 
 - Adjust the RNN model input format to make it can detect dynamic action
+
+
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Implement the code in post-processing - subpixel refinement and test the code
+
+## What am I doing next? 
+
+- Implement the final step in post-processing-transfer the coordinate back to the original image's coordinate

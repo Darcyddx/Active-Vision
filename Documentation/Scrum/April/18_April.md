@@ -38,3 +38,16 @@
 
 - Review the principles of existing models, understand how it work
 
+
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Test the code for player cropping.
+- Write python code for pre-processing each cropped image
+
+## What am I doing next? 
+
+- Convert LiteHRNet onnx model to tflite
+

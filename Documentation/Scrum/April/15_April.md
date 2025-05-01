@@ -34,3 +34,15 @@
 
 ## What am I doing next? 
 - develop and integrate MediaPipe for pose estimation
+
+
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- After  read through the paper, LiteHRNet seems be the optimal network for deployment on mobile device
+
+## What am I doing next? 
+
+- Read through the code in mmpose, and find out how to deploy.

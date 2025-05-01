@@ -27,3 +27,15 @@
 ## What am I doing next? 
 
 - Integrate the ball speed calculation algorithm with the Android system
+
+
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Read through the code in mmpose for post-processing, and learn what is subpixel refinement
+
+## What am I doing next? 
+
+- write python code for post-processing

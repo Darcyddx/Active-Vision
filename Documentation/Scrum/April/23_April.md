@@ -25,3 +25,13 @@
 
 ## What am I doing next?
 - Analyze the app’s UI layout to determine optimal placement for posture point overlays without obstructing critical elements
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Implement the code in post-processing - for each 17 heatmap outputs, find the largest pixel value in heatmap and find that coordinate in heatmap.
+
+## What am I doing next? 
+
+- Implement subpixel refinement

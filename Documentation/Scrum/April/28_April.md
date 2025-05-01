@@ -36,3 +36,15 @@
 
 ## What am I doing next?
 - Refine the overlay system based on user feedback, optimizing performance and addressing any identified bugs
+
+
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Integrate keypoints-detection code with ball tracking, player detection models
+
+## What am I doing next?
+
+- Refine thread-pool logic to avoid OOM error

@@ -36,3 +36,15 @@
 ## What am I doing next? 
 
 - Combining the experience of the responsible students in model development to achieve results
+
+
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Convert LiteHRNet provided in official github repo to onnx
+
+## What am I doing next? 
+
+- Write pre-processing code for LiteHRNet.

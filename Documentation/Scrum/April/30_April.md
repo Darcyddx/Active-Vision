@@ -42,3 +42,14 @@
 
 ### What am I doing next?
 - Compile documentations and review
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Test keypoints detection logic
+
+### What am I doing next?
+
+- Integrate all models logics
+
