@@ -52,12 +52,12 @@ Overall, the chart reveals a positive trend in the team's ability to deliver mor
 
 
 ### Sprint 2 - Player pose estimation
-| Task	                                                              | Estimation	 | Dependencies	    |
-|--------------------------------------------------------------------|-------------|------------------|
-| Integrate OpenPose/MediaPipe for pose estimation                   | 	7 SP       | Player detection |
-| Extract and classify tennis postures (forehand, backhand)	         | 8 SP        | Pose model setup |
-| Overlay key posture points on the app UI                           | 	5 SP       | Pose estimation  |
-| Optimize inference time to maintain real-time processing           | 	6 SP       | Model tuning     |
+| Task	                                                              | Estimation	 | Dependencies	    | Task allocation     |
+|--------------------------------------------------------------------|-------------|------------------| ---------------------|
+| Integrate OpenPose/MediaPipe for pose estimation                   | 	7 SP       | Player detection |  Zhiyuan Lu  Yichi Zhang |
+| Extract and classify tennis postures (forehand, backhand)	         | 8 SP        | Pose model setup |  Peiling Lam   Tao Lu |
+| Overlay key posture points on the app UI                           | 	5 SP       | Pose estimation  |  Xi Ding  |
+| Optimize inference time to maintain real-time processing           | 	6 SP       | Model tuning     |  Kerry    |
 **Sprint goal**: Detect human poses and classify tennis movements
 
 ### Sprint 3 - Court detection
