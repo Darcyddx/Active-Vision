@@ -9,6 +9,15 @@
 
 - draw keypoints on java using deployed detectron2 tflite
 
+### Xi Ding
+## What have I done?
+
+- Implement camera start and stop management to make sure the camera starts when the activity resumes and stops when it pauses.
+
+## What am I doing next? 
+
+- Made sure the camera starts when the screen is active and stops correctly when the app is paused
+
 ### Xingchen Zhang
 ## What have I done?
 

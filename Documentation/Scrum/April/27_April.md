@@ -18,3 +18,12 @@
 ## What am I doing next? 
 
 - Perform FP16 quantization to reduce the model size and improve inference speed
+
+### Xi Ding
+## What have I done?
+
+- Cleaned up the camera integration code
+
+## What am I doing next? 
+
+- Add basic checks to handle cases where camera permission might not be granted by the user.

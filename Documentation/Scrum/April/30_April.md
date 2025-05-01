@@ -34,3 +34,12 @@
 ## What am I doing next? 
 
 - Implement result visualization by annotating keypoints on the video frames and debug
+
+### Xi Ding
+## What have I done?
+
+- Finished with camera feed integration codes
+
+## What am I doing next? 
+
+- check with ball speed algorithm's correctness

@@ -18,3 +18,12 @@
 ## What am I doing next? 
 
 - Build RNN training code
+
+### Xi Ding
+## What have I done?
+
+- Set up the basic layout for the camera view in the app
+
+## What am I doing next? 
+
+- Added the necessary camera permission request to the app's manifest file

@@ -18,3 +18,12 @@
 ## What am I doing next? 
 
 - Debug
+
+### Xi Ding
+## What have I done?
+
+- Debug with camera feed integration codes
+
+## What am I doing next? 
+
+- test whether camera feed integration codes can run correctly in mobile phones

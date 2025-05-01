@@ -10,7 +10,14 @@
 
 - draw mini map with the court
 
+### Xi Ding
+## What have I done?
 
+- Connect the camera preview stream to the UI element
+
+## What am I doing next? 
+
+- Manage to get the live camera feed showing on the screen
 
 ### Xingchen Zhang
 ## What have I done?
