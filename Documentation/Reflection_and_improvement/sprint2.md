@@ -72,6 +72,47 @@ Although feedback in some weeks was minimal, the presence of a structured channe
 
 In summary, Agile's sprint-based structure and ongoing collaboration with the client fostered a focused, iterative, and responsive development cycle. It allowed us to maintain momentum while staying aligned with both technical goals and user expectations.
 
+## Player Keypoints Detection / Pose Estimation on Android
+
+### The good parts
+* **Light-weight model choice.** Replacing MoveNet with **MobileNetV2-based keypoint detection** cut the TFLite file to ~4.3 MB after FP16 quantisation, keeping memory overhead low for mid-tier devices.  
+* **Real-time FPS on device.** With the GPU delegate enabled we measured ~25 FPS on a Pixel 6 and ~18 FPS on a Galaxy A54—well above the 15 FPS target for smooth overlays.  
+* **Clean Android abstraction.** The new `PlayerPoseEstimator` helper wraps interpreter initialisation, output parsing, and drawing utilities, keeping the CameraX pipeline uncluttered.  
+* **Dataset alignment.** Sprint 2 finished annotating and trimming the 13-joint format that downstream models expect, unifying data from the public TennisFrames set and our own recordings.  
+
+### Challenges
+* **Keypoint jitter & ID swaps.** Because MobileNetV2 outputs single-frame predictions, fast motions occasionally swap wrists/elbows between frames, propagating noise into the RNN.  
+* **Device fragmentation.** Older phones without a GPU/NPU delegate throttle to <10 FPS; keeping both CPU and GPU paths doubled maintenance work.  
+* **Conversion quirks.** Some custom ops were exported as *SELECT_TF_OPS*, inflating the binary until we rewrote them as pure TFLite ops.  
+
+### Actionable improvement
+1. **Temporal smoothing.** Add a one-euro filter or exponential moving average on joint positions before feeding the RNN to suppress jitter.  
+2. **Lazy delegate selection.** Detect available NNAPI/GPU delegates at runtime and fall back gracefully, logging FPS for real-world stats.  
+3. **Quantisation-aware retraining.** Re-train MobileNetV2 with INT8 QAT to push FPS even higher on low-end hardware while preserving accuracy.  
+
+---
+
+## Tennis Swing Recognition on Android
+
+### The good parts
+* **End-to-end pipeline working on-device.** We now stream 30 × 13 × 2 keypoints into a sliding window and feed a **bidirectional GRU-based RNN** (`tennis_rnn.tflite`), producing 4-class soft-max probabilities every frame (Serve, Forehand, Backhand, Neutral).  
+* **Unified tensor shape.** Standardising on `[1 × 30 × 26]` simplifies both Java and native pipelines and matches the training script.  
+* **Visual feedback.** Action labels and per-class confidence bars render in the live preview, immediately exposing mis-classifications during field testing.  
+
+### Challenges
+* **Cold-start latency.** The first inference after interpreter creation takes ~250 ms because of model allocation and delegate initialisation—noticeable when the user opens the camera.  
+* **Class imbalance.** Serve samples are <6 % of the training set, so recall is only 0.61 versus 0.88–0.92 for groundstrokes.  
+* **Sequential buffering.** Maintaining a 30-frame ring buffer per player thread-safely while keeping GC pressure low required several refactors.  
+
+### Actionable improvement
+1. **Pre-warm interpreters.** Move TFLite interpreter creation into the Application class and keep a warmed-up singleton to hide cold-start delays.  
+2. **Data augmentation.** Generate synthetic Serve sequences (speed variation, horizontal flips, temporal warping) to balance the dataset and raise Serve recall above 0.8.  
+3. **Early-exit strategy.** Investigate frame-wise confidence accumulation so obvious actions can exit the window early, reducing average inference cost from 30 to ~20 frames.  
+
+---
+
+
+
 ## Reflection on successes
 
 
