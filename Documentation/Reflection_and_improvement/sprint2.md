@@ -1,3 +1,32 @@
+## Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [Complete Tasks](#complete-tasks)
+  - [Player Keypoints Detection/Pose Estimation On Android](#Player Keypoints Detection/Pose Estimation On Android)
+  - [Tennis Swing Recognition on Android](#Tennis Swing Recognition on Android)
+- [Successes from Sprint 1](#Successes from Sprint 1)
+  - [Challenges Faced](#Challenges Faced)
+  - [Areas for Improvement](#Areas for Improvement)
+  - [Feedback from Sprint 1 Review](#Feedback from Sprint 1 Review)
+  - [Actions Based on Feedback](Actions Based on Feedback)
+  - [Reflection on Agile Methodology and Weekly Client Feedback](Reflection on Agile Methodology and Weekly Client Feedback)
+- [Player Keypoints Detection/Pose Estimation On Android](#Player Keypoints Detection/Pose Estimation On Android)
+  - [The good parts](#the-good-parts-1)
+  - [Challenges](#challenges-1)
+  - [Actionable improvement](#actionable-improvement-1)
+- [Tennis Swing Recognition on Android](#Tennis Swing Recognition on Android)
+  - [The good parts](#the-good-parts-2)
+  - [Challenges](#challenges-2)
+  - [Actionable improvement](#actionable-improvement-1)
+- [Reflection on successes](#reflection-on-successes)
+- [Area of Improvements](#area-of-improvements)
+- [Key lessons learned during the sprint](#key-lessons-learned-during-the-sprint)
+- [Actionable improvements](#actionable-improvements)
+- [Task estimations and velocity tracking](#task-estimations-and-velocity-tracking)
+- [Evaluation based on reflection](#Evaluation based on reflection)
+
+
+
 ## Successes from Sprint 1
 
 - Successfully integrated OpenPose/MediaPipe for pose estimation within the Android app, following the successful completion of player detection in Sprint 1.
