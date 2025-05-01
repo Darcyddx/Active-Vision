@@ -182,4 +182,4 @@
 - **Dependencies:** US-002 (Ball Trajectory Detection)  
 - **Technical Notes:** Speed calculation requires frame-by-frame analysis; ensure accuracy within ±5 km/h.  
 - **Notes:** Option to toggle between metric and imperial units.
-- **Related Issues:** [#39](https://github.com/Darcyddx/Active-Vision/issues/39), [#45](https://github.com/Darcyddx/Active-Vision/issues/45), [#50](https://github.com/Darcyddx/Active-Vision/issues/50)
+- **Related Issues:**  [#45](https://github.com/Darcyddx/Active-Vision/issues/45), [#50](https://github.com/Darcyddx/Active-Vision/issues/50)
