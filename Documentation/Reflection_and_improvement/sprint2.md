@@ -116,9 +116,6 @@ In summary, Agile's sprint-based structure and ongoing collaboration with the cl
 ## Reflection on successes
 
 
-## Area of Improvements
-
-
 ## Key lessons learned during the sprint
 1.  **Integrating External Libraries Needs Careful Planning:**
     *   Adding tools like OpenPose or MediaPipe wasn't just a coding task. We spent significant time setting up the necessary configurations, making sure the versions were compatible with our existing project, and figuring out how to correctly feed our player detection data into the pose estimation model.
