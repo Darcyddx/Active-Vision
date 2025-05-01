@@ -36,6 +36,7 @@
 - **Dependencies:** None
 - **Technical Notes:** Ensure compatibility with Android device NPU.  
 - **Notes:** Test on multiple even old Android devices for consistency.
+- **Related Issues:** 
 
 ---
 
@@ -85,6 +86,7 @@
 - **Dependencies:** US-001 (Android Interface)
 - **Technical Notes:** Requires integration with device camera and basic ML model for the detections.  
 - **Notes:** Focus on simplicity for beginners; avoid overwhelming with too many functions.
+- **Related Issues:** 
 
 ---
 
@@ -131,6 +133,7 @@
 - **Technical Notes:**  Implementation requires precise court boundary recognition and might require manual calibration to account for variations in court dimensions and color differences in court surfaces.
 - **Notes:** Coaches may need an export feature for session analysis (future story).
 - **Future Improvement:** Consider adding an export feature for detailed session analysis and player development tracking.
+- **Related Issues:** 
 
 ---
 
@@ -179,3 +182,4 @@
 - **Dependencies:** US-002 (Ball Trajectory Detection)  
 - **Technical Notes:** Speed calculation requires frame-by-frame analysis; ensure accuracy within ±5 km/h.  
 - **Notes:** Option to toggle between metric and imperial units.
+- **Related Issues:** 
