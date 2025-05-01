@@ -41,3 +41,11 @@
 ## What am I doing next?
 
 - Test keypoints detection logic
+
+
+### Tao Lu
+## What have I done?
+- Design and beautify the app ui
+
+## What am I doing next? 
+- Design and beautify the app ui

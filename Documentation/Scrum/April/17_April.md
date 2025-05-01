@@ -37,3 +37,11 @@
 ## What am I doing next? 
 
 - Test the code for player cropping.
+
+
+### Tao Lu
+## What have I done?
+- Learn the structure of the key point loss in Ultralytics and introduce the SmoothL1Loss.
+
+## What am I doing next? 
+- Draw the visual images of the predicted key points during the training process.

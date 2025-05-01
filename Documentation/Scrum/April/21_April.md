@@ -46,3 +46,11 @@
 ## What am I doing next? 
 
 - Figure out how to perform LiteHRNet post-processing from mmpose library.
+
+
+### Tao Lu
+## What have I done?
+- Use mask.repeat_interleave(2) to expand to a mask at the coordinate level
+
+## What am I doing next? 
+- Compare the prediction performance of the models of different epochs on the validation set.

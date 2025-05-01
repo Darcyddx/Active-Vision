@@ -53,3 +53,11 @@
 
 - Integrate all models logics
 
+
+### Tao Lu
+## What have I done?
+- Design and beautify the app ui
+
+## What am I doing next? 
+- Design and beautify the app ui
+

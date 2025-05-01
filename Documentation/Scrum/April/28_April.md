@@ -48,3 +48,10 @@
 ## What am I doing next?
 
 - Refine thread-pool logic to avoid OOM error
+
+### Tao Lu
+## What have I done?
+- Add a model loading button for selecting the locale.tflite file or using the default model
+
+## What am I doing next? 
+- The structure of the overlay layer was designed (with a transparent Canvas superimposed on top of the preview).

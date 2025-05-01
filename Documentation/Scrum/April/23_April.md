@@ -35,3 +35,10 @@
 ## What am I doing next? 
 
 - Implement subpixel refinement
+
+### Tao Lu
+## What have I done?
+- The key points were smoothed by the univariate filter, and the jitter was significantly reduced after the test.
+
+## What am I doing next? 
+- No framework structure (skeleton_pairs=None) was used in the experiment; pure coordinate regression was preferred.

@@ -48,3 +48,11 @@
 ## What am I doing next? 
 
 - Write pre-processing code for LiteHRNet.
+
+
+### Tao Lu
+## What have I done?
+- Multiple training iterations were conducted, attempting different batch sizes, learning rates, and input sizes (such as 640, 512).
+
+## What am I doing next? 
+- Train a more lightweight model structure to reduce frame latency for adaptation to mobile devices.

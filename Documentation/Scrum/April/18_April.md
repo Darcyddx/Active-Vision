@@ -51,3 +51,11 @@
 
 - Convert LiteHRNet onnx model to tflite
 
+
+### Tao Lu
+## What have I done?
+- Add Albumentations data enhancement: left and right flipping, brightness adjustment, rotation.
+
+## What am I doing next? 
+- Modify the data loading logic and use the mask to eliminate the invisible key points
+

@@ -46,3 +46,10 @@
 ## What am I doing next? 
 
 - Read through the code in mmpose, and find out how to deploy.
+
+### Tao Lu
+## What have I done?
+- The Ultralytics framework was used to test whether the data and labels could be loaded correctly.
+
+## What am I doing next? 
+- Analyze the training logs, observe the changing trend of the loss, and confirm whether the model has learned the key point positions.

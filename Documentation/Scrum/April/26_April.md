@@ -47,3 +47,10 @@
 ## What am I doing next? 
 
 - Transfer to JAVA code
+
+### Tao Lu
+## What have I done?
+- Organize the training and validation curve graphs
+
+## What am I doing next? 
+- Generating model comparison graphs with matplotlib (YOLOv8 vs EfficientNet)

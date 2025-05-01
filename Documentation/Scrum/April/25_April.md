@@ -51,3 +51,10 @@
 ## What am I doing next? 
 
 - Transfer the python implementation code to JAVA
+
+### Tao Lu
+## What have I done?
+- The automatic fallback mechanism successfully triggered the CPU path, and the interface did not crash.
+
+## What am I doing next? 
+- Reduce the input image size (such as 320) to further alleviate the burden.

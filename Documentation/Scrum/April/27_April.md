@@ -38,3 +38,11 @@
 ## What am I doing next?
 
 - Integrate keypoints-detection code with ball tracking, player detection models
+
+
+### Tao Lu
+## What have I done?
+- The main startup interface (StartupActivity) of the App was designed and built, including the title text, startup button and icon layout.
+
+## What am I doing next? 
+- The basic logic of clicking the button to jump to the camera interface has been realized.

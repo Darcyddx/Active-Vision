@@ -47,3 +47,11 @@
 ## What am I doing next? 
 
 - Implement the final step in post-processing-transfer the coordinate back to the original image's coordinate
+
+
+### Tao Lu
+## What have I done?
+- Read the official implementation of YOLOv8-pose
+
+## What am I doing next? 
+- No framework structure (skeleton_pairs=None) was used in the experiment; pure coordinate regression was preferred.

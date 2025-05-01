@@ -39,3 +39,11 @@
 ## What am I doing next? 
 
 - write python code for post-processing
+
+
+### Tao Lu
+## What have I done?
+- Manually checking some of the samples whose predictions failed, the problem of annotation deviation was found.
+
+## What am I doing next? 
+- Images with serious annotation errors or blurry images (about 10) were excluded.
