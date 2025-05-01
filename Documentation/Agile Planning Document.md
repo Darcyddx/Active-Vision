@@ -39,6 +39,14 @@ Overall, the chart reveals a positive trend in the team's ability to deliver mor
 
 ### Sprint 2
 
+![output (2)](https://github.com/user-attachments/assets/d67154aa-83e7-43fc-8752-fd4cad8c5c81)
+Starting from April 23, the Burn-down Chart for Sprint 2 reveals significant project dynamics. On April 23, the number of remaining tasks began to rise sharply—from 8 to 18 by April 29. This upward trend suggests that new tasks were introduced mid-sprint or that earlier underestimated tasks were redefined with added complexity. The lack of steady task completion during this period highlights challenges in planning accuracy and potential overcommitment.
+
+A dramatic shift occurred on April 30, where the remaining tasks dropped from 18 to 10 in one day, indicating a concentrated effort by the team to close out deliverables before the sprint's end. Despite this progress, the final count on May 1 shows that 10 tasks remained open, signaling a gap between our planned velocity and actual delivery capacity.
+
+This pattern underscores the importance of continuous task review, realistic estimation, and more granular mid-sprint tracking. Moving forward, we aim to improve workload balancing and velocity prediction to ensure a smoother and more predictable sprint outcome.
+
+
 ![Sprint2](https://github.com/user-attachments/assets/d6774145-5c34-4d54-ae38-984adf65bcc6)
 
 The velocity chart for **"Active Vision"** outlines the progression of planned versus completed (done) story points across four iterations: *Before Mid-term*, *Week07*, *Week08*, and *Week09*. This visualization helps assess the team’s planning accuracy and delivery performance over time.

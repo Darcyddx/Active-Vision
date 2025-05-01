@@ -133,7 +133,7 @@
 - **Technical Notes:**  Implementation requires precise court boundary recognition and might require manual calibration to account for variations in court dimensions and color differences in court surfaces.
 - **Notes:** Coaches may need an export feature for session analysis (future story).
 - **Future Improvement:** Consider adding an export feature for detailed session analysis and player development tracking.
-- **Related Issues:** 
+- **Related Issues:** [#7](https://github.com/Darcyddx/Active-Vision/issues/7), [#18](https://github.com/Darcyddx/Active-Vision/issues/18), [#19](https://github.com/Darcyddx/Active-Vision/issues/19), [#30](https://github.com/Darcyddx/Active-Vision/issues/30), [#32](https://github.com/Darcyddx/Active-Vision/issues/32), [#33](https://github.com/Darcyddx/Active-Vision/issues/33),, [#47](https://github.com/Darcyddx/Active-Vision/issues/47)
 
 ---
 
@@ -182,4 +182,4 @@
 - **Dependencies:** US-002 (Ball Trajectory Detection)  
 - **Technical Notes:** Speed calculation requires frame-by-frame analysis; ensure accuracy within ±5 km/h.  
 - **Notes:** Option to toggle between metric and imperial units.
-- **Related Issues:** [#39](https://github.com/Darcyddx/Active-Vision/issues/39), [#45](https://github.com/Darcyddx/Active-Vision/issues/45), [#50](https://github.com/Darcyddx/Active-Vision/issues/50)
+- **Related Issues:**  [#45](https://github.com/Darcyddx/Active-Vision/issues/45), [#50](https://github.com/Darcyddx/Active-Vision/issues/50)

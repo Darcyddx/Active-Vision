@@ -146,7 +146,13 @@ In summary, Agile's sprint-based structure and ongoing collaboration with the cl
 
 
 ## Task estimations and velocity tracking
+During Sprint 2, our team's task estimations and velocity tracking revealed both progress and areas for improvement. From the Burn-down Chart, we observed that remaining tasks initially stayed constant before experiencing a sudden increase starting April 24, rising from 8 to 18 tasks by April 29. This indicated either underestimated task complexity or new tasks being added mid-sprint. The subsequent drop on April 30—from 18 to 10—shows a last-minute push to close tasks, further suggesting initial estimations lacked accuracy and workload was not evenly distributed throughout the sprint.
 
+In parallel, the velocity chart demonstrated that while 26 story points were planned for the sprint, only 18 were completed. This 69% completion rate indicates a shortfall in meeting planned capacity. Compared to prior iterations, the planned workload increased significantly, but actual delivery did not grow proportionally. This discrepancy suggests overambitious planning without fully accounting for task dependencies, development bottlenecks, or testing overhead.
+
+The mismatch between planned and completed work highlights the need to refine our estimation practices. For example, complex research or integration tasks may require more detailed breakdown and buffer time, while dependency-heavy tasks should be flagged during sprint planning. Additionally, the velocity tracking mechanism should be adjusted to factor in actual team throughput, using historical velocity as a baseline instead of relying solely on task count or perceived difficulty.
+
+Going forward, we plan to adopt more granular task slicing, incorporate estimation techniques like planning poker, and continue tracking actual versus estimated effort through story points. By aligning planning efforts with real performance trends, we aim to improve predictability and sprint execution efficiency.
 
 ## Evaluation based on reflection
 
