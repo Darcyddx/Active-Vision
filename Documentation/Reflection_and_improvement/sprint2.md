@@ -202,19 +202,19 @@ Going forward, we plan to adopt more granular task slicing, incorporate estimati
 
 ## Evaluation based on reflection
 
-1. **What we did Well:**
-Using agile and sprints worked: Breaking the project into smaller tasks made the work clear. We knew what to do each time. The weekly client meetings were useful, even when feedback was small. It kept us on the right track and helped us show our progress step by step. This made us feel organized.
+1. **What we did well:**
+Using agile and sprints worked: Breaking the project into smaller tasks and allocate to each member in the group made our work clear. In this way, we knew what to do each time. The weekly client and tutorial meetings were also useful. It kept us on the right track and helped us show our progress step by step. 
 We built core features: We successfully added pose estimation (seeing the player's keypoints) and started sorting poses like forehand and backhand. Getting the keypoints to show up on the screen in the app was a good visual success. We also made the app run faster, which was a big challenge.
-We identified problems clearly: When things were hard, like the pose points jumping around and the app being slow at first, we figured out why. The reflections on challenges for keypoint detection and swing recognition were detailed.
+We identified problems clearly: When things were hard, like the pose points jumping around and the app being slow at first, we figured out why by multiple tests and evaluations. 
 
 2. **What was difficult and what we learned:**
 Real-time is hard: Making the app work smoothly in real-time on phones was tougher than expected. We learned that choosing the right model and optimizing it (like using the GPU) is super important right from the start. We also saw that different phones perform differently.
-Details matter: We learned that small things can take time. Setting up libraries like OpenPose/MediaPipe wasn't just plug-and-play; it needed careful setup. Getting the data format right between different parts (like pose estimation and the RNN) took effort. Defining poses accurately (forehand vs. backhand) was also complex because people move differently.
+Details matter: We learned that small things can take time. Setting up libraries like OpenPose/MediaPipe wasn't just an easy thing; it needed careful setup. Getting the data format right between different parts (like pose estimation) took much effort. Defining poses accurately (forehand vs. backhand) was also complex because people move differently.
 Need for better data/techniques: We saw that our pose classification wasn't perfect, especially during fast movements or for less common actions. This showed us we need better ways to handle movement over time and maybe need more or better training data.
 
 3. **How reflection helped Us improve:**
-Led to clear actions: The best thing about reflecting was turning problems into specific "Actionable Improvements." For example, noticing the keypoint jitter led directly to planning temporal smoothing. Seeing the serve classification was weak led to planning data augmentation. Realizing the app started slow led to the idea of pre-warming the model.
+Led to clear actions: The best thing about reflecting was turning problems into specific "actionable improvements." For example, noticing that the keypoints were unstable led directly to planning temporal smoothing. Realizing the app started slow led to the idea of pre-warming the model.
 Better planning for future: Understanding that setup takes time, or that real-time performance is tricky, helps us estimate tasks better for the future. We know now to budget time for optimization and dealing with different devices.
 
 4. **Overall:**
-This reflection shows we made real progress but also faced typical challenges in building this kind of app. We learned valuable lessons about performance, data, and the complexity of seemingly simple tasks. Because we reflected and identified specific ways to improve, we feel more prepared and focused for the next steps in making the app more accurate and user-friendly.
+This reflection shows we made real progress but also faced typical challenges in building some core features in our project. We learned valuable lessons about performance, data, and the complexity of seemingly simple tasks. Because we reflected and identified specific ways to improve, we feel more prepared and focused for the next steps in making the app more accurate and user-friendly based on our deeper analysis on user stories.
