@@ -27,9 +27,11 @@ import com.example.activevision.FrameAnalyzer;
 import com.example.activevision.R;
 import com.example.activevision.data.BallPos;
 import com.example.activevision.data.Bbox;
+import com.example.activevision.data.KeyPoint;
 import com.example.activevision.result.TrackerResListener;
 import com.example.activevision.trackers.BallTracker;
 import com.example.activevision.trackers.PlayerDetector;
+import com.example.activevision.trackers.PlayerPoseTracker;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import org.opencv.android.OpenCVLoader;
@@ -61,6 +63,8 @@ public class CameraFragment extends Fragment implements TrackerResListener {
 
     private PlayerDetector playerDetector;
 
+    private PlayerPoseTracker playerPoseTracker;
+
     // Analyzer responsible for processing camera frames
     private FrameAnalyzer analyzer;
 
@@ -75,10 +79,12 @@ public class CameraFragment extends Fragment implements TrackerResListener {
      * @return A new instance of fragment CameraFragment.
      */
     public static CameraFragment newInstance(BallTracker tracker,
-                                             PlayerDetector playerDetector) {
+                                             PlayerDetector playerDetector,
+                                             PlayerPoseTracker playerPoseTracker) {
         CameraFragment fragment = new CameraFragment();
         fragment.tennisTracker = tracker;
         fragment.playerDetector = playerDetector;
+        fragment.playerPoseTracker = playerPoseTracker;
         return fragment;
     }
 
@@ -91,7 +97,7 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // analyzer = new FrameAnalyzer(tennisTracker, playerDetector, this);
-        analyzer = new FrameAnalyzer(tennisTracker, playerDetector,this);
+        analyzer = new FrameAnalyzer(tennisTracker, playerDetector,playerPoseTracker, this);
 
     }
 
@@ -229,6 +235,15 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     public void onPerformanceCallback(long fps) {
         requireActivity().runOnUiThread(() -> {
             mFragmentRender.renderPerformanceInfo(fps);
+        });
+    }
+
+    @Override
+    public void onPlayerPoseCallback(List<List<KeyPoint>> frameKps) {
+        requireActivity().runOnUiThread(() -> {
+            mFragmentRender.renderPlayerKps(frameKps,
+                    analyzer.getCameraCapturedWidth(),
+                    analyzer.getCameraCapturedHeight());
         });
     }
 }

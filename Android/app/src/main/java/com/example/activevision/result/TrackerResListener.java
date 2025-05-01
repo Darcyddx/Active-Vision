@@ -2,6 +2,7 @@ package com.example.activevision.result;
 
 import com.example.activevision.data.BallPos;
 import com.example.activevision.data.Bbox;
+import com.example.activevision.data.KeyPoint;
 
 import java.util.List;
 
@@ -12,5 +13,7 @@ public interface TrackerResListener {
     void onPlayerDetCallback(List<Bbox> bboxes);
     // to get fps result
     void onPerformanceCallback(long fps);
+
+    void onPlayerPoseCallback(List<List<KeyPoint>> frameKps);
 
 }

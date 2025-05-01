@@ -9,12 +9,16 @@ import androidx.camera.core.ImageProxy;
 
 import com.example.activevision.data.BallPos;
 import com.example.activevision.data.Bbox;
+import com.example.activevision.data.KeyPoint;
+import com.example.activevision.data.PoseInferenceInfo;
+import com.example.activevision.data.PosePreprocessInfo;
 import com.example.activevision.result.FrameRes;
 import com.example.activevision.result.TrackerResListener;
 import com.example.activevision.threadings.NamingThreadFactory;
 import com.example.activevision.threadings.PreprocessThreadPool;
 import com.example.activevision.trackers.BallTracker;
 import com.example.activevision.trackers.PlayerDetector;
+import com.example.activevision.trackers.PlayerPoseTracker;
 
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
@@ -44,6 +48,8 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
     private final BallTracker tennisTracker;
     private final PlayerDetector playerDetector;
 
+    private final PlayerPoseTracker playerPoseTracker;
+
     // Listener to dispatch results and performance metrics
     private final TrackerResListener listener;
 
@@ -56,6 +62,8 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
 
     private final ThreadPoolExecutor tennisExecutor;
     private final ThreadPoolExecutor playerExecutor;
+
+    private final ThreadPoolExecutor poseExecutor;
 
     // Frame counters
     private final AtomicLong frameCounter = new AtomicLong(1); // Global frame index for tracking
@@ -71,12 +79,20 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
 
     private volatile List<Bbox> lastPlayerBboxes = null;
 
+    private volatile List<List<KeyPoint>> lastKeypoints = null;
+
+    private int cameraCapturedHeight;
+
+    private int cameraCapturedWidth;
+
 
     public FrameAnalyzer(BallTracker tennisTracker,
                          PlayerDetector playerDetector,
+                         PlayerPoseTracker playerPoseTracker,
                          TrackerResListener listener) {
         this.tennisTracker = tennisTracker;
         this.playerDetector = playerDetector;
+        this.playerPoseTracker = playerPoseTracker;
         this.listener = listener;
 
         tennisExecutor = new ThreadPoolExecutor(
@@ -99,11 +115,33 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
                 new NamingThreadFactory("PlayerDetThread")
         );
 
+        poseExecutor = new ThreadPoolExecutor(
+                1, 1, 0L, TimeUnit.MILLISECONDS,
+                new PriorityBlockingQueue<>(
+                        1000,
+                        Comparator.comparingLong(task -> ((PrioritizedTask) task).getFrameIndex())
+                ),
+                new NamingThreadFactory("PoseEstThread")
+        );
+
     }
+
+    public int getCameraCapturedHeight() {
+        return cameraCapturedHeight;
+    }
+
+    public int getCameraCapturedWidth() {
+        return cameraCapturedWidth;
+    }
+
+
     @Override
     public void analyze(@NonNull ImageProxy image) {
         int frameWidth = image.getWidth();
         int frameHeight = image.getHeight();
+
+        cameraCapturedHeight = frameHeight;
+        cameraCapturedWidth = frameWidth;
 
         Bitmap input = image.toBitmap();
 
@@ -155,6 +193,8 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
             FrameRes frameRes = resultsMap.get(frameIdx);
             if (frameRes != null) {
                 frameRes.setPlayerDetList(null);
+                frameRes.setFrameKps(null);
+
             }
             return;
         }
@@ -163,6 +203,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
         FrameRes res = resultsMap.get(frameIdx);
         if (res != null) {
             res.setPlayerDetList(lastPlayerBboxes);
+            res.setFrameKps(lastKeypoints);
         }
         retrieveFrameResult();
 
@@ -187,6 +228,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
 
             listener.onBallPosCallback(res.getBallPositions());
             listener.onPlayerDetCallback(res.getPlayerDetList());
+            listener.onPlayerPoseCallback(res.getFrameKps());
 
             // Calculate FPS
             completedFramesCnt.incrementAndGet();
@@ -208,6 +250,10 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
         PreprocessThreadPool.getInstance().shutdown();
 
         tennisExecutor.shutdownNow();
+
+        playerExecutor.shutdownNow();
+
+        poseExecutor.shutdown();
 
     }
 
@@ -299,15 +345,15 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
                         lastPlayerBboxes = bboxes;
                     }
                     // Trigger pose estimation if players were detected
-//                    if (bboxes != null && !bboxes.isEmpty()) {
-//                        submitPoseEstimationTask(frameIdx, inputBitmap, bboxes);
-//                    } else {
-//                        if (res != null) {
-//                            res.setFrameKps(null);
-//                            lastKeypoints = null;
-//                            retrieveFrameResult();
-//                        }
-//                    }
+                    if (bboxes != null && !bboxes.isEmpty()) {
+                        submitPoseEstimationTask(frameIdx, inputBitmap, bboxes);
+                    } else {
+                        if (res != null) {
+                            res.setFrameKps(null);
+                            lastKeypoints = null;
+                            retrieveFrameResult();
+                        }
+                    }
 
                 }));
             } catch (Exception e) {
@@ -316,7 +362,48 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
         }
 
         private void submitPoseEstimationTask(long frameIdx, Bitmap inputBitmap, List<Bbox> bboxes) {
-           //TODO: TO be implement
+            PreprocessThreadPool.getInstance().submitTask(
+                    new PoseEstimationTask(frameIdx, inputBitmap, bboxes)
+            );
         }
     }
+
+    private class PoseEstimationTask implements Runnable {
+        private final long frameIdx;
+        private final Bitmap inputBitmap;
+        private final List<Bbox> bboxes;
+
+        public PoseEstimationTask(long frameIdx, Bitmap inputBitmap, List<Bbox> bboxes) {
+            this.frameIdx = frameIdx;
+            this.inputBitmap = inputBitmap;
+            this.bboxes = bboxes;
+        }
+
+        @Override
+        public void run() {
+            try {
+                // given the frame that captured by camera and player bboxes performed in PlayerDetTask,
+                // crop the players in this frame for pre-processing
+                List<PosePreprocessInfo> posePreInfoList = playerPoseTracker.preprocess(inputBitmap, bboxes);
+                // Submit the pose estimation task to the pose executor
+                poseExecutor.submit(new PrioritizedTask(frameIdx, () -> {
+                    // Perform pose inference
+                    List<PoseInferenceInfo> outputs = playerPoseTracker.inference(posePreInfoList);
+                    List<List<KeyPoint>> keypoints = playerPoseTracker.postprocess(outputs);
+
+                    // Store pose estimation results in the corresponding frame
+                    FrameRes res = resultsMap.get(frameIdx);
+                    if (res != null) {
+                        res.setFrameKps(keypoints);
+                        lastKeypoints = keypoints;
+                    }
+                    retrieveFrameResult();
+                }));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
 }

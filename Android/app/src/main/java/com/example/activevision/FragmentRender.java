@@ -14,6 +14,9 @@ import androidx.annotation.Nullable;
 
 import com.example.activevision.data.BallPos;
 import com.example.activevision.data.Bbox;
+import com.example.activevision.data.KeyPoint;
+
+import org.opencv.core.Point;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +39,17 @@ public class FragmentRender extends View {
     private final Paint mTextColor = new Paint();
     private final Paint mPlayerDetPaint = new Paint();
 
+    private final Paint mKpsPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+    private final Paint mKpsLinePaint = new Paint();
+
+    private final List<List<KeyPoint>> playerKeyPoints = new ArrayList<>();
+
+    private final int[][] skeleton = {
+            {15, 13}, {13, 11}, {16, 14}, {14, 12}, {11, 12}, {5, 11}, {6, 12},
+            {5, 6}, {5, 7}, {6, 8}, {7, 9}, {8, 10}, {0, 1}, {0, 2}, {1, 3}, {2, 4}
+    };
+
     public FragmentRender(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         mBallPosPaint.setColor(Color.RED);
@@ -52,7 +66,19 @@ public class FragmentRender extends View {
         mPlayerDetPaint.setStyle(Paint.Style.STROKE); // Outline only
         mPlayerDetPaint.setStrokeWidth(5f); // Thickness of the bounding box
 
+        mKpsPaint.setColor(Color.GREEN);
+        mKpsPaint.setStyle(Paint.Style.FILL);
+        mKpsPaint.setStrokeWidth(20 * getWidth() / 800.0f);
 
+        mKpsLinePaint.setAlpha(200);
+        // mKpsLinePaint.setStyle(Paint.Style.STROKE);
+        mKpsLinePaint.setStyle(Paint.Style.FILL);
+        mKpsLinePaint.setAntiAlias(true);
+        mKpsLinePaint.setDither(true);
+        mKpsLinePaint.setColor(Color.GREEN);
+        mKpsLinePaint.setStrokeJoin(Paint.Join.ROUND);
+        mKpsLinePaint.setStrokeCap(Paint.Cap.ROUND);
+        mKpsLinePaint.setStrokeWidth(3);
     }
 
     @Override
@@ -69,6 +95,27 @@ public class FragmentRender extends View {
                 canvas.drawRect(box.getRect(), mPlayerDetPaint);
             }
         }
+
+        float radius = 3f; // Or any radius you prefer
+        for (List<KeyPoint> playerKps : playerKeyPoints) {
+            for (int i = 0; i < playerKps.size(); i++) {
+                float x = (float) playerKps.get(i).getPoint().x;
+                float y = (float) playerKps.get(i).getPoint().y;
+                // canvas.drawPoint(x, y, mKpsPaint);
+                canvas.drawCircle(x, y, radius, mKpsPaint);
+            }
+
+            for (int j = 0; j < skeleton.length; j++) {
+                float startX = (float) playerKps.get(skeleton[j][0]).getPoint().x;
+                float startY = (float) playerKps.get(skeleton[j][0]).getPoint().y;
+                float endX = (float) playerKps.get(skeleton[j][1]).getPoint().x;
+                float endY = (float) playerKps.get(skeleton[j][1]).getPoint().y;
+                if (startX > 0 && startY > 0 && endX > 0 && endY > 0)
+                    canvas.drawLine(startX, startY, endX, endY, mKpsLinePaint);
+            }
+        }
+
+
         canvas.drawText("FPS: " + fps, 50, 50, mTextColor);
         mLock.unlock();
     }
@@ -110,6 +157,41 @@ public class FragmentRender extends View {
             this.playerDetBoxes.add(new Bbox(box.getClsId(), box.getCnf(), cx, cy, width, height,
                     new RectF(left, top, right, bottom)));
         }
+        invalidate();
+    }
+
+    public void renderPlayerKps(@Nullable List<List<KeyPoint>> frameKps, int inputWidth, int inputHeight) {
+        // Clear old keypoints.
+        playerKeyPoints.clear();
+
+        // If there's nothing to render, just update the view (which clears old content).
+        if (frameKps == null) {
+            invalidate();
+            return;
+        }
+
+        float scaleFactor = Math.max((float) getWidth() / inputWidth, (float) getHeight() / inputHeight);
+
+        // Scale each keypoint
+        for (List<KeyPoint> onePlayer : frameKps) {
+            List<KeyPoint> scaledKps = new ArrayList<>();
+            for (KeyPoint kp : onePlayer) {
+                float originalX = (float) kp.getPoint().x;
+                float originalY = (float) kp.getPoint().y;
+
+                // Scale
+                float scaledX = originalX * scaleFactor;
+                float scaledY = originalY * scaleFactor;
+
+                // Create a new KeyPoint with scaled coords (or update the existing one).
+                // This assumes you have a constructor or setter for (x, y).
+                KeyPoint scaledKp = new KeyPoint(kp.getScore(), new Point(scaledX, scaledY));
+                scaledKps.add(scaledKp);
+            }
+            playerKeyPoints.add(scaledKps);
+        }
+
+        // Request a redraw
         invalidate();
     }
 

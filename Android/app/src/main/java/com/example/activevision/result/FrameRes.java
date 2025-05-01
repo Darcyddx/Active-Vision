@@ -2,6 +2,7 @@ package com.example.activevision.result;
 
 import com.example.activevision.data.BallPos;
 import com.example.activevision.data.Bbox;
+import com.example.activevision.data.KeyPoint;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -13,6 +14,8 @@ public class FrameRes {
 
     volatile List<Bbox> playerDetList;
 
+    volatile List<List<KeyPoint>> frameKps;
+
     private final AtomicInteger numTasks;
 
     private final AtomicInteger taskCompleted = new AtomicInteger(0);
@@ -22,9 +25,9 @@ public class FrameRes {
         this.frameId = frameId;
 
         if (frameId % 3 == 0) {
-            this.numTasks =  new AtomicInteger(2);
+            this.numTasks =  new AtomicInteger(3);
         } else {
-            this.numTasks =  new AtomicInteger(1);
+            this.numTasks =  new AtomicInteger(2);
         }
     }
 
@@ -45,8 +48,17 @@ public class FrameRes {
         taskCompleted.incrementAndGet();
     }
 
+    public synchronized void setFrameKps(List<List<KeyPoint>> frameKps) {
+        this.frameKps = frameKps;
+        taskCompleted.incrementAndGet();
+    }
+
     public List<Bbox> getPlayerDetList() {
         return playerDetList == null ? List.of() : playerDetList;
+    }
+
+    public List<List<KeyPoint>> getFrameKps() {
+        return frameKps;
     }
 
     public boolean isComplete() {
