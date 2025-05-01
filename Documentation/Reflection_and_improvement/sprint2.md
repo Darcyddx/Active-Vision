@@ -114,9 +114,39 @@ In summary, Agile's sprint-based structure and ongoing collaboration with the cl
 
 
 ## Reflection on successes
+1. **Real-time Pose Estimation and Swing Recognition on Android:**  
+   Sprint 2 marked a significant milestone in terms of technical integration and system-level coordination. We successfully deployed *real-time player keypoint detection and tennis swing recognition* on the Android platform.
+
+2. **Lightweight Keypoint Detection with MobileNetV2:**  
+   The on-device deployment of a MobileNetV2-based keypoint detection model was completed. After FP16 quantization, the TFLite model size was reduced to ~4.3MB, minimizing memory usage. With GPU delegate enabled, the model achieved ~25 FPS on Pixel 6 and ~18 FPS on Galaxy A54—well above the 15 FPS target for smooth overlay.
+
+3. **Modular CameraX Integration:**  
+   A new `PlayerPoseEstimator` class was developed to encapsulate model loading, output parsing, and drawing. This kept the CameraX pipeline clean and modular, facilitating future maintenance and scalability.
+
+4. **Unified Data Format for Keypoints:**  
+   We standardized the 13-joint keypoint format across the public TennisFrames dataset and our own recordings, ensuring compatibility with downstream GRU models. This improved data quality, alignment, and training consistency.
+
+5. **End-to-End GRU-based Swing Classification:**  
+   A bidirectional GRU model was deployed to classify swing types (Serve, Forehand, Backhand, Neutral) using 30-frame keypoint sequences. The unified tensor shape `[1 × 30 × 26]` simplified integration between Java and native pipelines and matched training scripts.
+
+6. **Visual Feedback in Real Time:**  
+   Action labels and confidence bars were rendered live in the app UI, providing clear and intuitive feedback. This transparency helped expose misclassifications and guided testing in the field.
+
+7. **Responsiveness to Technical Challenges:**  
+   We addressed cold-start latency by introducing a *pre-warmed interpreter* strategy. For class imbalance—especially the underrepresented Serve class—we planned synthetic data augmentation for future model refinement.
+
+8. **Prioritizing Real-Time Performance:**  
+   This sprint confirmed that *real-time performance cannot be an afterthought*. From model selection and input resolution to hardware acceleration, every design choice was guided by speed and responsiveness.
+
+9. **Scalability Across Devices:**  
+   To support low-end hardware, we began implementing compatibility mechanisms like *deferred delegate binding* and *runtime fallback between NNAPI and CPU*, ensuring smooth performance across a range of Android devices.
+
+10. **Foundation for Future Iterations:**  
+    Sprint 2 successfully integrated the pose and action recognition systems into the Android pipeline. These features are now functional, testable, and visually informative—laying the groundwork for refinement, usability testing, and extended features in Sprint 3.
 
 
-## Key lessons learned during the sprint
+
+## Key lessons learned during the sprint 
 1.  **Integrating External Libraries Needs Careful Planning:**
     *   Adding tools like OpenPose or MediaPipe wasn't just a coding task. We spent significant time setting up the necessary configurations, making sure the versions were compatible with our existing project, and figuring out how to correctly feed our player detection data into the pose estimation model.
     *   There were unexpected small issues, like specific installation steps and understanding the exact input format the library needed. This "setup" and "learning curve" took up a noticeable chunk of the 7 SP estimated for integration.
