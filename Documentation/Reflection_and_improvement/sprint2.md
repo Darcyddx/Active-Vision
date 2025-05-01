@@ -174,6 +174,22 @@ In summary, Agile's sprint-based structure and ongoing collaboration with the cl
 
 ## Actionable improvements
 
+During Sprint 2, our team achieved significant milestones in developing a real-time human pose estimation and tactical action recognition system for mobile deployment. We successfully delivered keypoint detection and pose classification tasks on schedule, deploying the models to mobile devices. However, several challenges and areas for improvement emerged during this phase.
+
+**Keypoint Detection**
+We optimized the MobileNetV2-based keypoint detection model by quantizing it to FP16 precision, enabling stable 30 FPS inference on mobile GPUs. While this demonstrated feasibility for real-time use, attempts to further reduce memory and power consumption by quantizing to INT8 resulted in significant accuracy degradation. Given that FP16 consumes more memory and increases GPU power usage, resolving INT8 quantization issues will be critical for long-term scalability and user experience. To enhance performance, we plan to explore more efficient architectures like LiteHRNet and RTMPose, which have shown superior accuracy-efficiency trade-offs in recent research.
+
+**Pose Classification**
+For tactical action recognition, we implemented an RNN-based model that processes keypoint sequences to classify athlete movements. While functional, the model’s accuracy remains suboptimal, likely due to limited training data and overfitting. To address this, we will prioritize expanding our dataset with diverse athlete scenarios and augmenting existing data. Additionally, we aim to experiment with state-of-the-art spatial-temporal graph convolutional networks (ST-GCN), which could better capture skeletal joint relationships and motion patterns.
+
+**Team Collaboration & Workflow**
+Our teamwork improved markedly compared to previous terms, particularly in stakeholder communication, task prioritization, and cross-functional coordination. However, GitHub branch management remains a pain point. Frequent merge conflicts and inconsistent branching strategies consumed substantial time during integration. Moving forward, we will adopt a standardized Git workflow (e.g., GitFlow) and enforce stricter code review practices to streamline collaboration. Tools like automated CI/CD pipelines and branch protection rules may also help mitigate these issues.
+
+**Next Steps**
+Immediate priorities include resolving INT8 quantization challenges, benchmarking LiteHRNet/RTMPose for mobile compatibility, and expanding the pose classification dataset. For team processes, refining version control practices will be essential to sustain productivity as the project grows in complexity. While hurdles remain, Sprint 2 demonstrated our ability to deliver functional solutions under tight deadlines while identifying actionable paths for technical and operational refinement.
+
+This phase underscored the importance of balancing optimization with model robustness and highlighted the need for scalable engineering practices as we progress toward a production-ready system.
+
 
 ## Task estimations and velocity tracking
 During Sprint 2, our team's task estimations and velocity tracking revealed both progress and areas for improvement. From the Burn-down Chart, we observed that remaining tasks initially stayed constant before experiencing a sudden increase starting April 24, rising from 8 to 18 tasks by April 29. This indicated either underestimated task complexity or new tasks being added mid-sprint. The subsequent drop on April 30—from 18 to 10—shows a last-minute push to close tasks, further suggesting initial estimations lacked accuracy and workload was not evenly distributed throughout the sprint.
