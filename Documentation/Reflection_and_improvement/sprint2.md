@@ -1,8 +1,7 @@
 ## Table of Contents
 
-- [Table of Contents](#table-of-contents)
 - [Complete Tasks](#complete-tasks)
-  - [Player Keypoints Detection Pose Estimation On Android](#player-keypoints-detection-pose-estimation-on-android)
+  - [Player Keypoints Detection Pose Estimation on Android](#player-keypoints-detection-pose-estimation-on-android)
   - [Tennis Swing Recognition on Android](#tennis-swing-recognition-on-android)
 - [Successes from Sprint 1](#successes-from-sprint-1)
   - [Challenges Faced](#challenges-faced)
@@ -10,37 +9,23 @@
   - [Feedback from Sprint 1 Review](#feedback-from-sprint-1-review)
   - [Actions Based on Feedback](#actions-based-on-feedback)
   - [Reflection on Agile Methodology and Weekly Client Feedback](#reflection-on-agile-methodology-and-weekly-client-feedback)
-- [Player Keypoints Detection Pose Estimation On Android](#player-keypoints-detection-pose-estimation-on-android)
-  - [The good parts](#the-good-parts-1)
+- [Player Keypoints Detection Pose Estimation on Android](#player-keypoints-detection-pose-estimation-on-android)
+  - [The Good Parts](#the-good-parts-1)
   - [Challenges](#challenges-1)
-  - [Actionable improvement](#actionable-improvement-1)
+  - [Actionable Improvement](#actionable-improvement-1)
 - [Tennis Swing Recognition on Android](#tennis-swing-recognition-on-android)
-  - [The good parts](#the-good-parts-2)
+  - [The Good Parts](#the-good-parts-2)
   - [Challenges](#challenges-2)
-  - [Actionable improvement](#actionable-improvement-2)
-- [Reflection on successes](#reflection-on-successes)
+  - [Actionable Improvement](#actionable-improvement-2)
+- [Reflection on Successes](#reflection-on-successes)
 - [Area of Improvements](#area-of-improvements)
-- [Key lessons learned during the sprint](#key-lessons-learned-during-the-sprint)
-- [Actionable improvements](#actionable-improvements)
-- [Task estimations and velocity tracking](#task-estimations-and-velocity-tracking)
-- [Evaluation based on reflection](#evaluation-based-on-reflection)
+- [Key Lessons Learned During the Sprint](#key-lessons-learned-during-the-sprint)
+- [Actionable Improvements](#actionable-improvements)
+- [Task Estimations and Velocity Tracking](#task-estimations-and-velocity-tracking)
+- [Evaluation Based on Reflection](#evaluation-based-on-reflection)
 
 
-
-## Successes from Sprint 1
-
-- Successfully integrated OpenPose/MediaPipe for pose estimation within the Android app, following the successful completion of player detection in Sprint 1.
-- Completed classification of tennis postures into forehand and backhand, providing foundational structure for feedback features.
-- The app UI now overlays keypoints for detected poses, improving the visual feedback mechanism.
-- Real-time inference speed has been significantly improved through targeted model optimization and tuning, maintaining responsiveness during testing.
-
-### Challenges Faced
-
-- Adapting OpenPose output to mobile format required custom data formatting and additional pre/post-processing.
-- Initial inference times exceeded our real-time requirement, requiring iterative profiling and tuning.
-- Classification accuracy for postures was inconsistent during dynamic motion, indicating a need for temporal smoothing or sequential modeling.
-
-### Areas for Improvement
+### Areas for Improvement based on sprint 1 feedback
 
 - Improve robustness of posture classification by integrating temporal features or applying smoothing techniques over a sequence of frames.
 - Begin logging false detections or misclassifications systematically for targeted model refinement.
@@ -49,6 +34,19 @@
 ### Feedback from Sprint 1 Review
 
 No specific areas for improvement were highlighted by the tutor or stakeholders. This positive feedback reinforces the current approach, but we will continue to actively seek more specific, constructive input going forward.
+
+## Overall successes from Sprint 2
+
+- Successfully integrated OpenPose/MediaPipe for pose estimation within the Android app, following the successful completion of player detection in Sprint 1.
+- Completed classification of tennis postures into forehand and backhand, providing foundational structure for feedback features.
+- The app UI now overlays keypoints for detected poses, improving the visual feedback mechanism.
+- Real-time inference speed has been significantly improved through targeted model optimization and tuning, maintaining responsiveness during testing.
+
+### Challenges Faced during sprint 2
+
+- Adapting OpenPose output to mobile format required custom data formatting and additional pre/post-processing.
+- Initial inference times exceeded our real-time requirement, requiring iterative profiling and tuning.
+- Classification accuracy for postures was inconsistent during dynamic motion, indicating a need for temporal smoothing or sequential modeling.
 
 ### Actions Based on Feedback
 
