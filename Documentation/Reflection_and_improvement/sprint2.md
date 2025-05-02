@@ -9,16 +9,17 @@
   - [Feedback from Sprint 1 Review](#feedback-from-sprint-1-review)
   - [Actions Based on Feedback](#actions-based-on-feedback)
   - [Reflection on Agile Methodology and Weekly Client Feedback](#reflection-on-agile-methodology-and-weekly-client-feedback)
-- [Player Keypoints Detection Pose Estimation on Android](#player-keypoints-detection-pose-estimation-on-android)
-  - [The Good Parts](#the-good-parts-1)
-  - [Challenges](#challenges-1)
-  - [Actionable Improvement](#actionable-improvement-1)
-- [Tennis Swing Recognition on Android](#tennis-swing-recognition-on-android)
-  - [The Good Parts](#the-good-parts-2)
-  - [Challenges](#challenges-2)
-  - [Actionable Improvement](#actionable-improvement-2)
+- [Overall Successes from Sprint 2](#overall-successes-from-sprint-2)
+  - [Challenges Faced During Sprint 2](#challenges-faced-during-sprint-2)
+- [Player Keypoints Detection Pose Estimation on Android](#player-keypoints-detection-pose-estimation-on-android-1)
+  - [The Good Parts 1](#the-good-parts-1)
+  - [Challenges 1](#challenges-1)
+  - [Actionable Improvement 1](#actionable-improvement-1)
+- [Tennis Swing Recognition on Android](#tennis-swing-recognition-on-android-1)
+  - [The Good Parts 2](#the-good-parts-2)
+  - [Challenges 2](#challenges-2)
+  - [Actionable Improvement 2](#actionable-improvement-2)
 - [Reflection on Successes](#reflection-on-successes)
-- [Area of Improvements](#area-of-improvements)
 - [Key Lessons Learned During the Sprint](#key-lessons-learned-during-the-sprint)
 - [Actionable Improvements](#actionable-improvements)
 - [Task Estimations and Velocity Tracking](#task-estimations-and-velocity-tracking)
@@ -35,6 +36,14 @@
 
 No specific areas for improvement were highlighted by the tutor or stakeholders. This positive feedback reinforces the current approach, but we will continue to actively seek more specific, constructive input going forward.
 
+### Actions Based on Feedback
+
+Since no corrective feedback was received, we focused on:
+- Maintaining the same workflow and division of labor.
+- Enhancing model performance and UX as natural progression from last sprint’s success.
+- Continuing documentation and feedback tracking rigorously to prepare for future feedback cycles.
+
+
 ## Overall successes from Sprint 2
 
 - Successfully integrated OpenPose/MediaPipe for pose estimation within the Android app, following the successful completion of player detection in Sprint 1.
@@ -47,13 +56,6 @@ No specific areas for improvement were highlighted by the tutor or stakeholders.
 - Adapting OpenPose output to mobile format required custom data formatting and additional pre/post-processing.
 - Initial inference times exceeded our real-time requirement, requiring iterative profiling and tuning.
 - Classification accuracy for postures was inconsistent during dynamic motion, indicating a need for temporal smoothing or sequential modeling.
-
-### Actions Based on Feedback
-
-Since no corrective feedback was received, we focused on:
-- Maintaining the same workflow and division of labor.
-- Enhancing model performance and UX as natural progression from last sprint’s success.
-- Continuing documentation and feedback tracking rigorously to prepare for future feedback cycles.
 
 ### Reflection on Agile Methodology and Weekly Client Feedback
 
