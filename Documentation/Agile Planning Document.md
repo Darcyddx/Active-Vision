@@ -61,7 +61,6 @@ By **Week09**, the team planned the highest amount of work—46 story points—a
 
 Overall, there is a steady upward trend in both planned and completed story points, indicating improving productivity. The gap between planned and completed work decreases over time, especially in Week09, which shows strong planning-execution alignment. The team should continue refining estimation practices, ensuring workload matches realistic capacity, and identifying early blockers that may limit progress.
 
-Would you like this formatted into a slide or report section?
 
 ## 3. Sprint Goals/Milestones
 
