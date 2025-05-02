@@ -122,6 +122,7 @@ Clearly outline potential risks, their impacts, and mitigation strategies:
 | **Integration issues between frontend and backend** | Delayed release, lower app stability and reliability.   | Regular integration meetings, implement CI/CD for rapid issue identification and resolution. | Backend Developer |
 | **Technology or framework incompatibility**         | Technical debt, rework, delayed timelines.              | Early technology stack validation; prototyping before major implementation decisions. | Technical Lead    |
 | **Performance bottlenecks on mobile devices**       | Reduced user experience due to slow app performance.    | Regular performance testing; optimization strategies (e.g., lightweight models, inference optimization). | Mobile Developer  |
+| **Lack of guarantee of accuracy and inference speed acceleration**       | The actual effect would be slow and app would stuck    | Thread pool configuration optimization (e.g., improve multi-core utilization, inference optimization). | Mobile Developer  |
 
 ------
 
