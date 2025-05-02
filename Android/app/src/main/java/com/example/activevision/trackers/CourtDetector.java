@@ -44,7 +44,7 @@ public class CourtDetector  implements AutoCloseable {
         return ortSession;
     }
 
-    private byte[] readModel(Context context, String modelPath) {
+    public byte[] readModel(Context context, String modelPath) {
 
         try {
 

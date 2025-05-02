@@ -77,6 +77,12 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
 
     private volatile List<Bbox> lastPlayerBboxes = null;
 
+    private int cameraCaptureHeight;
+
+    private int cameraCaptureWidth;
+
+
+
 
     public FrameAnalyzer(BallTracker tennisTracker,
                          PlayerDetector playerDetector,
@@ -123,6 +129,9 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
         int frameWidth = image.getWidth();
         int frameHeight = image.getHeight();
 
+        cameraCaptureHeight = frameHeight;
+        cameraCaptureWidth = frameWidth;
+
         Bitmap input = image.toBitmap();
 
         // Assign a unique frame index to submit into priority task queue later
@@ -144,7 +153,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
 
         // perform court detection task
         PreprocessThreadPool.getInstance().submitTask(
-                new CourtDetTask(frameIdx, frameIdx, input, frameHeight, frameWidth)
+                new CourtDetTask(frameIdx, input, frameHeight, frameWidth)
         );
 
         // Perform ball tracking (requires 3 consecutive frames)
@@ -237,6 +246,13 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
 
     }
 
+    public int getCameraCaptureHeight() {
+        return cameraCaptureHeight;
+    }
+
+    public int getCameraCaptureWidth() {
+        return cameraCaptureWidth;
+    }
 
     /**
      * A prioritized task to submit into model inference thread pool.
@@ -365,7 +381,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
                 float[][][][] courtDetInput = courtDetector.preprocess(inputBitmap);
 
                 courtExecutor.submit(new PrioritizedTask(frameIdx, () -> {
-                    OrtSession.Result outputs = courtDetector.inference(inputTensorData);
+                    OrtSession.Result outputs = courtDetector.inference(courtDetInput);
                     float[][][] courtkps = courtDetector.postprocess(outputs);
 
                     // Store the results for this frame

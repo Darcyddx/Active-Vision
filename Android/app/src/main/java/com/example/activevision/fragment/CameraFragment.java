@@ -79,7 +79,7 @@ public class CameraFragment extends Fragment implements TrackerResListener {
      */
     public static CameraFragment newInstance(BallTracker tracker,
                                              PlayerDetector playerDetector,
-                                             CourtDetector courtDetecto) {
+                                             CourtDetector courtDetector) {
         CameraFragment fragment = new CameraFragment();
         fragment.tennisTracker = tracker;
         fragment.playerDetector = playerDetector;
@@ -234,8 +234,8 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     public void onCourtDetCallback(float[][][] courtKps) {
         requireActivity().runOnUiThread(() -> {
             mFragmentRender.renderCourtPos(courtKps,
-                    analyzer.getCameraCapturedWidth(),
-                    analyzer.getCameraCapturedHeight());
+                    analyzer.getCameraCaptureWidth(),
+                    analyzer.getCameraCaptureHeight());
         });
     }
 
