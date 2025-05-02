@@ -82,9 +82,10 @@ Would you like this formatted into a slide or report section?
 | Task	                                                              | Estimation	 | Dependencies	    | Task allocation     |
 |--------------------------------------------------------------------|-------------|------------------| ---------------------|
 | Integrate OpenPose/MediaPipe for pose estimation                   | 	7 SP       | Player detection | Zhiyuan Lu, Yichi Zhang |
-| Extract and classify tennis postures (forehand, backhand)	         | 8 SP        | Pose model setup | Peiling Lam, Tao Lu |
+| Extract and classify tennis postures (forehand, backhand)	         | 8 SP        | Pose model setup | Peiling Lam |
 | Overlay key posture points on the app UI                           | 	5 SP       | Pose estimation  | Xi Ding  |
 | Optimize inference time to maintain real-time processing           | 	6 SP       | Model tuning     | Kerry    |
+| Android Interface for Tennis App | 4 SP | -  | Tao Lu |
 
 **Sprint goal**: Detect human poses and classify tennis movements
 
