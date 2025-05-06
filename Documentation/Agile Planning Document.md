@@ -3,14 +3,14 @@
 
 ## 1. Product Backlog
 
-| Feature                              | Priority | Notes                                                        |
-| ------------------------------------ | -------- | ------------------------------------------------------------ |
-| Player detection                     | High     | Core feature to track relevant players                       |
-| Court detection                      | High     | To show player's location and ball dropping points on a mini-map |
-| Player pose estimation               | High     | Analyse player's technical movements                         |
-| Calculate tennis ball speed          | Medium   | Analyse ball speed                                           |
-| Replace TrackNetv2 with TrackNetv4   | Medium   | Make the model lightweight and increase performance          |
-| Improve app user interface           | Low      | User's can easily navigate the APP                           |
+| Feature                              | Priority | Notes                                                                 |
+| ------------------------------------ | -------- |-----------------------------------------------------------------------|
+| Player detection                     | High     | Core feature to track relevant players                                |
+| Court detection                      | High     | Detect court lines and boundaries                                     |
+| Player pose estimation               | High     | Analyse player's technical movements                                  |
+| Calculate tennis ball speed          | Medium   | Analyse ball speed                                                    |
+| Replace TrackNetv2 with TrackNetv4   | Medium   | Make the model lightweight and increase performance                   |
+| Improve app user interface           | Low      | User's can easily navigate the APP                                    |
 | Improve robustness of existing model | Low      | Improve overall performance including speed of inference and accuracy |
 
 ## 2. Estimation and Velocity Tracking
