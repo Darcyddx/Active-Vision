@@ -19,6 +19,7 @@ import com.example.activevision.fragment.CameraFragment;
 import com.example.activevision.tflite_helpers.AIHubDefaults;
 import com.example.activevision.trackers.BallTracker;
 import com.example.activevision.trackers.PlayerDetector;
+import com.example.activevision.trackers.PlayerPoseEstimator;
 import com.example.activevision.trackers.PlayerPoseTracker;
 
 
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private PlayerDetector playerDetector;
 
     private PlayerPoseTracker playerPoseTracker;
+    private PlayerPoseEstimator playerPoseEstimator;
 
     ExecutorService backgroundTaskExecutor = Executors.newSingleThreadExecutor();
     Handler mainLooperHandler = new Handler(Looper.getMainLooper());
@@ -72,7 +74,9 @@ public class MainActivity extends AppCompatActivity {
                     && playerDetector != null
                     && playerPoseTracker != null) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.add(R.id.main_content, CameraFragment.newInstance(tennisTracker, playerDetector, playerPoseTracker));
+                transaction.add(R.id.main_content,
+                        CameraFragment.newInstance(tennisTracker, playerDetector,
+                                playerPoseTracker, playerPoseEstimator));
                 transaction.commit();
             }
         } else {
@@ -103,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
             String tfLitePlayerDetModelAsset = this.getResources().getString(R.string.PlayerDetModelAssetUINT8);
 
             String tfLitePlayerPoseModelAsset = this.getResources().getString(R.string.PoseEstMobileModelAssetFP16);
+            String tfLiteActionModelAsset = this.getResources().getString(R.string.PoseEstRNNModelAssetFP16);
             try {
                 tennisTracker = new BallTracker(
                         this,
@@ -117,6 +122,11 @@ public class MainActivity extends AppCompatActivity {
                 playerPoseTracker = new PlayerPoseTracker(
                         this,
                         tfLitePlayerPoseModelAsset,
+                        AIHubDefaults.delegatePriorityOrder
+                );
+                playerPoseEstimator = new PlayerPoseEstimator(
+                        this,
+                        tfLiteActionModelAsset,
                         AIHubDefaults.delegatePriorityOrder
                 );
             } catch (IOException | NoSuchAlgorithmException e) {

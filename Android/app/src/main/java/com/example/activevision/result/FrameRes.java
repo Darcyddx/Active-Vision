@@ -20,10 +20,13 @@ public class FrameRes {
 
     private final AtomicInteger taskCompleted = new AtomicInteger(0);
 
+    private final long entryTic;
+
+    private static final long FRAME_DROP_THRESHOLD = 1000;
 
     public FrameRes(long frameId) {
         this.frameId = frameId;
-
+        this.entryTic = System.currentTimeMillis();
         if (frameId % 3 == 0) {
             this.numTasks =  new AtomicInteger(3);
         } else {
@@ -39,10 +42,6 @@ public class FrameRes {
         }
     }
 
-    public List<BallPos> getBallPositions() {
-        return ballPosList == null ? List.of() : ballPosList;
-    }
-
     public synchronized void setPlayerDetList(List<Bbox> bboxes) {
         this.playerDetList = bboxes;
         taskCompleted.incrementAndGet();
@@ -51,6 +50,11 @@ public class FrameRes {
     public synchronized void setFrameKps(List<List<KeyPoint>> frameKps) {
         this.frameKps = frameKps;
         taskCompleted.incrementAndGet();
+    }
+
+
+    public List<BallPos> getBallPositions() {
+        return ballPosList == null ? List.of() : ballPosList;
     }
 
     public List<Bbox> getPlayerDetList() {
@@ -63,5 +67,10 @@ public class FrameRes {
 
     public boolean isComplete() {
         return taskCompleted.get() == numTasks.get();
+    }
+
+    public boolean isExpired() {
+        long newTic = System.currentTimeMillis();
+        return (newTic - entryTic) >= FRAME_DROP_THRESHOLD;
     }
 }

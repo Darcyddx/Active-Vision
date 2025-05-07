@@ -19,6 +19,7 @@ android {
         resValue("string", "TrackNetModelAssetUINT8", project.properties["tracknet_uint8_tfLiteModelAsset"])
         resValue("string", "PlayerDetModelAssetUINT8", project.properties["player_det_uint8_tfLiteModelAsset"])
         resValue("string", "PoseEstMobileModelAssetFP16", project.properties["pose_est_mobilenet_fp16_tfLiteModelAsset"])
+        resValue("string", "PoseEstRNNModelAssetFP16", project.properties["pose_est_rnn_fp16_tfLiteModelAsset"])
     }
 
     buildTypes {
@@ -60,6 +61,7 @@ dependencies {
     implementation 'org.tensorflow:tensorflow-lite-gpu:2.16.1'
     implementation 'org.tensorflow:tensorflow-lite-gpu-api:2.16.1'
     implementation 'org.tensorflow:tensorflow-lite-gpu-delegate-plugin:0.4.4'
+    implementation 'org.tensorflow:tensorflow-lite-select-tf-ops:2.16.1'
 
     implementation 'com.qualcomm.qti:qnn-runtime:2.26.0'
     implementation 'com.qualcomm.qti:qnn-tflite-delegate:2.26.0'
