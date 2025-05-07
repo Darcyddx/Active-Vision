@@ -40,6 +40,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The PlayerPoseTracker class is responsible for tracking and estimating the pose of a player in a video frame.
+ * It utilizes a TensorFlow Lite (TF Lite) model for pose estimation and performs preprocessing, inference, and postprocessing
+ * on input images to detect and track key body joints.
+ *
+ * The tracker is designed to work with quantized and non-quantized models, supports various TF Lite delegates for hardware acceleration,
+ * and integrates with OpenCV for image processing tasks such as cropping, resizing, and normalization.
+ *
+ * This class is a core component of an application that provides real-time player pose tracking.
+ *
+ * Author: Zhiyuan Lu
+ * Date: 18/04/2025
+ */
 public class PlayerPoseTracker {
     private final Interpreter tfLiteInterpreter;
     private final Map<TFLiteHelpers.DelegateType, Delegate> tfLiteDelegateStore;

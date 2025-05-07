@@ -39,12 +39,12 @@ import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantLock;//add it if it don't have
 /**
- * The BallTracker class integrates TensorFlow Lite for model inference to detect and track
+ * The FrameAnalyzer class integrates TensorFlow Lite for model inference to detect and track
  * the position of tennis balls in video frames. It leverages optimized machine learning models
  * and hardware acceleration using delegates like GPU and NPU to achieve real-time performance.
- * Author: Zhiyuan Lu
+ * Author: Zhiyuan Lu, Yichi Zhang
  * Date: 21/03/2025
  */
 public class FrameAnalyzer implements ImageAnalysis.Analyzer {
@@ -352,28 +352,29 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
             resultsMap.remove(retrieveIdx);
             nextFrameToRetrieve.incrementAndGet();
 
-            // 获取结果
+            // Get the result
             List<BallPos> ballPositions = res.getBallPositions();
             List<Bbox> bboxes = res.getPlayerDetList();
             List<List<KeyPoint>> frameKps = res.getFrameKps();
 
-            // 更新UI
+            // Update UI
             if (listener != null) {
                 listener.onBallPosCallback(ballPositions);
                 listener.onPlayerDetCallback(bboxes);
                 listener.onPlayerPoseCallback(frameKps);
 
-                // 执行动作识别
+                // Excute action prediction
                 if (frameKps != null && !frameKps.isEmpty()) {
-                    // 假定只跟踪第一个玩家
-                    float[] actionProb = playerPoseEstimator.classifyKeypoints(
+                    // if only track the first player
+                   float[] actionProb = playerPoseEstimator.classifyKeypoints(
                             frameKps.get(0),
                             cameraCapturedWidth,
                             cameraCapturedHeight
                     );
                     if (actionProb != null) {
-                        // 由于接口中没有onActionPredictCallback方法，我们可以通过其他方式处理动作识别结果
-                        // 例如：可以将结果记录到日志中，或者通过其他回调方法传递
+                    // Since the interface does not have an onActionPredictCallback method,
+                    // we can handle the action recognition result in other ways.
+                    // For example: log the result, or pass it through another callback method.
                         Log.d("FrameAnalyzer", "Action probabilities: S=" + actionProb[0] +
                                 ", B=" + actionProb[1] + ", N=" + actionProb[2] + ", F=" + actionProb[3]);
                         listener.onActionPredictCallback(actionProb);

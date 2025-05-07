@@ -21,6 +21,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * PlayerPoseEstimator is a class that utilizes a TensorFlow Lite model to estimate
+ * and classify the pose of a player based on keypoints detected in a sequence of frames.
+ * It maintains a buffer of recent keypoint sequences, processes them, and outputs
+ * probabilities for different actions (e.g., serve, backhand, neutral, forehand).
+ *
+ * The class handles both floating-point and quantized models, managing input and
+ * output tensor data types, shapes, scales, and zero points.
+ *
+ * This is mainly for tennis player, to guess the current gesture.
+ * Auther: Yichi Zhang
+ * Date: 26/04/2025
+ */
 public class PlayerPoseEstimator implements AutoCloseable {
     private Interpreter tfLiteInterpreter;
     private DataType inputType;
@@ -32,9 +45,17 @@ public class PlayerPoseEstimator implements AutoCloseable {
     private float outputScale = 1.0f;
     private int outputZeroPoint = 0;
 
-    // 缓存最近30帧的关键点序列
+    /**
+     * Buffer to store the most recent 30 frames of keypoint sequences.
+     */
     private final List<float[]> sequenceBuffer = new ArrayList<>();
-    // 最后一次计算的概率结果
+    /**
+     * The result of the last calculation is the probability results.
+     * @param context Application context.
+     * @param modelPath Path to the TFLite model file.
+     * @param delegatePriorityOrder Priority order of TFLite delegates to use.
+     * @throws IOException If there is an error reading the model file.
+     */
     private float[] lastProbabilities = null;
 
     public PlayerPoseEstimator(Context context, String modelPath,
@@ -71,11 +92,14 @@ public class PlayerPoseEstimator implements AutoCloseable {
     }
 
     /**
-     * 添加一帧的关键点并在缓冲满30帧时执行动作分类。
-     * @param keypoints 当前帧检测到的关键点列表（长度应包含17个关键点，包含鼻子、肩、肘、腕、髋、膝、踝等）
-     * @param frameWidth 当前帧图像宽度（用于归一化坐标）
-     * @param frameHeight 当前帧图像高度
-     * @return 如果已推理则返回4长度的概率数组[serve, backhand, neutral, forehand]；否则返回null
+     * Adds a frame's keypoints and performs action classification when the buffer is full (30 frames).
+     *
+     * @param keypoints   List of keypoints detected in the current frame (should contain 17 keypoints, including nose,
+     *                    shoulders, elbows, wrists, hips, knees, ankles, etc.).
+     * @param frameWidth  Width of the current frame image (used for normalizing coordinates).
+     * @param frameHeight Height of the current frame image.
+     * @return A 4-element probability array [serve, backhand, neutral, forehand] if inference is performed;
+     *         otherwise, returns null.
      */
     public synchronized float[] classifyKeypoints(List<KeyPoint> keypoints, int frameWidth, int frameHeight) {
         if (keypoints == null || keypoints.isEmpty()) {
@@ -156,7 +180,10 @@ public class PlayerPoseEstimator implements AutoCloseable {
     }
 
     /**
-     * 获取最近一次推理的击球动作概率结果。
+     * Gets the probability results of the most recent inference for the hitting action.
+     *
+     * @return The most recent array of action probabilities.
+     *         Returns null if no inference has been performed yet.
      */
     public synchronized float[] getLastProbabilities() {
         return lastProbabilities;
