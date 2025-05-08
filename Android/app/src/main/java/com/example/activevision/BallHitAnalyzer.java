@@ -38,8 +38,8 @@ public class BallHitAnalyzer {
     private static final int MAX_HISTORY_SIZE = 40;
     private static final int SPEED_CALCULATION_FRAMES = 10; // Calculate speed using 10 frames
     private static final long MIN_HIT_INTERVAL_MS = 300;
-    private static final float PIXEL_TO_METER_RATIO = 1000.0f; 
-    
+    private static final float PIXEL_TO_METER_RATIO = 20f;
+    private static final float MIN_SPEED_KMH_THRESHOLD = 1.0f;
     private long lastHitTime = 0;
     private BallHitAnalyzerListener listener;
     private SpeedUnit speedUnit = SpeedUnit.KMH; // Default unit is KMH
@@ -135,17 +135,25 @@ public class BallHitAnalyzer {
         float distancePixels = (float) Math.sqrt(dx * dx + dy * dy);
         float distanceMeters = distancePixels / PIXEL_TO_METER_RATIO;
         float speedMps = distanceMeters / (dt / 1000.0f);
-        
-        // Convert to the selected unit
+        float speedKmh = speedMps * 3.6f;
+
+        //  printlog
+        android.util.Log.d("BallSpeed", "dx=" + dx + ", dy=" + dy + ", dist(px)=" + distancePixels +
+                ", dist(m)=" + distanceMeters + ", dt(ms)=" + dt + ", speed(kmh)=" + speedKmh);
+
+        if (speedKmh < MIN_SPEED_KMH_THRESHOLD) {
+            return -1;
+        }
+
         switch (speedUnit) {
             case KMH:
-                return speedMps * 3.6f; // m/s to km/h
+                return speedKmh;
             case MPH:
-                return speedMps * 2.23694f; // m/s to mph
+                return speedMps * 2.23694f;
             case MPS:
-                return speedMps; // in m/s
+                return speedMps;
             default:
-                return speedMps * 3.6f; // Default to km/h
+                return speedKmh;
         }
     }
     
