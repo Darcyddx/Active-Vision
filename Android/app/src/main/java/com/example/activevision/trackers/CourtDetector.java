@@ -28,9 +28,6 @@ public class CourtDetector  implements AutoCloseable {
         // Initialize ONNX Runtime environment
         ortEnv = OrtEnvironment.getEnvironment();
 
-        // Session options (register custom ops if needed)
-//        OrtSession.SessionOptions sessionOptions = new OrtSession.SessionOptions();
-
         try {
             OrtSession.SessionOptions sessionOptions = new OrtSession.SessionOptions();
             sessionOptions.registerCustomOpLibrary(OrtxPackage.getLibraryPath());
@@ -60,20 +57,35 @@ public class CourtDetector  implements AutoCloseable {
     }
 
     public float[][][][] preprocess(Bitmap image) {
-        Bitmap resizedBitmap = Bitmap.createScaledBitmap(image, 640, 640, true); // Resize as per your model
+        int targetSize = 640;
 
-        float[] inputData = preprocessImageFloatCHW(resizedBitmap);
-        float[][][][] inputTensorData = new float[1][3][640][640];
+        // Resize the bitmap to 640x640
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(image, targetSize, targetSize, true);
 
-        for (int c = 0; c < 3; c++) {
-            for (int h = 0; h < 640; h++) {
-                for (int w = 0; w < 640; w++) {
-                    inputTensorData[0][c][h][w] = inputData[c * 640 * 640 + h * 640 + w];
-                }
+        // Prepare float array in shape [1, 3, 640, 640]
+        float[][][][] output = new float[1][3][targetSize][targetSize];
+
+        // Get all pixels
+        int[] pixels = new int[targetSize * targetSize];
+        resizedBitmap.getPixels(pixels, 0, targetSize, 0, 0, targetSize, targetSize);
+
+        // Fill the float tensor
+        for (int y = 0; y < targetSize; y++) {
+            for (int x = 0; x < targetSize; x++) {
+                int pixel = pixels[y * targetSize + x];
+
+                int r = (pixel >> 16) & 0xFF;
+                int g = (pixel >> 8) & 0xFF;
+                int b = pixel & 0xFF;
+
+                // Normalize to [0, 1]
+//                output[0][0][y][x] = r / 255.0f; // Red
+//                output[0][1][y][x] = g / 255.0f; // Green
+//                output[0][2][y][x] = b / 255.0f; // Blue
             }
         }
 
-        return inputTensorData;
+        return output;
     }
 
     public OrtSession.Result inference(float[][][][] inputTensorData) {
@@ -113,35 +125,35 @@ public class CourtDetector  implements AutoCloseable {
         return keypoints;
     }
 
-    private float[] preprocessImageFloatCHW(Bitmap resizedBitmap) {
-        int width = resizedBitmap.getWidth();   // 640
-        int height = resizedBitmap.getHeight(); // 640
-
-        int[] pixels = new int[width * height];
-        resizedBitmap.getPixels(pixels, 0, width, 0, 0, width, height);
-
-        float[] input = new float[3 * width * height]; // [C, H, W]
-
-        for (int i = 0; i < pixels.length; i++) {
-            int pixel = pixels[i];
-
-            float r = (pixel >> 16) & 0xFF;
-            float g = (pixel >> 8) & 0xFF;
-            float b = pixel & 0xFF;
-
-            // normalization
-//            r = r / 255.0f;
-//            g = g / 255.0f;
-//            b = b / 255.0f;
-
-
-            input[i] = r;                          // Red channel
-            input[i + width * height] = g;         // Green channel
-            input[i + 2 * width * height] = b;     // Blue channel
-        }
-
-        return input;
-    }
+//    private float[] preprocessImageFloatCHW(Bitmap resizedBitmap) {
+//        int width = resizedBitmap.getWidth();   // 640
+//        int height = resizedBitmap.getHeight(); // 640
+//
+//        int[] pixels = new int[width * height];
+//        resizedBitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+//
+//        float[] input = new float[3 * width * height]; // [C, H, W]
+//
+//        for (int i = 0; i < pixels.length; i++) {
+//            int pixel = pixels[i];
+//
+//            float r = (pixel >> 16) & 0xFF;
+//            float g = (pixel >> 8) & 0xFF;
+//            float b = pixel & 0xFF;
+//
+//            // normalization
+////            r = r / 255.0f;
+////            g = g / 255.0f;
+////            b = b / 255.0f;
+//
+//
+//            input[i] = r;                          // Red channel
+//            input[i + width * height] = g;         // Green channel
+//            input[i + 2 * width * height] = b;     // Blue channel
+//        }
+//
+//        return input;
+//    }
 
     @Override
     public void close() throws Exception {
