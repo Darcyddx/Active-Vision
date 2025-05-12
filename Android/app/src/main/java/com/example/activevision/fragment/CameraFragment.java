@@ -33,6 +33,7 @@ import com.example.activevision.trackers.BallTracker;
 import com.example.activevision.trackers.PlayerDetector;
 import com.example.activevision.trackers.PlayerPoseEstimator;
 import com.example.activevision.trackers.PlayerPoseTracker;
+import com.example.activevision.trackers.CourtDetector;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import org.opencv.android.OpenCVLoader;
@@ -69,6 +70,8 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     private PlayerPoseTracker playerPoseTracker;
     private PlayerPoseEstimator playerPoseEstimator;
 
+    private CourtDetector courtDetector;
+
     // Analyzer responsible for processing camera frames
     private FrameAnalyzer analyzer;
 
@@ -87,12 +90,14 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     public static CameraFragment newInstance(BallTracker tracker,
                                              PlayerDetector playerDetector,
                                              PlayerPoseTracker playerPoseTracker,
-                                             PlayerPoseEstimator playerPoseEstimator) {
+                                             PlayerPoseEstimator playerPoseEstimator,
+                                             CourtDetector courtDetector) {
         CameraFragment fragment = new CameraFragment();
         fragment.tennisTracker = tracker;
         fragment.playerDetector = playerDetector;
         fragment.playerPoseTracker = playerPoseTracker;
         fragment.playerPoseEstimator = playerPoseEstimator;
+        fragment.courtDetector = courtDetector;
         return fragment;
     }
 
@@ -105,7 +110,7 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // analyzer = new FrameAnalyzer(tennisTracker, playerDetector, this);
-        analyzer = new FrameAnalyzer(tennisTracker, playerDetector, playerPoseTracker,playerPoseEstimator,this);
+        analyzer = new FrameAnalyzer(tennisTracker, playerDetector, playerPoseTracker,playerPoseEstimator, courtDetector, this);
 
     }
 
@@ -242,6 +247,15 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     public void onPlayerPoseCallback(List<List<KeyPoint>> frameKps) {
         requireActivity().runOnUiThread(() -> {
             mFragmentRender.renderPlayerKps(frameKps,
+                    analyzer.getCameraCapturedWidth(),
+                    analyzer.getCameraCapturedHeight());
+        });
+    }
+
+    @Override
+    public void onCourtDetCallback(float[][][] courtKps) {
+        requireActivity().runOnUiThread(() -> {
+            mFragmentRender.renderCourtPos(courtKps,
                     analyzer.getCameraCapturedWidth(),
                     analyzer.getCameraCapturedHeight());
         });

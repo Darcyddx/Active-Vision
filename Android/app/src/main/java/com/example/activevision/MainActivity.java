@@ -14,6 +14,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.activevision.trackers.CourtDetector;
 import com.example.activevision.trackers.PlayerDetector;
 import com.example.activevision.fragment.CameraFragment;
 import com.example.activevision.tflite_helpers.AIHubDefaults;
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     private PlayerPoseTracker playerPoseTracker;
     private PlayerPoseEstimator playerPoseEstimator;
+
+    private CourtDetector courtDetector;
 
     ExecutorService backgroundTaskExecutor = Executors.newSingleThreadExecutor();
     Handler mainLooperHandler = new Handler(Looper.getMainLooper());
@@ -72,11 +76,12 @@ public class MainActivity extends AppCompatActivity {
         if (passToFragment) {
             if (tennisTracker != null
                     && playerDetector != null
-                    && playerPoseTracker != null) {
+                    && playerPoseTracker != null
+                    && courtDetector != null) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.add(R.id.main_content,
                         CameraFragment.newInstance(tennisTracker, playerDetector,
-                                playerPoseTracker, playerPoseEstimator));
+                                playerPoseTracker, playerPoseEstimator, courtDetector));
                 transaction.commit();
             }
         } else {
@@ -108,6 +113,8 @@ public class MainActivity extends AppCompatActivity {
 
             String tfLitePlayerPoseModelAsset = this.getResources().getString(R.string.PoseEstMobileModelAssetFP16);
             String tfLiteActionModelAsset = this.getResources().getString(R.string.PoseEstRNNModelAssetFP16);
+            // Create court detector
+            String onnxCourtDetModelAsset = this.getResources().getString(R.string.CourtDetectionModelAssetOnnx);
             try {
                 tennisTracker = new BallTracker(
                         this,
@@ -128,6 +135,10 @@ public class MainActivity extends AppCompatActivity {
                         this,
                         tfLiteActionModelAsset,
                         AIHubDefaults.delegatePriorityOrder
+                );
+                courtDetector = new CourtDetector(
+                        this,
+                        onnxCourtDetModelAsset
                 );
             } catch (IOException | NoSuchAlgorithmException e) {
                 throw new RuntimeException(e.getMessage());
