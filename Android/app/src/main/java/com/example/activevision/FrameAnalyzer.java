@@ -350,7 +350,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
             if (frameRes != null) {
                 frameRes.setFrameKps(null);
                 frameRes.setPlayerDetList(null);
-                frameRes.setCourtKps(null);
+//                frameRes.setCourtKps(null);
             }
             return;
         }
