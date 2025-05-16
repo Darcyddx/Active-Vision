@@ -18,3 +18,40 @@
 ## What am I doing next? 
 
 - to show the number in camera
+
+### Yichi Zhang
+
+## What have I done?
+
+- Perform FP16 quantization to reduce the model size and improve inference speed
+
+## What am I doing next? 
+
+- Integrate pose estimation models into the Android project.
+
+### Xi Ding
+## What have I done?
+
+- Conducted user testing sessions to assess the posture point overlays, gathering feedback on visibility, usability, and potential distractions
+
+## What am I doing next?
+- Refine the overlay system based on user feedback, optimizing performance and addressing any identified bugs
+
+
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Integrate keypoints-detection code with ball tracking, player detection models
+
+## What am I doing next?
+
+- Refine thread-pool logic to avoid OOM error
+
+### Tao Lu
+## What have I done?
+- Add a model loading button for selecting the locale.tflite file or using the default model
+
+## What am I doing next? 
+- The structure of the overlay layer was designed (with a transparent Canvas superimposed on top of the preview).

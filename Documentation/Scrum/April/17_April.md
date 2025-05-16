@@ -16,3 +16,32 @@
 
 ## What am I doing next? 
 - develop and integrate OpenPose/MediaPipe for pose estimation
+
+### Yichi Zhang
+
+## What have I done?
+
+- Organize datasets to fit existing pre-training and fine-tuning codes.
+
+## What am I doing next? 
+
+- Annotate some new dataset and check all the format, well-prepared for the model training.
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Based on player detection results (bounding box information), figure out how to crop players from image and scale to 256 * 192
+- Write python code for affine transformation
+
+## What am I doing next? 
+
+- Test the code for player cropping.
+
+
+### Tao Lu
+## What have I done?
+- Learn the structure of the key point loss in Ultralytics and introduce the SmoothL1Loss.
+
+## What am I doing next? 
+- Draw the visual images of the predicted key points during the training process.

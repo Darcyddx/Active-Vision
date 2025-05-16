@@ -1,0 +1,98 @@
+PBI ID,Title,Type,Description,Priority,Estimate,Sprint,Assignee,Status,Linked Issue,Goal/Milestone
+PBI-051,Make a conclusion of key lessons learned during the sprint,Task,N/A,Medium,3 Story Points,Sprint 3,Darcyddx,Done,https://github.com/Darcyddx/Active-Vision/issues/51,General Development
+PBI-050,Ball speed calculation and test effect,Task,We develop a kind of method to calculate the instant speed of the ball hit by players and show the number of speed appeared in camera.,Medium,3 Story Points,Sprint 3,Rickzhang512,Done,https://github.com/Darcyddx/Active-Vision/issues/50,General Development
+PBI-049,delivery plan,Task,N/A,Medium,3 Story Points,Sprint 3,LamPeiLing,To Do,https://github.com/Darcyddx/Active-Vision/issues/49,General Development
+PBI-048,poster and pitch,Task,N/A,Medium,3 Story Points,Sprint 3,LamPeiLing,To Do,https://github.com/Darcyddx/Active-Vision/issues/48,General Development
+PBI-047,implement android app court detection,Task,N/A,Medium,3 Story Points,Sprint 3,LamPeiLing,To Do,https://github.com/Darcyddx/Active-Vision/issues/47,General Development
+PBI-046,deploy detectron2 model in android environment,Task,N/A,Medium,3 Story Points,Sprint 3,LamPeiLing,Done,https://github.com/Darcyddx/Active-Vision/issues/46,General Development
+PBI-045,Ball speed tracking,Task,Track the speed of tennis ball,Medium,3 Story Points,Sprint 3,Darcyddx,Done,https://github.com/Darcyddx/Active-Vision/issues/45,General Development
+PBI-044,Created PlayerPoseEstimator.java,Task,"- Loads the RNN model (`tennis_rnn.tflite`) from assets.
+- Maintains a sliding window of **30 frames** of keypoints (13 points × (x,y)).
+- Constructs a `[1,30,26]` tensor and runs inference.
+- Supports both **float32** and **uint8** models.
+- Outputs 4-class softmax probabilities (Serve, Backhand, Neutral, Forehand).",Medium,3 Story Points,Sprint 3,WhiteMasky,To Do,https://github.com/Darcyddx/Active-Vision/issues/44,General Development
+PBI-043,Created PlayerPoseEstimator.java,Task,"- Loads the RNN model (`tennis_rnn.tflite`) from assets.
+- Maintains a sliding window of **30 frames** of keypoints (13 points × (x,y)).
+- Constructs a `[1,30,26]` tensor and runs inference.
+- Supports both **float32** and **uint8** models.
+- Outputs 4-class softmax probabilities (Serve, Backhand, Neutral, Forehand).",Medium,3 Story Points,Sprint 3,Unassigned,To Do,https://github.com/Darcyddx/Active-Vision/issues/43,General Development
+PBI-042,Code and Model Debugging and Optimization,Task,"- [ ]  Debug potential issues in the model.
+- [ ] Test the model across different platforms (Windows, Linux, Android) to ensure stability.
+- [ ]  Optimize for specific hardware on Android devices to improve inference performance.
+ 
+
+",Medium,3 Story Points,Sprint 3,WhiteMasky,To Do,https://github.com/Darcyddx/Active-Vision/issues/42,General Development
+PBI-041,Visualization and Action Statistics,Task,"- [ ]  Implement result visualization by annotating keypoints on the video frames.
+- [ ]  Track and count forehand and backhand serves based on RNN model predictions.
+- [ ] Annotate action types and confidence values on video frames to help users understand the model's predictions.
+- [ ] Make it realtime if possible
+ ",Medium,3 Story Points,Sprint 3,WhiteMasky,Done,https://github.com/Darcyddx/Active-Vision/issues/41,General Development
+PBI-040,Model Deployment in Android Environment,Task,"- [ ]  Integrate TensorFlow Lite models into the Android project.
+- [ ]  Write the PlayerPoseEstimator class to handle model inference, ensuring that it can extract and predict pose data from video streams.
+- [ ]  Handle camera preview and image analysis on Android, drawing pose estimation results on the screen.
+- [ ]  Test the model inference on Android to ensure it performs as expected and is stable.",Medium,3 Story Points,Sprint 3,WhiteMasky,Done,https://github.com/Darcyddx/Active-Vision/issues/40,General Development
+PBI-039,Model Conversion and Optimization,Task,"- [ ]  Convert the trained TensorFlow models (e.g., MobileNetV2, RNN models) to TensorFlow Lite format to ensure they can run on mobile devices.
+- [ ]  Optimize the TensorFlow Lite models by using built-in ops (BUILTINS) to improve inference speed on Android and other devices.
+- [ ]  Perform FP16 quantization to reduce the model size and improve inference speed.",Medium,3 Story Points,Sprint 3,WhiteMasky,Done,https://github.com/Darcyddx/Active-Vision/issues/39,General Development
+PBI-038,RNN Model Integration,Task,"- [ ]  Adjust the RNN model input format to make it can detect dynamic action.
+- [ ]  Integrate the RNN model to perform sequential prediction on the pose data.
+- [ ] Test the RNN model's performance to ensure it accurately recognizes actions.
+- [ ]  Use the model's output to classify actions and count occurrences of each action.",Medium,3 Story Points,Sprint 3,WhiteMasky,Done,https://github.com/Darcyddx/Active-Vision/issues/38,General Development
+PBI-037,Pose Estimation Model Selection and Usage,Task," - [ ] Select and fine-tune a suitable pose estimation model.
+- [ ]  Ensure that the pose estimation model's output is in the format.
+- [ ] Pass the pose estimation results to downstream tasks.",Medium,3 Story Points,Sprint 3,WhiteMasky,Done,https://github.com/Darcyddx/Active-Vision/issues/37,General Development
+PBI-036,Review the principles of existing models,Task,"- [x]  Review how the existing models work and understand its input and output.
+- [x]  Modify the player detection section to output bounding boxes.
+- [x]  Use MobileNetV2 to extract 17 keypoints of the player, discarding unnecessary ones (e.g., eyes, ears) and keeping only the 13 relevant keypoints.",Medium,3 Story Points,Sprint 3,WhiteMasky,Done,https://github.com/Darcyddx/Active-Vision/issues/36,General Development
+PBI-035,Pose Estimation Dataset Preparation,Task,"- [ ]  Determine the dataset format.
+- [ ]  Process the dataset and extract human keypoints for each video frame.
+",Medium,3 Story Points,Sprint 3,WhiteMasky,Done,https://github.com/Darcyddx/Active-Vision/issues/35,General Development
+PBI-034,draw mini map,Task,N/A,Medium,3 Story Points,Sprint 3,LamPeiLing,Done,https://github.com/Darcyddx/Active-Vision/issues/34,General Development
+PBI-033,Train court detection model,Task,N/A,Medium,3 Story Points,Sprint 3,LamPeiLing,Done,https://github.com/Darcyddx/Active-Vision/issues/33,General Development
+PBI-032,label court dataset on roboflow,Task,N/A,Medium,3 Story Points,Sprint 3,LamPeiLing,Done,https://github.com/Darcyddx/Active-Vision/issues/32,General Development
+PBI-031,Studied and get familiar with the relevant OpenPose/MediaPipe packages and operations,Task,N/A,Medium,3 Story Points,Sprint 3,Darcyddx,Done,https://github.com/Darcyddx/Active-Vision/issues/31,General Development
+PBI-030,train court detection using yolov8,Task,N/A,Medium,3 Story Points,Sprint 3,LamPeiLing,Done,https://github.com/Darcyddx/Active-Vision/issues/30,General Development
+PBI-029,Application by using professional tools to estimate the work progress and milestone estimation,Task,"Refer to the Team Velocity Chart in Sprint Planning to ensure that the plan is reasonable.
+
+Refer to the Burndown Chart in the Daily Scrum to help the team adjust the daily work schedule and correct deviations in time.
+
+In the Sprint Retrospective, the Team Velocity Chart can help the team analyze past performance trends, and the Burndown Chart can analyze the details of the problems in each Sprint.",Medium,3 Story Points,Sprint 3,Rickzhang512,To Do,https://github.com/Darcyddx/Active-Vision/issues/29,General Development
+PBI-028,Adaptive UI/UX design Building,Task,Design app’s UI/UX to adapt to different screen sizes and resolutions using responsive layouts and scalable elements to get accustomed to differnt scenarios and conditions,Medium,3 Story Points,Sprint 3,Rickzhang512,To Do,https://github.com/Darcyddx/Active-Vision/issues/28,General Development
+PBI-027,Evaluating hardware configurations and better devices or vitural device in PC devices to test our Android Apps,Task,"-  Assessing Current Limitations
+Identify Device-Specific Dependencies: Determine if your app relies on specific hardware features (like sensors, GPU, etc.) that are not universally available.
+
+- Performance Bottlenecks: Analyze which components (CPU-intensive, memory usage, graphics rendering) cause issues on less capable devices.",Medium,3 Story Points,Sprint 3,Rickzhang512,To Do,https://github.com/Darcyddx/Active-Vision/issues/27,General Development
+PBI-026,Test More modules by quantilized by tflite on Android Device,Task,N/A,Medium,3 Story Points,Sprint 3,Rickzhang512,To Do,https://github.com/Darcyddx/Active-Vision/issues/26,General Development
+PBI-025,solve the bug of utilizing PlayerDetector class in MainActivity,Task,"![Image](https://github.com/user-attachments/assets/4655562c-8b10-49ee-9573-9fb131200fc7)
+
+The cause of not set the related statement in this file caused the call of the model failed. Thanks for the help of Zhiyuan Lu and Peilin Lam",Medium,3 Story Points,Sprint 3,Rickzhang512,Done,https://github.com/Darcyddx/Active-Vision/issues/25,General Development
+PBI-024,Complement the persona,Task,N/A,Medium,3 Story Points,Sprint 3,Darcyddx,Done,https://github.com/Darcyddx/Active-Vision/issues/24,General Development
+PBI-023,Implement Android app camera feed integration,Task,N/A,Medium,3 Story Points,Sprint 3,Darcyddx,Done,https://github.com/Darcyddx/Active-Vision/issues/23,General Development
+PBI-022,"Optimize real-time processing (NPU acceleration, TensorFlow Lite)",Task,N/A,Medium,3 Story Points,Sprint 3,TL-He,Done,https://github.com/Darcyddx/Active-Vision/issues/22,General Development
+PBI-021,Display player bounding box,Task,N/A,Medium,3 Story Points,Sprint 3,LamPeiLing,Done,https://github.com/Darcyddx/Active-Vision/issues/21,General Development
+PBI-020,Distill TrackNetV2 to ResNet_Track,Task,"Since the prediction quality of the ResNet_Track model, which is reconstructed based on ResNet, is not satisfactory after fine-tuning so far, we would like to test whether model distillation can be used to improve its quality.",Medium,3 Story Points,Sprint 3,WhiteMasky,Done,https://github.com/Darcyddx/Active-Vision/issues/20,General Development
+PBI-019,Explore other methods to detect the tennis court,Task,N/A,Medium,3 Story Points,Sprint 3,Darcyddx,To Do,https://github.com/Darcyddx/Active-Vision/issues/19,General Development
+PBI-018,Test methods of tennis court detection using HAWP and LETR,Task,N/A,Medium,3 Story Points,Sprint 3,Darcyddx,Done,https://github.com/Darcyddx/Active-Vision/issues/18,General Development
+PBI-016,Utils for image preprocessing functions for detection and tracking,Task,N/A,Medium,3 Story Points,Sprint 3,Darcyddx,Done,https://github.com/Darcyddx/Active-Vision/issues/16,General Development
+PBI-015,Read the paper and assess the availability of TrackNet v4,Task,N/A,Medium,3 Story Points,Sprint 3,Darcyddx,Done,https://github.com/Darcyddx/Active-Vision/issues/15,General Development
+PBI-014,Implement Android app camera feed integration,Task,N/A,Medium,3 Story Points,Sprint 3,Darcyddx,Done,https://github.com/Darcyddx/Active-Vision/issues/14,General Development
+PBI-013,preprocess dataset for training,Task,N/A,Medium,3 Story Points,Sprint 3,michaellzy,Done,https://github.com/Darcyddx/Active-Vision/issues/13,General Development
+PBI-012,collect dataset,Task,N/A,Medium,3 Story Points,Sprint 3,michaellzy,Done,https://github.com/Darcyddx/Active-Vision/issues/12,General Development
+PBI-011,Test TrackNet v4,Task,N/A,Medium,3 Story Points,Sprint 3,Darcyddx,Done,https://github.com/Darcyddx/Active-Vision/issues/11,General Development
+PBI-010,edit agile planning activities document,Task,"add detailed sprint goal, product backlog, and estimation for each sprint",Medium,3 Story Points,Sprint 3,LamPeiLing,Done,https://github.com/Darcyddx/Active-Vision/issues/10,General Development
+PBI-009,tennis tracker for android app,Task,N/A,Medium,3 Story Points,Sprint 3,LamPeiLing,Done,https://github.com/Darcyddx/Active-Vision/issues/9,General Development
+PBI-008,TrackNetv2 model quantization,Task,N/A,Medium,3 Story Points,Sprint 3,LamPeiLing,Done,https://github.com/Darcyddx/Active-Vision/issues/8,General Development
+PBI-007,Train existing court detector,Task,"The trained model has bad performance. It might be overfitting or scaling problems cause training and validation have high accuracy but result is kinda skewed. Hence, I might be researching and trying on different approach instead of spending time on this.
+
+<img width=""1462"" alt=""Image"" src=""https://github.com/user-attachments/assets/687907f0-7053-4ff2-8d72-c884ec1af383"" />
+
+<img width=""1191"" alt=""Image"" src=""https://github.com/user-attachments/assets/05d449f8-c64d-4445-83bd-c243a8d76f58"" />",Medium,3 Story Points,Sprint 3,LamPeiLing,Done,https://github.com/Darcyddx/Active-Vision/issues/7,General Development
+PBI-006,label custom tennis dataset manually (30 per person),Task,N/A,Medium,3 Story Points,Sprint 3,Darcyddx,To Do,https://github.com/Darcyddx/Active-Vision/issues/6,General Development
+PBI-005,Research on DMPR-PS for keypoints detection,Task,Reading <DMPR-PS: A NOVEL APPROACH FOR PARKING-SLOT DETECTION USING DIRECTIONAL MARKING-POINT REGRESSION> paper (1 hr),Medium,3 Story Points,Sprint 3,LamPeiLing,Done,https://github.com/Darcyddx/Active-Vision/issues/5,General Development
+PBI-004,Complete Agile Planning Activities Document template,Task,Create a simple document template for team members to implement agile Planning,Medium,3 Story Points,Sprint 3,Rickzhang512,Done,https://github.com/Darcyddx/Active-Vision/issues/4,General Development
+PBI-003,Complete User Story,Task,Create user story from different perspectives for the whole semester.,Medium,3 Story Points,Sprint 3,WhiteMasky,Done,https://github.com/Darcyddx/Active-Vision/issues/3,General Development
+PBI-001,Move past materials,Task,"
+- [ ] Move our previous docs from Sharepoint platfrom.
+[https://anu365.sharepoint.com/sites/ActiveVision/Shared%20Documents/Forms/AllItems.aspx?newTargetListUrl=%2Fsites%2FActiveVision%2FShared%20Documents&viewpath=%2Fsites%2FActiveVision%2FShared%20Documents%2FForms%2FAllItems%2Easpx&id=%2Fsites%2FActiveVision%2FShared%20Documents%2FSemester%201%2C%202025%2FMeeting%20minutes%2FClient%20Meeting&viewid=7dc3cc38%2Dd15a%2D440a%2D91bc%2Da32850a9254d](url)
+- [ ] Move our project management platform from JIRA to Github Project.
+[https://activevision.atlassian.net/jira/software/projects/KAN/boards/1?assignee=unassigned%2C712020%3A3d49814e-bd67-408b-9011-948f16443113%2C712020%3A3e6ac14d-38ce-4369-838d-dcd444274378](url)",Medium,3 Story Points,Sprint 3,WhiteMasky,Done,https://github.com/Darcyddx/Active-Vision/issues/1,General Development
