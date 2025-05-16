@@ -90,14 +90,15 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     public static CameraFragment newInstance(BallTracker tracker,
                                              PlayerDetector playerDetector,
                                              PlayerPoseTracker playerPoseTracker,
-                                             PlayerPoseEstimator playerPoseEstimator,
-                                             CourtDetector courtDetector) {
+                                             PlayerPoseEstimator playerPoseEstimator
+//                                             CourtDetector courtDetector
+    ) {
         CameraFragment fragment = new CameraFragment();
         fragment.tennisTracker = tracker;
         fragment.playerDetector = playerDetector;
         fragment.playerPoseTracker = playerPoseTracker;
         fragment.playerPoseEstimator = playerPoseEstimator;
-        fragment.courtDetector = courtDetector;
+//        fragment.courtDetector = courtDetector;
         return fragment;
     }
 
@@ -110,7 +111,7 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // analyzer = new FrameAnalyzer(tennisTracker, playerDetector, this);
-        analyzer = new FrameAnalyzer(tennisTracker, playerDetector, playerPoseTracker,playerPoseEstimator, courtDetector, this);
+        analyzer = new FrameAnalyzer(tennisTracker, playerDetector, playerPoseTracker,playerPoseEstimator, this);
 
     }
 
@@ -252,14 +253,14 @@ public class CameraFragment extends Fragment implements TrackerResListener {
         });
     }
 
-    @Override
-    public void onCourtDetCallback(float[][][] courtKps) {
-        requireActivity().runOnUiThread(() -> {
-            mFragmentRender.renderCourtPos(courtKps,
-                    analyzer.getCameraCapturedWidth(),
-                    analyzer.getCameraCapturedHeight());
-        });
-    }
+//    @Override
+//    public void onCourtDetCallback(float[][][] courtKps) {
+//        requireActivity().runOnUiThread(() -> {
+//            mFragmentRender.renderCourtPos(courtKps,
+//                    analyzer.getCameraCapturedWidth(),
+//                    analyzer.getCameraCapturedHeight());
+//        });
+//    }
 
     @Override
     public void onActionPredictCallback(float[] actionProbabilities) {

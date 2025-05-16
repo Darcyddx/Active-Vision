@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private PlayerPoseTracker playerPoseTracker;
     private PlayerPoseEstimator playerPoseEstimator;
 
-    private CourtDetector courtDetector;
+//    private CourtDetector courtDetector;
 
     ExecutorService backgroundTaskExecutor = Executors.newSingleThreadExecutor();
     Handler mainLooperHandler = new Handler(Looper.getMainLooper());
@@ -77,11 +77,12 @@ public class MainActivity extends AppCompatActivity {
             if (tennisTracker != null
                     && playerDetector != null
                     && playerPoseTracker != null
-                    && courtDetector != null) {
+//                    && courtDetector != null
+            ) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.add(R.id.main_content,
                         CameraFragment.newInstance(tennisTracker, playerDetector,
-                                playerPoseTracker, playerPoseEstimator, courtDetector));
+                                playerPoseTracker, playerPoseEstimator));
                 transaction.commit();
             }
         } else {
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             String tfLitePlayerPoseModelAsset = this.getResources().getString(R.string.PoseEstMobileModelAssetFP16);
             String tfLiteActionModelAsset = this.getResources().getString(R.string.PoseEstRNNModelAssetFP16);
             // Create court detector
-            String onnxCourtDetModelAsset = this.getResources().getString(R.string.CourtDetectionModelAssetOnnx);
+//            String onnxCourtDetModelAsset = this.getResources().getString(R.string.CourtDetectionModelAssetOnnx);
             try {
                 tennisTracker = new BallTracker(
                         this,
@@ -136,10 +137,10 @@ public class MainActivity extends AppCompatActivity {
                         tfLiteActionModelAsset,
                         AIHubDefaults.delegatePriorityOrder
                 );
-                courtDetector = new CourtDetector(
-                        this,
-                        onnxCourtDetModelAsset
-                );
+//                courtDetector = new CourtDetector(
+//                        this,
+//                        onnxCourtDetModelAsset
+//                );
             } catch (IOException | NoSuchAlgorithmException e) {
                 throw new RuntimeException(e.getMessage());
             }

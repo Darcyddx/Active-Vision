@@ -16,7 +16,7 @@ public class FrameRes {
 
     volatile List<List<KeyPoint>> frameKps;
 
-    volatile float[][][] courtKps;
+//    volatile float[][][] courtKps;
 
     private final AtomicInteger numTasks;
 
@@ -54,10 +54,10 @@ public class FrameRes {
         taskCompleted.incrementAndGet();
     }
 
-    public synchronized void setCourtKps(float[][][] courtKps) {
-        this.courtKps = courtKps;
-        taskCompleted.incrementAndGet();
-    }
+//    public synchronized void setCourtKps(float[][][] courtKps) {
+//        this.courtKps = courtKps;
+//        taskCompleted.incrementAndGet();
+//    }
 
 
     public List<BallPos> getBallPositions() {
@@ -72,9 +72,9 @@ public class FrameRes {
         return frameKps;
     }
 
-    public float[][][] getCourtKps() {
-        return courtKps;
-    }
+//    public float[][][] getCourtKps() {
+//        return courtKps;
+//    }
 
     public boolean isComplete() {
         return taskCompleted.get() == numTasks.get();

@@ -16,7 +16,7 @@ public interface TrackerResListener {
 
     void onPlayerPoseCallback(List<List<KeyPoint>> frameKps);
 
-    void onCourtDetCallback(float[][][] courtKps);
+//    void onCourtDetCallback(float[][][] courtKps);
 
     // to get action prediction results
     void onActionPredictCallback(float[] actionProbabilities);
