@@ -27,3 +27,29 @@
 ## What am I doing next? 
 
 - continue to label
+
+### Xingchen Zhang
+## What have I done?
+- studied and get familiar with the relevant OpenPose packages and operations.
+
+## What am I doing next? 
+- develop and integrate MediaPipe for pose estimation
+
+
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- After  read through the paper, LiteHRNet seems be the optimal network for deployment on mobile device
+
+## What am I doing next? 
+
+- Read through the code in mmpose, and find out how to deploy.
+
+### Tao Lu
+## What have I done?
+- The Ultralytics framework was used to test whether the data and labels could be loaded correctly.
+
+## What am I doing next? 
+- Analyze the training logs, observe the changing trend of the loss, and confirm whether the model has learned the key point positions.

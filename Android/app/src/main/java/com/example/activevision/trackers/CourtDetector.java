@@ -26,12 +26,12 @@ public class CourtDetector  implements AutoCloseable {
                          String modelPath) throws IOException, NoSuchAlgorithmException {
 
         // Initialize ONNX Runtime environment
-        ortEnv = OrtEnvironment.getEnvironment();
+        this.ortEnv = OrtEnvironment.getEnvironment();
 
         try {
             OrtSession.SessionOptions sessionOptions = new OrtSession.SessionOptions();
             sessionOptions.registerCustomOpLibrary(OrtxPackage.getLibraryPath());
-            ortSession = ortEnv.createSession(readModel(context, modelPath), sessionOptions);
+            this.ortSession = this.ortEnv.createSession(readModel(context, modelPath), sessionOptions);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,9 +79,9 @@ public class CourtDetector  implements AutoCloseable {
                 int b = pixel & 0xFF;
 
                 // Normalize to [0, 1]
-//                output[0][0][y][x] = r / 255.0f; // Red
-//                output[0][1][y][x] = g / 255.0f; // Green
-//                output[0][2][y][x] = b / 255.0f; // Blue
+                output[0][0][y][x] = r; // Red
+                output[0][1][y][x] = g; // Green
+                output[0][2][y][x] = b; // Blue
             }
         }
 

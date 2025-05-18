@@ -8,3 +8,54 @@
 ## What am I doing next? 
 
 - research how other people train court (badminton for example)
+
+### Xi Ding
+## What have I done?
+
+- Explore the calculation of ball speed
+
+## What am I doing next? 
+
+- cooperate with Xingchen to design algorithm for ball speed calculation
+
+
+### Xingchen Zhang
+## What have I done?
+
+- Explore the calculation of ball speed and hitting posture method
+
+## What am I doing next? 
+
+- decide to choose available method applied and consider the delay when using camera
+
+### Yichi Zhang
+
+## What have I done?
+
+- Annotate some new dataset and check all the format, well-prepared for the model training.
+
+## What am I doing next? 
+
+- Review the principles of existing models, understand how it work
+
+
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Test the code for player cropping.
+- Write python code for pre-processing each cropped image
+
+## What am I doing next? 
+
+- Convert LiteHRNet onnx model to tflite
+
+
+### Tao Lu
+## What have I done?
+- Add Albumentations data enhancement: left and right flipping, brightness adjustment, rotation.
+
+## What am I doing next? 
+- Modify the data loading logic and use the mask to eliminate the invisible key points
+

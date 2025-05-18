@@ -14,12 +14,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.activevision.trackers.CourtDetector;
 import com.example.activevision.trackers.PlayerDetector;
 import com.example.activevision.fragment.CameraFragment;
 import com.example.activevision.tflite_helpers.AIHubDefaults;
 import com.example.activevision.trackers.BallTracker;
 import com.example.activevision.trackers.PlayerDetector;
-import com.example.activevision.trackers.CourtDetector;
+import com.example.activevision.trackers.PlayerPoseEstimator;
+import com.example.activevision.trackers.PlayerPoseTracker;
 
 
 import java.io.IOException;
@@ -35,7 +38,10 @@ public class MainActivity extends AppCompatActivity {
 
     private PlayerDetector playerDetector;
 
-    private CourtDetector courtDetector;
+    private PlayerPoseTracker playerPoseTracker;
+    private PlayerPoseEstimator playerPoseEstimator;
+
+//    private CourtDetector courtDetector;
 
     ExecutorService backgroundTaskExecutor = Executors.newSingleThreadExecutor();
     Handler mainLooperHandler = new Handler(Looper.getMainLooper());
@@ -68,9 +74,15 @@ public class MainActivity extends AppCompatActivity {
     private void overToCamera() {
         boolean passToFragment = MainActivity.this.checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
         if (passToFragment) {
-            if (tennisTracker != null && playerDetector != null && courtDetector != null) {
+            if (tennisTracker != null
+                    && playerDetector != null
+                    && playerPoseTracker != null
+//                    && courtDetector != null
+            ) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.add(R.id.main_content, CameraFragment.newInstance(tennisTracker, playerDetector, courtDetector));
+                transaction.add(R.id.main_content,
+                        CameraFragment.newInstance(tennisTracker, playerDetector,
+                                playerPoseTracker, playerPoseEstimator));
                 transaction.commit();
             }
         } else {
@@ -99,8 +111,11 @@ public class MainActivity extends AppCompatActivity {
             String tfLiteBallTrackModelAsset = this.getResources().getString(R.string.TrackNetModelAssetUINT8);
             // Create player detector
             String tfLitePlayerDetModelAsset = this.getResources().getString(R.string.PlayerDetModelAssetUINT8);
+
+            String tfLitePlayerPoseModelAsset = this.getResources().getString(R.string.PoseEstMobileModelAssetFP16);
+            String tfLiteActionModelAsset = this.getResources().getString(R.string.PoseEstRNNModelAssetFP16);
             // Create court detector
-            String onnxCourtDetModelAsset = this.getResources().getString(R.string.CourtDetectionModelAssetOnnx);
+//            String onnxCourtDetModelAsset = this.getResources().getString(R.string.CourtDetectionModelAssetOnnx);
             try {
                 tennisTracker = new BallTracker(
                         this,
@@ -112,10 +127,20 @@ public class MainActivity extends AppCompatActivity {
                         tfLitePlayerDetModelAsset,
                         AIHubDefaults.delegatePriorityOrder
                 );
-                courtDetector = new CourtDetector(
+                playerPoseTracker = new PlayerPoseTracker(
                         this,
-                        onnxCourtDetModelAsset
+                        tfLitePlayerPoseModelAsset,
+                        AIHubDefaults.delegatePriorityOrder
                 );
+                playerPoseEstimator = new PlayerPoseEstimator(
+                        this,
+                        tfLiteActionModelAsset,
+                        AIHubDefaults.delegatePriorityOrder
+                );
+//                courtDetector = new CourtDetector(
+//                        this,
+//                        onnxCourtDetModelAsset
+//                );
             } catch (IOException | NoSuchAlgorithmException e) {
                 throw new RuntimeException(e.getMessage());
             }

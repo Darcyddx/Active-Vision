@@ -1,19 +1,19 @@
 @echo off
-"C:\\Users\\Michael\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\cmake.exe" ^
-  "-HD:\\Active-Vision\\Android\\opencv\\libcxx_helper" ^
+"C:\\Users\\Striker\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\cmake.exe" ^
+  "-HC:\\Users\\Striker\\StudioProjects\\Android\\opencv\\libcxx_helper" ^
   "-DCMAKE_SYSTEM_NAME=Android" ^
   "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON" ^
   "-DCMAKE_SYSTEM_VERSION=21" ^
   "-DANDROID_PLATFORM=android-21" ^
   "-DANDROID_ABI=arm64-v8a" ^
   "-DCMAKE_ANDROID_ARCH_ABI=arm64-v8a" ^
-  "-DANDROID_NDK=C:\\Users\\Michael\\AppData\\Local\\Android\\Sdk\\ndk\\27.0.12077973" ^
-  "-DCMAKE_ANDROID_NDK=C:\\Users\\Michael\\AppData\\Local\\Android\\Sdk\\ndk\\27.0.12077973" ^
-  "-DCMAKE_TOOLCHAIN_FILE=C:\\Users\\Michael\\AppData\\Local\\Android\\Sdk\\ndk\\27.0.12077973\\build\\cmake\\android.toolchain.cmake" ^
-  "-DCMAKE_MAKE_PROGRAM=C:\\Users\\Michael\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe" ^
-  "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=D:\\Active-Vision\\Android\\opencv\\build\\intermediates\\cxx\\Debug\\5o396w4h\\obj\\arm64-v8a" ^
-  "-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=D:\\Active-Vision\\Android\\opencv\\build\\intermediates\\cxx\\Debug\\5o396w4h\\obj\\arm64-v8a" ^
+  "-DANDROID_NDK=C:\\Users\\Striker\\AppData\\Local\\Android\\Sdk\\ndk\\27.0.12077973" ^
+  "-DCMAKE_ANDROID_NDK=C:\\Users\\Striker\\AppData\\Local\\Android\\Sdk\\ndk\\27.0.12077973" ^
+  "-DCMAKE_TOOLCHAIN_FILE=C:\\Users\\Striker\\AppData\\Local\\Android\\Sdk\\ndk\\27.0.12077973\\build\\cmake\\android.toolchain.cmake" ^
+  "-DCMAKE_MAKE_PROGRAM=C:\\Users\\Striker\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe" ^
+  "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=C:\\Users\\Striker\\StudioProjects\\Android\\opencv\\build\\intermediates\\cxx\\Debug\\5o396w4h\\obj\\arm64-v8a" ^
+  "-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=C:\\Users\\Striker\\StudioProjects\\Android\\opencv\\build\\intermediates\\cxx\\Debug\\5o396w4h\\obj\\arm64-v8a" ^
   "-DCMAKE_BUILD_TYPE=Debug" ^
-  "-BD:\\Active-Vision\\Android\\opencv\\.cxx\\Debug\\5o396w4h\\arm64-v8a" ^
+  "-BC:\\Users\\Striker\\StudioProjects\\Android\\opencv\\.cxx\\Debug\\5o396w4h\\arm64-v8a" ^
   -GNinja ^
   "-DANDROID_STL=c++_shared"
