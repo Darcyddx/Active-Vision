@@ -8,3 +8,14 @@
 ## What am I doing next? 
 
 - continue to work on video
+
+### Yichi Zhang
+
+## What have I done?
+
+- debug my code after the new integration
+
+## What am I doing next?
+
+- test the runnable version on the mobile phone
+
