@@ -17,5 +17,5 @@
 
 ## What am I doing next?
 
-- help with the ball speed calculation testing
+- help with the court detection testing
 

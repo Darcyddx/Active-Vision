@@ -8,3 +8,13 @@
 ## What am I doing next? 
 
 - organize the delivery assessment documentation
+
+### Yichi Zhang
+
+## What have I done?
+
+- collaborate with team members and keep working on court detection testing
+
+## What am I doing next?
+
+- write some comment to record the error for further reference

@@ -8,3 +8,13 @@
 ## What am I doing next? 
 
 - find the errors
+
+### Yichi Zhang
+
+## What have I done?
+
+- help with the court detection testing
+
+## What am I doing next?
+
+- collaborate with team members and keep working on court detection testing
