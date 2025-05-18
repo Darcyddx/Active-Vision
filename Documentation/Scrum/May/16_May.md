@@ -18,3 +18,13 @@
 ## What am I doing next?
 
 - communicate with our clients for feedback and the probable risk for deliverables
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- complete the unit testing code of player detection
+
+## What am I doing next?
+
+- collaborate with TIME Lab members and seek for more tech support

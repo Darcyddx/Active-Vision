@@ -18,3 +18,13 @@
 ## What am I doing next?
 
 - write some comment to record the error for further reference
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- looking for existing deployment of ONNX model on Android mobile
+
+## What am I doing next?
+
+- try to find out the resolution of the crash problem when court model run on Android

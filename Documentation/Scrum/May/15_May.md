@@ -18,3 +18,13 @@
 ## What am I doing next?
 
 - discuss with tutor for backup deliver plan if we cannot completely resolve the problem
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- Integrate the latest version of the key-points into the main branch
+
+## What am I doing next?
+
+- complete the unit testing code of player detection
