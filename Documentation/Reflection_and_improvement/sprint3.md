@@ -21,3 +21,13 @@ This experience was an important reminder that open communication and team colla
 - Set up short technical syncs or debugging huddles when someone is blocked, to accelerate resolution.
 - Encourage early reporting of blockers in daily or weekly check-ins.
 - Maintain a shared document of known limitations and alternatives for model deployment strategies to reduce trial-and-error in future projects.
+
+## Reflection on successes
+
+## Key lessons learned during the sprint 
+
+## Actionable improvements
+
+## Task estimations and velocity tracking
+
+## Evaluation based on reflection
