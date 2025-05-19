@@ -234,8 +234,10 @@ public class FragmentRender extends View {
 //                canvas.drawLine(x1, y1, x2, y2, this.courtLinePaint);
 //            }
 //        }
-
-
+        if (lastSpeedKmh != null && lastShotType != null) {
+            String speedInfo = String.format("Speed: %.1f km/h (%s)", lastSpeedKmh, lastShotType);
+            canvas.drawText(speedInfo, 50, 120, mTextColor);
+        }
         canvas.drawText("FPS: " + fps, 50, 50, mTextColor);
         mLock.unlock();
     }

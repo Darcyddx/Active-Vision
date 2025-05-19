@@ -424,7 +424,13 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
                 listener.onPlayerDetCallback(bboxes);
                 listener.onPlayerPoseCallback(frameKps);
 //                listener.onCourtDetCallback(res.getCourtKps());
-
+                List<BallPos> ballPosList = res.getBallPositions();
+                if (ballPosList != null && !ballPosList.isEmpty()) {
+                    BallPos firstBall = ballPosList.get(0);  // take first ball
+                    if (firstBall != null) {
+                        ballHitAnalyzer.update(firstBall, System.currentTimeMillis());
+                    }
+                }
                 // Excute action prediction
                 if (frameKps != null && !frameKps.isEmpty()) {
                     // if only track the first player
@@ -443,6 +449,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
                     }
                 }
             }
+
 
             // Calculate FPS
             completedFramesCnt.incrementAndGet();
