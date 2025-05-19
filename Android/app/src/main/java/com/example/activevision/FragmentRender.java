@@ -236,9 +236,9 @@ public class FragmentRender extends View {
 //        }
         if (lastSpeedKmh != null && lastShotType != null) {
             String speedInfo = String.format("Speed: %.1f km/h (%s)", lastSpeedKmh, lastShotType);
-            canvas.drawText(speedInfo, 50, 120, mTextColor);
+            canvas.drawText(speedInfo, 50, 200, mTextColor);
         }
-        canvas.drawText("FPS: " + fps, 50, 50, mTextColor);
+        canvas.drawText("FPS: " + fps, 50, 260, mTextColor);
         mLock.unlock();
     }
 
