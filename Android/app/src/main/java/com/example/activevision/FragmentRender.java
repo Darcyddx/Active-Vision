@@ -34,7 +34,7 @@ public class FragmentRender extends View {
 
     private final float[][] courtKeyPoints = new float[14][2];
 
-    // 添加动作概率相关字段
+    // Add action probability related fields
     private float[] actionProbabilities = null;
     private final Paint mProbBarPaint = new Paint();
     private final String[] actionLabels = {"S", "B", "N", "F"};

@@ -8,12 +8,16 @@ import com.example.activevision.result.TrackerResListener;
 import java.util.ArrayList;
 import java.util.List;
 
-// updated the BallHitAnalyzer code by fixing the timestamp usage to consistently use the passed parameter instead of System.currentTimeMillis(), 
-// added a PIXEL_TO_METER_RATIO constant for calibration between pixel and real-world measurements, 
-// improved code structure with better comments for clarity, and maintained the original shot type inference logic as requested.
-// 5 frames calculation change to 10
-// add more choices for speed calculation (default km/h)
 
+/**
+ * updated the BallHitAnalyzer code by fixing the timestamp usage to consistently use the passed parameter instead of System.currentTimeMillis(),
+ * added a PIXEL_TO_METER_RATIO constant for calibration between pixel and real-world measurements,
+ * improved code structure with better comments for clarity, and maintained the original shot type inference logic as requested.
+ * 5 frames calculation change to 10
+ * add more choices for speed calculation (default km/h)
+ * Author: Xingchen Zhang,Xi ding
+ * Date: 12/05/2025
+ */
 public class BallHitAnalyzer {
     /**
      * Available speed units for the calculation
@@ -91,7 +95,7 @@ public class BallHitAnalyzer {
             if (speed > 0) {
                 String shotType = inferShotType();
                 if (listener != null) {
-                    listener.onShotInfoCallback(shotType, speed);  // ✅ 正确回调方法
+                    listener.onShotInfoCallback(shotType, speed);
                 }
             }
             lastHitTime = timestamp;
