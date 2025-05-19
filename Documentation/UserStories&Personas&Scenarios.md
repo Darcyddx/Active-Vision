@@ -3,7 +3,7 @@
 **ID:** USER-001  
 **Title:** Android Interface for Tennis App  
 **Priority:** Low  
-**Milestone:** Sprint 3
+**Milestone:** Sprint 2
 
 #### User Story Description
 **As an** Android phone user,  
@@ -36,6 +36,7 @@
 - **Dependencies:** None
 - **Technical Notes:** Ensure compatibility with Android device NPU.  
 - **Notes:** Test on multiple even old Android devices for consistency.
+- **Related Issues:** [#9](https://github.com/Darcyddx/Active-Vision/issues/9), [#14](https://github.com/Darcyddx/Active-Vision/issues/14),, [#23](https://github.com/Darcyddx/Active-Vision/issues/23), [#26](https://github.com/Darcyddx/Active-Vision/issues/26), [#27](https://github.com/Darcyddx/Active-Vision/issues/27), [#36](https://github.com/Darcyddx/Active-Vision/issues/36), [#39](https://github.com/Darcyddx/Active-Vision/issues/39),[#40](https://github.com/Darcyddx/Active-Vision/issues/40), [#42](https://github.com/Darcyddx/Active-Vision/issues/42), [#46](https://github.com/Darcyddx/Active-Vision/issues/46), [#47](https://github.com/Darcyddx/Active-Vision/issues/47)
 
 ---
 
@@ -85,6 +86,7 @@
 - **Dependencies:** US-001 (Android Interface)
 - **Technical Notes:** Requires integration with device camera and basic ML model for the detections.  
 - **Notes:** Focus on simplicity for beginners; avoid overwhelming with too many functions.
+- **Related Issues:** [#21](https://github.com/Darcyddx/Active-Vision/issues/21), [#36](https://github.com/Darcyddx/Active-Vision/issues/36)
 
 ---
 
@@ -93,7 +95,7 @@
 **ID:** USER-003  
 **Title:** Ball Position Detection Relative to Court  
 **Priority:** Medium  
-**Milestone:** Sprint 3
+**Milestone:** Sprint 1
 
 #### User Story Description
 **As a** tennis coach,  
@@ -131,6 +133,7 @@
 - **Technical Notes:**  Implementation requires precise court boundary recognition and might require manual calibration to account for variations in court dimensions and color differences in court surfaces.
 - **Notes:** Coaches may need an export feature for session analysis (future story).
 - **Future Improvement:** Consider adding an export feature for detailed session analysis and player development tracking.
+- **Related Issues:** [#7](https://github.com/Darcyddx/Active-Vision/issues/7), [#18](https://github.com/Darcyddx/Active-Vision/issues/18), [#19](https://github.com/Darcyddx/Active-Vision/issues/19), [#30](https://github.com/Darcyddx/Active-Vision/issues/30), [#32](https://github.com/Darcyddx/Active-Vision/issues/32), [#33](https://github.com/Darcyddx/Active-Vision/issues/33),, [#47](https://github.com/Darcyddx/Active-Vision/issues/47)
 
 ---
 
@@ -179,90 +182,4 @@
 - **Dependencies:** US-002 (Ball Trajectory Detection)  
 - **Technical Notes:** Speed calculation requires frame-by-frame analysis; ensure accuracy within ±5 km/h.  
 - **Notes:** Option to toggle between metric and imperial units.
-
----
-
-### User Story 5
-
-#### Basic Information
-**ID:** USER-005  
-**Title:** Support for Singles and Doubles Tennis Matches on Android  
-**Priority:** Medium  
-**Milestone:** Sprint 2  
-
-#### User Story Description
-**As an** tennis match lover,  
-**I want to** use an Android-compatible interface that allows me to select both singles and doubles match types,  
-**so that** I can conveniently enjoy different tennis match formats on my device.
-
-#### Persona Description
-
-- education and experience
-  - Holds a Bachelor’s degree in sports management or a related field.  
-  - Familiar with mobile applications, particularly sports-related ones, but lacks deep technical knowledge about app development.  
-  - Comfortable using Android devices and expects apps to be user-friendly and responsive.  
-
-- relevant interest 
-  - Loves tennis, enjoys both playing for fun and watching matches, with special interest in singles and doubles formats.  
-  - Enjoys tracking match details, scores, and player performance through technology.  
-  - Values flexibility and variety in sports apps to suit different preferences and moods.  
-
-- job
-  - Works as a sports event coordinator at a local community center or a small sports organization.  
-
-- personalization  
-  - Prefers a clean, sporty interface with bold visuals and straightforward options for selecting match types.  
-  - Likes quick access to features without excessive menus, with a focus on real-time updates during matches.
-
-#### Acceptance Criteria
-1. **Scenario 1:** Choosing singles or doubles match type  
-   - **Given** I am on the match setup screen,  
-   - **When** I select a match type,  
-   - **Then** I can choose between a singles match or a doubles match and proceed accordingly.
-
-### User Story 6
-
-#### Basic Information
-
-**ID:** USER-006  
-**Title:** Tennis Club Manager  
-**Priority:** Low  
-**Milestone:**   Have not planned yet, see how it goes
-
-#### User Story Description
-
-**As an** tennis club manager,  
-**I want to** use an integrated tennis analysis program,  
-**so that** I can give my VIPs to record their matches and provide them with cool effects and analysis for their games.
-
-#### Persona Description
-
-- **education and experience**
-  - Holds a degree or certification in Sports Management, Business Administration, or a related field.
-  - Has several years of experience managing sports facilities or clubs.
-  - Familiar with technology used in sports analytics and passionate about enhancing member experience.
-- **relevant interest**
-  - Interested in leveraging advanced tools to improve member engagement and satisfaction.
-  - Values features that enhance the prestige of the club and attract high-profile members.
-- **job**
-  - Manages day-to-day operations of a tennis club, including organizing events, maintaining facilities, and ensuring member satisfaction.
-  - Responsible for promoting the club’s services to attract new members and retain existing ones.
-- **personalization**
-  - Prefers a professional, sleek interface with features tailored for VIP members.
-  - Expects seamless integration with existing club systems and minimal disruption to workflows.
-
-#### Acceptance Criteria
-
-1. **Scenario 1:** Recording matches for VIP members
-   - **Given** I am logged into the app as a club manager,
-   - **When** I select a VIP member and initiate match recording,
-   - **Then** the app allows me to capture the match with advanced effects and analysis enabled.
-2. **Scenario 2:** Providing analysis to VIP members
-   - **Given** I have recorded a match for a VIP member,
-   - **When** I finalize the session,
-   - **Then** the app generates a detailed report with cool visual effects (e.g., ball trajectory, speed highlights) and sends it to the member.
-3. **Scenario 3:** Managing multiple VIP recordings
-   - **Given** I have multiple VIP members scheduled for recording,
-   - **When** I access the recording queue,
-   - **Then** the app displays a list of pending recordings with options to prioritize or schedule them.
-
+- **Related Issues:**  [#45](https://github.com/Darcyddx/Active-Vision/issues/45), [#50](https://github.com/Darcyddx/Active-Vision/issues/50)

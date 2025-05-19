@@ -22,17 +22,18 @@ import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.activevision.BallHitAnalyzer;
 import com.example.activevision.FragmentRender;
 import com.example.activevision.FrameAnalyzer;
 import com.example.activevision.R;
-import com.example.activevision.data.BallHitResult;
 import com.example.activevision.data.BallPos;
 import com.example.activevision.data.Bbox;
-import com.example.activevision.result.BallHitAnalyzerListener;
+import com.example.activevision.data.KeyPoint;
 import com.example.activevision.result.TrackerResListener;
 import com.example.activevision.trackers.BallTracker;
 import com.example.activevision.trackers.PlayerDetector;
+import com.example.activevision.trackers.PlayerPoseEstimator;
+import com.example.activevision.trackers.PlayerPoseTracker;
+import com.example.activevision.trackers.CourtDetector;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import org.opencv.android.OpenCVLoader;
@@ -55,6 +56,8 @@ import java.util.concurrent.ExecutionException;
 
 
 public class CameraFragment extends Fragment implements TrackerResListener {
+
+    // UI component to display the camera preview
     private PreviewView mPreviewView;
     // Custom view for rendering detected objects
     private FragmentRender mFragmentRender;
@@ -64,9 +67,14 @@ public class CameraFragment extends Fragment implements TrackerResListener {
 
     private PlayerDetector playerDetector;
 
-    private BallHitAnalyzer ballHitAnalyzer;
+    private PlayerPoseTracker playerPoseTracker;
+    private PlayerPoseEstimator playerPoseEstimator;
+
+    private CourtDetector courtDetector;
+
     // Analyzer responsible for processing camera frames
     private FrameAnalyzer analyzer;
+
 
     public CameraFragment() {
         // Required empty public constructor
@@ -76,13 +84,21 @@ public class CameraFragment extends Fragment implements TrackerResListener {
      * Factory method to create a new instance of CameraFragment with specified trackers.
      *
      * @param tracker         The TennisTracker model for ball tracking.
+     * @param playerDetector  The PlayerDetector model for player detection.
      * @return A new instance of fragment CameraFragment.
      */
     public static CameraFragment newInstance(BallTracker tracker,
-                                             PlayerDetector playerDetector) {
+                                             PlayerDetector playerDetector,
+                                             PlayerPoseTracker playerPoseTracker,
+                                             PlayerPoseEstimator playerPoseEstimator
+//                                             CourtDetector courtDetector
+    ) {
         CameraFragment fragment = new CameraFragment();
         fragment.tennisTracker = tracker;
         fragment.playerDetector = playerDetector;
+        fragment.playerPoseTracker = playerPoseTracker;
+        fragment.playerPoseEstimator = playerPoseEstimator;
+//        fragment.courtDetector = courtDetector;
         return fragment;
     }
 
@@ -94,22 +110,10 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        ballHitAnalyzer = new BallHitAnalyzer(new BallHitAnalyzerListener() {
-            @Override
-            public void onHitDetected(BallHitResult result) {
-                requireActivity().runOnUiThread(() -> {
-                    if (mFragmentRender != null) {
-                        mFragmentRender.renderBallSpeed(result.getSpeedKmh(), result.getShotType());
-                    }
-                });
-            }
-        });
-
-        analyzer = new FrameAnalyzer(tennisTracker, playerDetector, this,ballHitAnalyzer);
+        // analyzer = new FrameAnalyzer(tennisTracker, playerDetector, this);
+        analyzer = new FrameAnalyzer(tennisTracker, playerDetector, playerPoseTracker,playerPoseEstimator, this);
 
     }
-
 
     private ActivityResultLauncher<String> requestPermissionLauncher;
 
@@ -241,16 +245,34 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     }
 
     @Override
-    public void onPerformanceCallback(long fps) {
+    public void onPlayerPoseCallback(List<List<KeyPoint>> frameKps) {
         requireActivity().runOnUiThread(() -> {
-            mFragmentRender.renderPerformanceInfo(fps);
+            mFragmentRender.renderPlayerKps(frameKps,
+                    analyzer.getCameraCapturedWidth(),
+                    analyzer.getCameraCapturedHeight());
+        });
+    }
+
+//    @Override
+//    public void onCourtDetCallback(float[][][] courtKps) {
+//        requireActivity().runOnUiThread(() -> {
+//            mFragmentRender.renderCourtPos(courtKps,
+//                    analyzer.getCameraCapturedWidth(),
+//                    analyzer.getCameraCapturedHeight());
+//        });
+//    }
+
+    @Override
+    public void onActionPredictCallback(float[] actionProbabilities) {
+        requireActivity().runOnUiThread(() -> {
+            mFragmentRender.setActionProbabilities(actionProbabilities);
         });
     }
 
     @Override
-    public void onShotInfoCallback(String shotType,float speedKmh) {
-        requireActivity().runOnUiThread(()->{
-            mFragmentRender.renderBallSpeed(speedKmh,shotType);
+    public void onPerformanceCallback(long fps) {
+        requireActivity().runOnUiThread(() -> {
+            mFragmentRender.renderPerformanceInfo(fps);
         });
     }
 }
