@@ -71,7 +71,7 @@ public class FragmentRender extends View {
     private Paint mActionProbPaint;
     private static final String[] ACTION_LABELS = {"Serve", "Backhand", "Neutral", "Forehand"};
     private static final int[] ACTION_COLORS = {Color.RED, Color.BLUE, Color.GRAY, Color.GREEN};
-    private static final String TAG = FragmentRender.class.getSimpleName();// 日志标签
+    private static final String TAG = FragmentRender.class.getSimpleName();// log label
 
     public FragmentRender(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -104,11 +104,11 @@ public class FragmentRender extends View {
         mKpsLinePaint.setStrokeCap(Paint.Cap.ROUND);
         mKpsLinePaint.setStrokeWidth(3);
 
-        // 初始化概率柱状图画笔
+        // initialize the probability histogram
         mProbBarPaint.setColor(Color.RED);
         mProbBarPaint.setStyle(Paint.Style.FILL);
         mProbBarPaint.setAntiAlias(true);
-        mProbBarPaint.setAlpha(180); // 设置半透明
+        mProbBarPaint.setAlpha(180); // set translucency
 
         mActionProbPaint = new Paint();
         mActionProbPaint.setTextSize(30);
@@ -198,13 +198,13 @@ public class FragmentRender extends View {
 
         if (actionProbabilities != null && ACTION_LABELS != null && ACTION_COLORS != null){
             for (int i = 0; i < 4; i++) {
-                // 绘制柱状图
+                // draw histogram
                 mActionProbPaint.setColor(ACTION_COLORS[i]);
                 canvas.drawRect(startX, startY + i * (barHeight + spacing),
                         startX + (int)(barWidth * actionProbabilities[i]),
                         startY + barHeight + i * (barHeight + spacing), mActionProbPaint);
 
-                // 绘制标签
+                // draw label
                 mActionProbPaint.setColor(Color.WHITE);
                 canvas.drawText(ACTION_LABELS[i] + ": " + String.format("%.2f", actionProbabilities[i]),
                         startX + barWidth + spacing,
@@ -350,8 +350,8 @@ public class FragmentRender extends View {
     }
 
     /**
-     * 更新动作概率数据并重绘界面
-     * @param probs 长度为4的概率数组[serve, backhand, neutral, forehand]，如果为null则清除显示
+     * Update action probability data and redraw
+     * @param probs array of probabilities [serve, backhand, neutral, forehand] of length 4, clear display if null
      */
     public void renderActionProb(@Nullable float[] probs) {
         mLock.lock();
@@ -372,11 +372,11 @@ public class FragmentRender extends View {
 //    }
     public void setActionProbabilities(float[] probs) {
         if (probs == null) return;
-        // 先分配
+        // allocate
         this.actionProbabilities = new float[probs.length];
-        // 再拷贝
+        // copy
         System.arraycopy(probs, 0, this.actionProbabilities, 0, probs.length);
-        invalidate();  // 通知重绘
+        invalidate();  // rerdraw
     }
 
     public void renderBallSpeed(float speedKmh, String shotType) {
