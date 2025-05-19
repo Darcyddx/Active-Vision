@@ -3,6 +3,8 @@ package com.example.activevision.trackers;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import com.example.activevision.tflite_helpers.AIHubDefaults;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
@@ -30,15 +32,23 @@ public class CourtDetector  implements AutoCloseable {
 
         try {
             OrtSession.SessionOptions sessionOptions = new OrtSession.SessionOptions();
+
+            // Set number of threads
+            sessionOptions.setInterOpNumThreads(AIHubDefaults.numCPUThreads);
+
+            // Use CPU, or try to enable NNAPI or GPU (if needed)
+            sessionOptions.addConfigEntry("session.execution_mode", "parallel");
+
+            // Enable execution providers
+            sessionOptions.addConfigEntry("execution_provider", "QNNExecutionProvider");
+            sessionOptions.addConfigEntry("execution_provider", "NNAPIExecutionProvider ");
+            sessionOptions.addConfigEntry("execution_provider", "XNNPACKExecutionProvider");
+
             sessionOptions.registerCustomOpLibrary(OrtxPackage.getLibraryPath());
             this.ortSession = this.ortEnv.createSession(readModel(context, modelPath), sessionOptions);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public OrtSession getSession() {
-        return ortSession;
     }
 
     public byte[] readModel(Context context, String modelPath) {
@@ -56,6 +66,7 @@ public class CourtDetector  implements AutoCloseable {
         return new byte[0];
     }
 
+    // image preprocessing
     public float[][][][] preprocess(Bitmap image) {
         int targetSize = 640;
 
@@ -88,6 +99,7 @@ public class CourtDetector  implements AutoCloseable {
         return output;
     }
 
+    // model inference using onnx
     public OrtSession.Result inference(float[][][][] inputTensorData) {
         OnnxTensor inputTensor = null;
         try {
@@ -113,6 +125,7 @@ public class CourtDetector  implements AutoCloseable {
         return output;
     }
 
+    // postprocessing the keypoints from ort session to float
     public float[][][] postprocess(OrtSession.Result result) {
 
         float[][][] keypoints = null; // Keypoints
@@ -124,36 +137,6 @@ public class CourtDetector  implements AutoCloseable {
 
         return keypoints;
     }
-
-//    private float[] preprocessImageFloatCHW(Bitmap resizedBitmap) {
-//        int width = resizedBitmap.getWidth();   // 640
-//        int height = resizedBitmap.getHeight(); // 640
-//
-//        int[] pixels = new int[width * height];
-//        resizedBitmap.getPixels(pixels, 0, width, 0, 0, width, height);
-//
-//        float[] input = new float[3 * width * height]; // [C, H, W]
-//
-//        for (int i = 0; i < pixels.length; i++) {
-//            int pixel = pixels[i];
-//
-//            float r = (pixel >> 16) & 0xFF;
-//            float g = (pixel >> 8) & 0xFF;
-//            float b = pixel & 0xFF;
-//
-//            // normalization
-////            r = r / 255.0f;
-////            g = g / 255.0f;
-////            b = b / 255.0f;
-//
-//
-//            input[i] = r;                          // Red channel
-//            input[i + width * height] = g;         // Green channel
-//            input[i + 2 * width * height] = b;     // Blue channel
-//        }
-//
-//        return input;
-//    }
 
     @Override
     public void close() throws Exception {

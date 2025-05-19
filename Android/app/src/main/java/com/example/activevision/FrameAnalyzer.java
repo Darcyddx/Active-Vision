@@ -59,7 +59,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
     private final PlayerPoseTracker playerPoseTracker;
     private final PlayerPoseEstimator playerPoseEstimator;
 
-//    private final CourtDetector courtDetector;
+    private final CourtDetector courtDetector;
 
     // Listener to dispatch results and performance metrics
     private final TrackerResListener listener;
@@ -74,7 +74,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
 
     private final PriorityBlockingQueue<PreprocessData<List<PosePreprocessInfo>>> poseEstInputPq = new PriorityBlockingQueue<>();
 
-//    private final PriorityBlockingQueue<PreprocessData<float[][][][]>> courtDetInputPq = new PriorityBlockingQueue<>();
+    private final PriorityBlockingQueue<PreprocessData<float[][][][]>> courtDetInputPq = new PriorityBlockingQueue<>();
 
 
     // Map to store partial or complete results for each frame
@@ -89,7 +89,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
 
     private final ExecutorService poseExecutor;
 
-//    private final ExecutorService courtExecutor;
+    private final ExecutorService courtExecutor;
 
 
     // HandlerThread for coordinating inference scheduling
@@ -113,7 +113,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
 
     private List<Bbox> lastPlayerBboxes = null;
     private List<List<KeyPoint>> lastKeypoints = null;
-//    private float[][][] lastCourtKeypoints = null;
+    private float[][][] lastCourtKeypoints = null;
 
     /**
      * Constructor to initialize the frame analyzer pipeline.
@@ -125,20 +125,20 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
                          PlayerDetector playerDetector,
                          PlayerPoseTracker playerPoseTracker,
                          PlayerPoseEstimator playerPoseEstimator,
-//                         CourtDetector courtDetector,
+                         CourtDetector courtDetector,
                          TrackerResListener listener) {
         this.tennisTracker = tennisTracker;
         this.playerDetector = playerDetector;
         this.playerPoseTracker = playerPoseTracker;
         this.playerPoseEstimator = playerPoseEstimator;
-//        this.courtDetector = courtDetector;
+        this.courtDetector = courtDetector;
         this.listener = listener;
 
         // Initialize single-thread executors for inference (one for each model)
         playerExecutor = java.util.concurrent.Executors.newSingleThreadExecutor();
         tennisExecutor = java.util.concurrent.Executors.newSingleThreadExecutor();
         poseExecutor = java.util.concurrent.Executors.newSingleThreadExecutor();
-//        courtExecutor = java.util.concurrent.Executors.newSingleThreadExecutor();
+        courtExecutor = java.util.concurrent.Executors.newSingleThreadExecutor();
 
 
         // Initialize a HandlerThread for orchestrating inference tasks
@@ -198,20 +198,24 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
             playerSkipDetection(frameIdx);
         }
 
-        // Step 5: Preprocess the frame for court detection and schedule inference
-//        PreprocessThreadPool.getInstance().submitTask(() -> {
-//            float[][][][] courtDetInput = courtDetector.preprocess(input);
-//            courtDetInputPq.put(new PreprocessData<>(frameIdx, courtDetInput)); // Enqueue preprocessed data
-//
-//            // Schedule player detection inference
-//            inferenceHandler.post(() -> {
-//                try {
-//                    runCourtDet();
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            });
-//        });
+         // Step 5: Preprocess the frame for court detection and schedule inference
+        if (frameIdx % skipDetIdx == 1) {
+            // Step 4: Preprocess the frame for player detection and schedule inference
+            PreprocessThreadPool.getInstance().submitTask(() -> {
+                float[][][][] courtDetInput = courtDetector.preprocess(input);
+                courtDetInputPq.put(new PreprocessData<>(frameIdx, courtDetInput)); // Enqueue preprocessed data
+                // Schedule player detection inference
+                inferenceHandler.post(() -> {
+                    try {
+                        runCourtDet();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                });
+            });
+        } else {
+            playerSkipDetection(frameIdx);
+        }
 
 
         // Step 5: Collect 3 consecutive frames for ball tracking
@@ -350,7 +354,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
             if (frameRes != null) {
                 frameRes.setFrameKps(null);
                 frameRes.setPlayerDetList(null);
-//                frameRes.setCourtKps(null);
+                frameRes.setCourtKps(null);
             }
             return;
         }
@@ -360,37 +364,37 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
         if (res != null) {
             res.setPlayerDetList(lastPlayerBboxes);
             res.setFrameKps(lastKeypoints);
-//            res.setCourtKps(lastCourtKeypoints);
+            res.setCourtKps(lastCourtKeypoints);
         }
         retrieveFrameResult();
 
     }
 
-//    private void runCourtDet() throws InterruptedException {
-//        PreprocessData<float[][][][]> processedData = courtDetInputPq.poll();
-//        if (processedData != null) {
-//            long idx = processedData.getFrameIndex();
-//            float[][][][] inputTensorData = processedData.getData();
-//
-//            // Run court detection inference on one thread
-//            courtExecutor.submit(() -> {
-//
-//                OrtSession.Result outputs = courtDetector.inference(inputTensorData);
-//
-//                float[][][] courtkps = courtDetector.postprocess(outputs);
-//                outputs.close();
-//
-//                // Store the results for this frame
-//                FrameRes frameRes = resultsMap.get(idx);
-//                if (frameRes != null) {
-//                    frameRes.setCourtKps(courtkps);
-//                }
-//                lastCourtKeypoints = courtkps;
-//                // Attempt to retrieve completed results
-//                retrieveFrameResult();
-//            });
-//        }
-//    }
+    private void runCourtDet() throws InterruptedException {
+        PreprocessData<float[][][][]> processedData = courtDetInputPq.poll();
+        if (processedData != null) {
+            long idx = processedData.getFrameIndex();
+            float[][][][] inputTensorData = processedData.getData();
+
+            // Run court detection inference on one thread
+            courtExecutor.submit(() -> {
+
+                OrtSession.Result outputs = courtDetector.inference(inputTensorData);
+
+                float[][][] courtkps = courtDetector.postprocess(outputs);
+                outputs.close();
+
+                // Store the results for this frame
+                FrameRes frameRes = resultsMap.get(idx);
+                if (frameRes != null) {
+                    frameRes.setCourtKps(courtkps);
+                }
+                lastCourtKeypoints = courtkps;
+                // Attempt to retrieve completed results
+                retrieveFrameResult();
+            });
+        }
+    }
 
     /**
      * Retrieves completed results from the results map in sequential order, starting from the next frame to retrieve.
@@ -419,7 +423,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
                 listener.onBallPosCallback(ballPositions);
                 listener.onPlayerDetCallback(bboxes);
                 listener.onPlayerPoseCallback(frameKps);
-//                listener.onCourtDetCallback(res.getCourtKps());
+                listener.onCourtDetCallback(res.getCourtKps());
 
                 // Excute action prediction
                 if (frameKps != null && !frameKps.isEmpty()) {
@@ -464,7 +468,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
         playerExecutor.shutdownNow();
         tennisExecutor.shutdownNow();
         poseExecutor.shutdown();
-//        courtExecutor.shutdown();
+        courtExecutor.shutdown();
         inferenceThread.quitSafely();
     }
 }

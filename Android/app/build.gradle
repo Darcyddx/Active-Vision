@@ -41,6 +41,7 @@ android {
         main {
             assets {
                 srcDirs 'src\\main\\assets', 'src\\androidTest\\assets'
+                jniLibs.srcDirs = ['src/main/jniLibs']
             }
         }
     }

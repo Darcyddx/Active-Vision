@@ -34,7 +34,6 @@ public class FragmentRender extends View {
 
     private final float[][] courtKeyPoints = new float[14][2];
 
-    // 添加动作概率相关字段
     private float[] actionProbabilities = null;
     private final Paint mProbBarPaint = new Paint();
     private final String[] actionLabels = {"S", "B", "N", "F"};
@@ -211,28 +210,28 @@ public class FragmentRender extends View {
             }
         }
 
-//        // draw court keypoints
-//        for (int i = 0; i < 14; i++) {
-//            float x = this.courtKeyPoints[i][0];
-//            float y = this.courtKeyPoints[i][1];
-//
-//            canvas.drawCircle(x, y, 6f, this.courtkpPaint);
-//
-//        }
-//
-//        // draw court lines
-//        for (int[] line : this.connections) {
-//            int i1 = line[0];
-//            int i2 = line[1];
-//            float x1 = this.courtKeyPoints[i1][0];
-//            float y1 = this.courtKeyPoints[i1][1];
-//            float x2 = this.courtKeyPoints[i2][0];
-//            float y2 = this.courtKeyPoints[i2][1];
-//
-//            if (x1 >= 0 && x2 >= 0 && y1 >= 0 && y2 >= 0) {
-//                canvas.drawLine(x1, y1, x2, y2, this.courtLinePaint);
-//            }
-//        }
+        // draw court keypoints
+        for (int i = 0; i < 14; i++) {
+            float x = this.courtKeyPoints[i][0];
+            float y = this.courtKeyPoints[i][1];
+
+            canvas.drawCircle(x, y, 6f, this.courtkpPaint);
+
+        }
+
+        // draw court lines
+        for (int[] line : this.connections) {
+            int i1 = line[0];
+            int i2 = line[1];
+            float x1 = this.courtKeyPoints[i1][0];
+            float y1 = this.courtKeyPoints[i1][1];
+            float x2 = this.courtKeyPoints[i2][0];
+            float y2 = this.courtKeyPoints[i2][1];
+
+            if (x1 >= 0 && x2 >= 0 && y1 >= 0 && y2 >= 0) {
+                canvas.drawLine(x1, y1, x2, y2, this.courtLinePaint);
+            }
+        }
 
 
         canvas.drawText("FPS: " + fps, 50, 50, mTextColor);
@@ -316,31 +315,31 @@ public class FragmentRender extends View {
         invalidate();
     }
 
-//    public void renderCourtPos(float[][][] courtKps, int inputWidth, int inputHeight) {
-//        if (courtKps == null) {
-//            invalidate();
-//            return;
-//        }
-//
-//        // Clear old keypoints
-//        for (int i = 0; i < this.courtKeyPoints.length; i++) {
-//            Arrays.fill(this.courtKeyPoints[i], 0f);
-//        }
-//
-//        float scaleX = (float) inputWidth / 640f;
-//        float scaleY = (float) inputHeight / 640f;
-//
-//        float[][] keypoints = courtKps[0]; // [14][3]
-//
-//        for (int i = 0; i < 14; i++) {
-//
-//            this.courtKeyPoints[i][0] = keypoints[i][0] * scaleX;
-//            this.courtKeyPoints[i][1] = keypoints[i][1] * scaleY;
-//        }
-//
-//        // Request redraw of the view
-//        invalidate();
-//    }
+    public void renderCourtPos(float[][][] courtKps, int inputWidth, int inputHeight) {
+        if (courtKps == null) {
+            invalidate();
+            return;
+        }
+
+        // Clear old keypoints
+        for (int i = 0; i < this.courtKeyPoints.length; i++) {
+            Arrays.fill(this.courtKeyPoints[i], 0f);
+        }
+
+        float scaleX = (float) inputWidth / 640f;
+        float scaleY = (float) inputHeight / 640f;
+
+        float[][] keypoints = courtKps[0]; // [14][3]
+
+        for (int i = 0; i < 14; i++) {
+
+            this.courtKeyPoints[i][0] = keypoints[i][0] * scaleX;
+            this.courtKeyPoints[i][1] = keypoints[i][1] * scaleY;
+        }
+
+        // Request redraw of the view
+        invalidate();
+    }
 
     public void renderPerformanceInfo(long fps) {
         this.fps = fps;
