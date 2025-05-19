@@ -66,7 +66,8 @@ public class FragmentRender extends View {
     private final Paint courtkpPaint = new Paint();
 
     private final Paint courtLinePaint = new Paint();
-
+    private Float lastSpeedKmh = null;  // ball speed
+    private String lastShotType = null; // ball hit type
     private Paint mActionProbPaint;
     private static final String[] ACTION_LABELS = {"Serve", "Backhand", "Neutral", "Forehand"};
     private static final int[] ACTION_COLORS = {Color.RED, Color.BLUE, Color.GRAY, Color.GREEN};
@@ -376,5 +377,14 @@ public class FragmentRender extends View {
         invalidate();  // 通知重绘
     }
 
-
+    public void renderBallSpeed(float speedKmh, String shotType) {
+        mLock.lock();
+        try {
+            this.lastSpeedKmh = speedKmh;
+            this.lastShotType = shotType;
+        } finally {
+            mLock.unlock();
+        }
+        invalidate();
+    }
 }

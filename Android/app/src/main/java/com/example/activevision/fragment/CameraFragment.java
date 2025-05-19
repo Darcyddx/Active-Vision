@@ -22,12 +22,15 @@ import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.activevision.BallHitAnalyzer;
 import com.example.activevision.FragmentRender;
 import com.example.activevision.FrameAnalyzer;
 import com.example.activevision.R;
+import com.example.activevision.data.BallHitResult;
 import com.example.activevision.data.BallPos;
 import com.example.activevision.data.Bbox;
 import com.example.activevision.data.KeyPoint;
+import com.example.activevision.result.BallHitAnalyzerListener;
 import com.example.activevision.result.TrackerResListener;
 import com.example.activevision.trackers.BallTracker;
 import com.example.activevision.trackers.PlayerDetector;
@@ -64,6 +67,9 @@ public class CameraFragment extends Fragment implements TrackerResListener {
 
     // TFLite models for tracking
     private BallTracker tennisTracker;
+    private BallHitAnalyzer ballHitAnalyzer;
+    // Analyzer responsible for processing camera frames
+    private FrameAnalyzer analyzer;
 
     private PlayerDetector playerDetector;
 
@@ -73,7 +79,6 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     private CourtDetector courtDetector;
 
     // Analyzer responsible for processing camera frames
-    private FrameAnalyzer analyzer;
 
 
     public CameraFragment() {
@@ -110,10 +115,22 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // analyzer = new FrameAnalyzer(tennisTracker, playerDetector, this);
-        analyzer = new FrameAnalyzer(tennisTracker, playerDetector, playerPoseTracker,playerPoseEstimator, this);
+
+        ballHitAnalyzer = new BallHitAnalyzer(new BallHitAnalyzerListener() {
+            @Override
+            public void onHitDetected(BallHitResult result) {
+                requireActivity().runOnUiThread(() -> {
+                    if (mFragmentRender != null) {
+                        mFragmentRender.renderBallSpeed(result.getSpeedKmh(), result.getShotType());
+                    }
+                });
+            }
+        });
+
+        analyzer = new FrameAnalyzer(tennisTracker, playerDetector,  playerPoseTracker,playerPoseEstimator, this,ballHitAnalyzer);
 
     }
+
 
     private ActivityResultLauncher<String> requestPermissionLauncher;
 
@@ -273,6 +290,13 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     public void onPerformanceCallback(long fps) {
         requireActivity().runOnUiThread(() -> {
             mFragmentRender.renderPerformanceInfo(fps);
+        });
+    }
+
+    @Override
+    public void onShotInfoCallback(String shotType,float speedKmh) {
+        requireActivity().runOnUiThread(()->{
+            mFragmentRender.renderBallSpeed(speedKmh,shotType);
         });
     }
 }
