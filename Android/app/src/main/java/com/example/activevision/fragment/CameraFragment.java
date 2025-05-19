@@ -116,16 +116,7 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ballHitAnalyzer = new BallHitAnalyzer(new BallHitAnalyzerListener() {
-            @Override
-            public void onHitDetected(BallHitResult result) {
-                requireActivity().runOnUiThread(() -> {
-                    if (mFragmentRender != null) {
-                        mFragmentRender.renderBallSpeed(result.getSpeedKmh(), result.getShotType());
-                    }
-                });
-            }
-        });
+        ballHitAnalyzer = new BallHitAnalyzer(this);
 
         analyzer = new FrameAnalyzer(tennisTracker, playerDetector,  playerPoseTracker,playerPoseEstimator, this,ballHitAnalyzer);
 

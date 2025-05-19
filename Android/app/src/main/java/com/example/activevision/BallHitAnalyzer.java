@@ -3,6 +3,7 @@ package com.example.activevision;
 import com.example.activevision.data.BallHitResult;
 import com.example.activevision.data.BallPos;
 import com.example.activevision.result.BallHitAnalyzerListener;
+import com.example.activevision.result.TrackerResListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,10 +42,14 @@ public class BallHitAnalyzer {
     private static final float PIXEL_TO_METER_RATIO = 11f;
     private static final float MIN_SPEED_KMH_THRESHOLD = 1.0f;
     private long lastHitTime = 0;
-    private BallHitAnalyzerListener listener;
+
     private SpeedUnit speedUnit = SpeedUnit.KMH; // Default unit is KMH
-    
-    public BallHitAnalyzer(BallHitAnalyzerListener listener) {
+
+    // 替换掉旧的 BallHitAnalyzerListener 回调
+    private final TrackerResListener listener;
+
+    // 修改构造器
+    public BallHitAnalyzer(TrackerResListener listener) {
         this.listener = listener;
     }
     
@@ -80,14 +85,13 @@ public class BallHitAnalyzer {
         if (history.size() > MAX_HISTORY_SIZE) {
             history.remove(0);
         }
-        
+
         if (detectHit(timestamp)) {
             float speed = calculateSpeed();
             if (speed > 0) {
                 String shotType = inferShotType();
-                BallHitResult result = new BallHitResult(speed, shotType);
                 if (listener != null) {
-                    listener.onHitDetected(result);
+                    listener.onShotInfoCallback(shotType, speed);  // ✅ 正确回调方法
                 }
             }
             lastHitTime = timestamp;
