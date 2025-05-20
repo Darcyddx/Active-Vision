@@ -28,3 +28,13 @@
 ## What am I doing next?
 
 - try to find out the resolution of the crash problem when court model run on Android
+
+
+### Xingchen Zhang
+## What have I done?
+
+- looking for existing deployment of ONNX model on Android mobile
+
+## What am I doing next?
+
+- try to find out the resolution of the crash problem when court model run on Android
