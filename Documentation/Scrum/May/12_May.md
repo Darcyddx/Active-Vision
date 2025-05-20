@@ -28,3 +28,13 @@
 ## What am I doing next?
 
 - looking for existing deployment of ONNX model on Android mobile
+
+### Xingchen Zhang
+
+## What have I done?
+
+- help with the court detection testing
+
+## What am I doing next?
+
+- collaborate with team members and keep working on court detection testing
