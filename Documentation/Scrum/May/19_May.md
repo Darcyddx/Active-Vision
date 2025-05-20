@@ -8,3 +8,13 @@
 ## What am I doing next? 
 
 - attend showcase
+
+
+### Xingchen Zhang
+## What have I done?
+
+- merge the ball speed calculation code to main branch and solve the conflicts
+
+## What am I doing next? 
+
+- test the actual effects
