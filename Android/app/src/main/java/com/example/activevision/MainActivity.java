@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             String tfLitePlayerPoseModelAsset = this.getResources().getString(R.string.PoseEstMobileModelAssetFP16);
             String tfLiteActionModelAsset = this.getResources().getString(R.string.PoseEstRNNModelAssetFP16);
             // Create court detector
-            String onnxCourtDetModelAsset = this.getResources().getString(R.string.CourtDetectionModelAssetOnnx);
+            String tfLiteCourtDetModelAsset = this.getResources().getString(R.string.CourtDetModelAssetFP16);
             try {
                 tennisTracker = new BallTracker(
                         this,
@@ -139,7 +139,8 @@ public class MainActivity extends AppCompatActivity {
                 );
                 courtDetector = new CourtDetector(
                         this,
-                        onnxCourtDetModelAsset
+                        tfLiteCourtDetModelAsset,
+                        AIHubDefaults.delegatePriorityOrder
                 );
             } catch (IOException | NoSuchAlgorithmException e) {
                 throw new RuntimeException(e.getMessage());

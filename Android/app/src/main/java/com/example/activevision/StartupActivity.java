@@ -18,12 +18,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class StartupActivity extends AppCompatActivity {
-
-    static {
-        System.loadLibrary("onnxruntime");
-        System.loadLibrary("onnxruntime4j_jni");
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

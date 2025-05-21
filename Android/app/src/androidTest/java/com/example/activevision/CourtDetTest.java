@@ -9,28 +9,23 @@ import android.graphics.Paint;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import com.example.activevision.data.Bbox;
+import com.example.activevision.tflite_helpers.AIHubDefaults;
 import com.example.activevision.trackers.CourtDetector;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
 import java.io.IOException;
 import java.io.InputStream;
-
-import ai.onnxruntime.OrtEnvironment;
-import ai.onnxruntime.OrtSession;
-import ai.onnxruntime.extensions.OrtxPackage;
+import java.nio.ByteBuffer;
+import java.util.List;
 
 public class CourtDetTest {
-
     private CourtDetector courtDetector;
 
-    private OrtEnvironment ortEnv;
-    private OrtSession ortSession;
-
-    private static final String IMAGE_PATH_1 = "frame_1.png";
-    private static final String IMAGE_PATH_2 = "frame_2.png";
-    private static final String IMAGE_PATH_3 = "frame_3.png";
+    private static final String IMAGE_PATH_1 = "player.jpg";
 
     @Before
     public void setUp() throws Exception {
@@ -39,87 +34,54 @@ public class CourtDetTest {
 //        }
         // Initialize the BallTracker instance with the context
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        String courtDetPath = context.getString(R.string.CourtDetectionModelAssetOnnx);
-        courtDetector = new CourtDetector(context, courtDetPath);
+        String courtDetModelPath = context.getString(R.string.CourtDetModelAssetFP16);
+        courtDetector = new CourtDetector(context, courtDetModelPath, AIHubDefaults.delegatePriorityOrder);
         System.out.println("finish set up");
     }
 
     @Test
-    public void testLoadModel() throws Exception {
-        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-
-        String modelPath = context.getString(R.string.CourtDetectionModelAssetOnnx);
-
-        ortEnv = OrtEnvironment.getEnvironment();
-
-        try {
-            OrtSession.SessionOptions sessionOptions = new OrtSession.SessionOptions();
-            sessionOptions.registerCustomOpLibrary(OrtxPackage.getLibraryPath());
-            ortSession = ortEnv.createSession(courtDetector.readModel(context, modelPath), sessionOptions);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Test
-    public void testPreprocess() throws Exception {
-        System.out.println("test pre-processing");
-    }
-
-    @Test
-    public void testCourtDetInference() throws Exception {
+    public void testCourtDetPreprocess() throws Exception {
+        // Context to access assets
         Context context = InstrumentationRegistry.getInstrumentation().getContext();
 
         // Load sample PNG images from assets
         Bitmap bitmap1 = loadBitmapFromAssets(context, IMAGE_PATH_1);
 
         assert bitmap1 != null;
-        float[][][][] inputByteBuffer = courtDetector.preprocess(bitmap1);
+        ByteBuffer output = courtDetector.preprocess(bitmap1);
 
-        OrtSession.Result outputBuffer = courtDetector.inference(inputByteBuffer);
-        float[][][] res = courtDetector.postprocess(outputBuffer);
+        System.out.println("complete pre-processing");
+    }
+
+    @Test
+    public void testCourtDetModel() throws Exception {
+        Context context = InstrumentationRegistry.getInstrumentation().getContext();
+
+        // Load sample PNG images from assets
+        Bitmap bitmap1 = loadBitmapFromAssets(context, IMAGE_PATH_1);
+
+        assert bitmap1 != null;
+        ByteBuffer inputByteBuffer = courtDetector.preprocess(bitmap1);
+
+        TensorBuffer outputBuffer = courtDetector.inference(inputByteBuffer);
+        float[] inf = outputBuffer.getFloatArray();
+        List<float[]> res = courtDetector.postprocess(inf,bitmap1.getHeight(), bitmap1.getWidth());
 
         // Create a mutable copy of the bitmap to draw on it
         Bitmap mutableBitmap = bitmap1.copy(Bitmap.Config.ARGB_8888, true);
         Canvas canvas = new Canvas(mutableBitmap);
 
-        int origWidth = mutableBitmap.getWidth();
-        int origHeight = mutableBitmap.getHeight();
+        // Set up the paint to draw keypionts and lines
+        Paint courtkpPaint = new Paint();
+        courtkpPaint.setColor(Color.GREEN);
+        courtkpPaint.setStyle(Paint.Style.FILL);
 
-        float scaleX = (float) origWidth / 640f;
-        float scaleY = (float) origHeight / 640f;
+        Paint courtLinePaint = new Paint();
+        courtLinePaint.setColor(Color.GREEN);
+        courtLinePaint.setStyle(Paint.Style.STROKE);
+        courtLinePaint.setStrokeWidth(4f);
 
-        Paint kpPaint = new Paint();
-        kpPaint.setColor(Color.GREEN);
-        kpPaint.setStyle(Paint.Style.FILL);
-
-        Paint linePaint = new Paint();
-        linePaint.setColor(Color.GREEN);
-        linePaint.setStyle(Paint.Style.STROKE);
-        linePaint.setStrokeWidth(4f);
-
-        float[][] keypoints = res[0]; // [14][3]
-        float[][] scaledPoints = new float[14][2]; // Scaled to original size
-
-        // Draw keypoints & record scaled positions
-        for (int i = 0; i < 14; i++) {
-            float x = keypoints[i][0] * scaleX;
-            float y = keypoints[i][1] * scaleY;
-            float conf = keypoints[i][2];
-
-            if (conf > 0.0f) {
-                scaledPoints[i][0] = x;
-                scaledPoints[i][1] = y;
-                canvas.drawCircle(x, y, 6f, kpPaint);
-            } else {
-                scaledPoints[i][0] = -1;
-                scaledPoints[i][1] = -1;
-            }
-        }
-
-        // Define the keypoint connection lines
-        int[][] lines = {
+        int[][] connections = {
                 {0, 1}, {0, 10}, {1, 2}, {1, 4},
                 {2, 3}, {2, 6}, {3, 13},
                 {4, 5}, {4, 7}, {5, 6}, {5, 8}, {6, 9},
@@ -127,22 +89,37 @@ public class CourtDetTest {
                 {11, 12}, {12, 13}
         };
 
-        // Draw connecting lines
-        for (int[] line : lines) {
+
+        // Draw court keypoints
+        for (int i = 0; i < 14; i++) {
+            float[] kp = res.get(i);
+            if (kp != null && kp.length == 2 && kp[0] >= 0 && kp[1] >= 0) {
+                canvas.drawCircle(kp[0], kp[1], 6f, courtkpPaint);
+            }
+        }
+
+        // Draw court lines
+        for (int[] line : connections) {
             int i1 = line[0];
             int i2 = line[1];
-            float x1 = scaledPoints[i1][0];
-            float y1 = scaledPoints[i1][1];
-            float x2 = scaledPoints[i2][0];
-            float y2 = scaledPoints[i2][1];
 
-            if (x1 >= 0 && x2 >= 0 && y1 >= 0 && y2 >= 0) {
-                canvas.drawLine(x1, y1, x2, y2, linePaint);
+            if (i1 < res.size() && i2 < res.size()) {
+                float[] kp1 = res.get(i1);
+                float[] kp2 = res.get(i2);
+
+                if (kp1 != null && kp2 != null &&
+                        kp1.length == 2 && kp2.length == 2 &&
+                        kp1[0] >= 0 && kp1[1] >= 0 && kp2[0] >= 0 && kp2[1] >= 0) {
+
+                    canvas.drawLine(kp1[0], kp1[1], kp2[0], kp2[1], courtLinePaint);
+                }
             }
-
-            System.out.println("done");
         }
+
+        System.out.println("done");
+
     }
+
 
     private Bitmap loadBitmapFromAssets(Context context, String fileName) {
         try {

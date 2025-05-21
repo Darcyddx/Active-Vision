@@ -32,7 +32,7 @@ public class FragmentRender extends View {
 
     private final List<List<KeyPoint>> playerKeyPoints = new ArrayList<>();
 
-    private final float[][] courtKeyPoints = new float[14][2];
+    private final List<float[]> courtKeyPoints =  new ArrayList<>();
 
     private float[] actionProbabilities = null;
     private final Paint mProbBarPaint = new Paint();
@@ -210,26 +210,32 @@ public class FragmentRender extends View {
             }
         }
 
-        // draw court keypoints
+        // Only draw if we have at least 14 keypoints
+        if (courtKeyPoints.size() < 14) return;
+
+        // Draw court keypoints
         for (int i = 0; i < 14; i++) {
-            float x = this.courtKeyPoints[i][0];
-            float y = this.courtKeyPoints[i][1];
-
-            canvas.drawCircle(x, y, 6f, this.courtkpPaint);
-
+            float[] kp = courtKeyPoints.get(i);
+            if (kp != null && kp.length == 2 && kp[0] >= 0 && kp[1] >= 0) {
+                canvas.drawCircle(kp[0], kp[1], 6f, this.courtkpPaint);
+            }
         }
 
-        // draw court lines
+        // Draw court lines
         for (int[] line : this.connections) {
             int i1 = line[0];
             int i2 = line[1];
-            float x1 = this.courtKeyPoints[i1][0];
-            float y1 = this.courtKeyPoints[i1][1];
-            float x2 = this.courtKeyPoints[i2][0];
-            float y2 = this.courtKeyPoints[i2][1];
 
-            if (x1 >= 0 && x2 >= 0 && y1 >= 0 && y2 >= 0) {
-                canvas.drawLine(x1, y1, x2, y2, this.courtLinePaint);
+            if (i1 < courtKeyPoints.size() && i2 < courtKeyPoints.size()) {
+                float[] kp1 = courtKeyPoints.get(i1);
+                float[] kp2 = courtKeyPoints.get(i2);
+
+                if (kp1 != null && kp2 != null &&
+                        kp1.length == 2 && kp2.length == 2 &&
+                        kp1[0] >= 0 && kp1[1] >= 0 && kp2[0] >= 0 && kp2[1] >= 0) {
+
+                    canvas.drawLine(kp1[0], kp1[1], kp2[0], kp2[1], this.courtLinePaint);
+                }
             }
         }
 
@@ -315,31 +321,30 @@ public class FragmentRender extends View {
         invalidate();
     }
 
-    public void renderCourtPos(float[][][] courtKps, int inputWidth, int inputHeight) {
+    public void renderCourtPos(List<float[]> courtKps, int inputWidth, int inputHeight) {
         if (courtKps == null) {
             invalidate();
             return;
         }
 
         // Clear old keypoints
-        for (int i = 0; i < this.courtKeyPoints.length; i++) {
-            Arrays.fill(this.courtKeyPoints[i], 0f);
-        }
+        this.courtKeyPoints.clear();
 
-        float scaleX = (float) inputWidth / 640f;
-        float scaleY = (float) inputHeight / 640f;
+        // Use separate scale factors for width and height
+        float scaleX = (float) getWidth() / inputWidth;
+        float scaleY = (float) getHeight() / inputHeight;
 
-        float[][] keypoints = courtKps[0]; // [14][3]
+        for (float[] kp : courtKps) {
+            float x = kp[0] * scaleX;
+            float y = kp[1] * scaleY;
 
-        for (int i = 0; i < 14; i++) {
-
-            this.courtKeyPoints[i][0] = keypoints[i][0] * scaleX;
-            this.courtKeyPoints[i][1] = keypoints[i][1] * scaleY;
+            this.courtKeyPoints.add(new float[]{x, y});
         }
 
         // Request redraw of the view
         invalidate();
     }
+
 
     public void renderPerformanceInfo(long fps) {
         this.fps = fps;
