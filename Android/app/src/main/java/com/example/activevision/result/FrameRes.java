@@ -30,9 +30,9 @@ public class FrameRes {
         this.frameId = frameId;
         this.entryTic = System.currentTimeMillis();
         if (frameId % 3 == 0) {
-            this.numTasks =  new AtomicInteger(3);
+            this.numTasks =  new AtomicInteger(4);
         } else {
-            this.numTasks =  new AtomicInteger(2);
+            this.numTasks =  new AtomicInteger(3);
         }
     }
 

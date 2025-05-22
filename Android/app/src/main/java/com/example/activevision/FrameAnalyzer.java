@@ -204,6 +204,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
             PreprocessThreadPool.getInstance().submitTask(() -> {
                 ByteBuffer courtDetInput = courtDetector.preprocess(input);
                 courtDetInputPq.put(new PreprocessData<>(frameIdx, new Pair<>(input, courtDetInput))); // Enqueue preprocessed data
+                Log.d(TAG, "Court input size:" + courtDetInput.remaining());
                 // Schedule court detection inference
                 inferenceHandler.post(() -> {
                     try {

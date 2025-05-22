@@ -25,7 +25,7 @@ import java.util.List;
 public class CourtDetTest {
     private CourtDetector courtDetector;
 
-    private static final String IMAGE_PATH_1 = "player.jpg";
+    private static final String IMAGE_PATH_1 = "frame_1.png";
 
     @Before
     public void setUp() throws Exception {
@@ -66,6 +66,7 @@ public class CourtDetTest {
         TensorBuffer outputBuffer = courtDetector.inference(inputByteBuffer);
         float[] inf = outputBuffer.getFloatArray();
         List<float[]> res = courtDetector.postprocess(inf,bitmap1.getHeight(), bitmap1.getWidth());
+//        float[][] res = courtDetector.processOutput(outputBuffer);
 
         // Create a mutable copy of the bitmap to draw on it
         Bitmap mutableBitmap = bitmap1.copy(Bitmap.Config.ARGB_8888, true);

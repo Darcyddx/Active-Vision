@@ -114,11 +114,11 @@ public class CourtDetector  implements AutoCloseable {
 
         if (inputType == DataType.FLOAT32) {
             imageProcessor = new ImageProcessor.Builder()
-                    .add(new NormalizeOp(0.0f, 1.0f))  // Normalize pixel values to [0.0, 1.0]
+                    .add(new NormalizeOp(0.0f, 255.0f))
                     .build();
         } else {
             imageProcessor = new ImageProcessor.Builder()
-                    .add(new NormalizeOp(0.0f, 1.0f))
+                    .add(new NormalizeOp(0.0f, 255.0f))
                     .add(new QuantizeOp(INPUT_ZERO_POINT, INPUT_SCALE))
                     .add(new CastOp(inputType))
                     .build();
@@ -171,28 +171,20 @@ public class CourtDetector  implements AutoCloseable {
     }
 
     public List<float[]> postprocess(float[] output, int inputImgHeight, int inputImgWidth) {
-
-        // Calculate the scaling factor to map model output back to original image dimensions
-        float r = Math.min(inputShape[1] * 1.0f / inputImgHeight, inputShape[2] * 1.0f / inputImgWidth);
-        // Calculate padding applied during letterboxing to adjust predictions back to the original image coordinates
-        int widthPadding = (int) Math.round((inputShape[2] - inputImgWidth * r) / 2.0f - 0.1);
-        int heightPadding = (int) Math.round((inputShape[1] - inputImgHeight * r) / 2.0f - 0.1);
-        float heightPadRatio = (float) heightPadding / inputShape[1];
-        float widthPadRatio = (float) widthPadding / inputShape[2];
-
-        // output: flat array of size 1 x 47 x 8400 = 394800
         int numDetections = 8400;
-        int numFeatures = 47;
+        int numFeatures = 47;  // 4 bbox + 1 objectness + 14*3 keypoints
 
-        // Reshape to [8400][47]
+        // Reshape output [1, 47, 8400] -> [8400][47]
         float[][] detections = new float[numDetections][numFeatures];
         for (int i = 0; i < numDetections; i++) {
             for (int j = 0; j < numFeatures; j++) {
-                detections[i][j] = output[i * numFeatures + j];
+                detections[i][j] = output[j * numDetections + i];
             }
         }
 
-        // Filter detections by confidence threshold
+        // Filter detections by objectness confidence
+        float confThreshold = 0.3f;
+        float keypointConfThreshold = 0.5f;
         List<float[]> filteredDetections = new ArrayList<>();
         for (float[] det : detections) {
             if (det[4] > confThreshold) {
@@ -200,60 +192,111 @@ public class CourtDetector  implements AutoCloseable {
             }
         }
 
-        // Extract best keypoint per type based on confidence
-        float[][] bestKeypoints = new float[14][2];
-        float[] bestConfidence = new float[14];
-        Arrays.fill(bestConfidence, -1.0f);  // Initialize to -1
+        // Extract all keypoints (x,y) scaled to 640 x 640 for each detection
+        List<float[][]> allKeypoints = new ArrayList<>();
+        List<float[]> confidencesList = new ArrayList<>();
 
         for (float[] det : filteredDetections) {
+            float[][] keypoints = new float[14][2];
+            float[] confidences = new float[14];
             for (int i = 0; i < 14; i++) {
                 float x = det[5 + i * 3];
                 float y = det[5 + i * 3 + 1];
                 float kconf = det[5 + i * 3 + 2];
+                confidences[i] = kconf;
 
-                if (kconf > keypointConfThreshold && kconf > bestConfidence[i]) {
-                    bestConfidence[i] = kconf;
-
-                    float xScaled = x * inputShape[2]; // x * 640
-                    float yScaled = y * inputShape[1]; // y * 640
-
-                    // Remove padding
-                    xScaled -= widthPadding;
-                    yScaled -= heightPadding;
-
-                    // Scale back to original image dimensions
-                    xScaled /= r;
-                    yScaled /= r;
-
-                    // Clamp to image bounds
-                    xScaled = Math.max(0, Math.min(xScaled, inputImgWidth));
-                    yScaled = Math.max(0, Math.min(yScaled, inputImgHeight));
-
-                    bestKeypoints[i][0] = xScaled;
-                    bestKeypoints[i][1] = yScaled;
+                if (kconf > keypointConfThreshold) {
+                    keypoints[i][0] = x * 640f;
+                    keypoints[i][1] = y * 640f;
+                } else {
+                    keypoints[i][0] = 0f;
+                    keypoints[i][1] = 0f;
                 }
             }
+            allKeypoints.add(keypoints);
+            confidencesList.add(confidences);
         }
 
-        // Convert to List<float[]> for compatibility with resolveSymmetricKeypoints
-        List<float[]> keypointsList = new ArrayList<>();
-        boolean hasValidKeypoints = false;
-        for (float[] kp : bestKeypoints) {
-            keypointsList.add(kp);
-            if (kp[0] != 0 || kp[1] != 0) {
-                hasValidKeypoints = true;
-            }
-        }
-
-        // Return null if no valid keypoints
-        if (!hasValidKeypoints) {
+        if (allKeypoints.isEmpty()) {
             return null;
         }
 
-        Log.d(TAG, "Court keypoints: " + keypointsList);
+        // Convert List<float[]> confidencesList to array for argmax
+        float[][] confidencesArray = new float[confidencesList.size()][14];
+        for (int i = 0; i < confidencesList.size(); i++) {
+            confidencesArray[i] = confidencesList.get(i);
+        }
 
-        // Apply symmetry resolution if needed
-        return resolveSymmetricKeypoints(keypointsList);
+        // Find best detection index per keypoint (argmax over detections)
+        int[] bestIndices = new int[14];
+        for (int kp = 0; kp < 14; kp++) {
+            float maxConf = -1f;
+            int maxIdx = -1;
+            for (int detIdx = 0; detIdx < confidencesArray.length; detIdx++) {
+                if (confidencesArray[detIdx][kp] > maxConf) {
+                    maxConf = confidencesArray[detIdx][kp];
+                    maxIdx = detIdx;
+                }
+            }
+            bestIndices[kp] = maxIdx;
+        }
+
+        // Pick the best keypoints for each type by confidence
+        List<float[]> bestKeypoints = new ArrayList<>();
+        for (int kp = 0; kp < 14; kp++) {
+            int detIdx = bestIndices[kp];
+            float[] kpCoord = allKeypoints.get(detIdx)[kp];
+            bestKeypoints.add(kpCoord);
+        }
+
+        // apply symmetry resolution
+        List<float[]> adjustedKeypoints = resolveSymmetricKeypoints(bestKeypoints);
+
+//        List<float[]> scaledKeypoints = new ArrayList<>();
+//
+//        // scale back to image original height and width
+//        float scaleX = (float) inputImgWidth / inputWidth;
+//        float scaleY = (float) inputImgHeight / inputHeight;
+//
+//        for (float[] kp : adjustedKeypoints) {
+//            float x = kp[0] * scaleX;
+//            float y = kp[1] * scaleY;
+//
+//            scaledKeypoints.add(new float[]{x, y});
+//        }
+
+        return scaleKeypointsWithPadding(adjustedKeypoints, inputImgWidth, inputImgHeight);
+    }
+
+    public List<float[]> scaleKeypointsWithPadding(List<float[]> adjustedKeypoints,
+                                                   int inputImgWidth, int inputImgHeight) {
+        List<float[]> scaledKeypoints = new ArrayList<>();
+
+        // Step 1: Calculate the scale ratio used during resizing
+        float r = Math.min((float) inputWidth / inputImgWidth,
+                (float) inputHeight / inputImgHeight);
+
+        // Step 2: Compute the size of the image after resizing but before padding
+        int newUnpadWidth = Math.round(inputImgWidth * r);
+        int newUnpadHeight = Math.round(inputImgHeight * r);
+
+        // Step 3: Compute the padding added to width and height
+        float dw = (inputWidth - newUnpadWidth) / 2.0f;  // width padding
+        float dh = (inputHeight - newUnpadHeight) / 2.0f; // height padding
+
+        // Step 4: Undo the padding and scale back to original image size
+        for (float[] kp : adjustedKeypoints) {
+            float x = (kp[0] - dw) / r;
+            float y = (kp[1] - dh) / r;
+
+            // Ensure the keypoint is within image bounds
+            x = Math.max(0, Math.min(x, inputImgWidth - 1));
+            y = Math.max(0, Math.min(y, inputImgHeight - 1));
+
+            scaledKeypoints.add(new float[]{x, y});
+        }
+
+        return scaledKeypoints;
     }
 
 

@@ -23,8 +23,8 @@ public class PreprocessThreadPool {
 
     private PreprocessThreadPool() {
         threadPoolExecutor = new ThreadPoolExecutor(
-                2,
                 4,
+                8,
                 1L,
                 TimeUnit.SECONDS,
                 new ArrayBlockingQueue<>(200),
