@@ -127,10 +127,9 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
                          PlayerPoseTracker playerPoseTracker,
                          PlayerPoseEstimator playerPoseEstimator,
                          CourtDetector courtDetector,
-                         TrackerResListener listener) {
-//                         CourtDetector courtDetector,
                          TrackerResListener listener,
                          BallHitAnalyzer ballHitAnalyzer) {
+
         this.tennisTracker = tennisTracker;
         this.playerDetector = playerDetector;
         this.playerPoseTracker = playerPoseTracker;

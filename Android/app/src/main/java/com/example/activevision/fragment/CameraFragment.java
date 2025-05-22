@@ -79,7 +79,7 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     private CourtDetector courtDetector;
 
     // Analyzer responsible for processing camera frames
-    private FrameAnalyzer analyzer;
+//    private FrameAnalyzer analyzer;
 
 
     public CameraFragment() {
@@ -116,7 +116,7 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // analyzer = new FrameAnalyzer(tennisTracker, playerDetector, this);
-        analyzer = new FrameAnalyzer(tennisTracker, playerDetector, playerPoseTracker,playerPoseEstimator, courtDetector, this);
+        analyzer = new FrameAnalyzer(tennisTracker, playerDetector, playerPoseTracker,playerPoseEstimator, courtDetector, this, ballHitAnalyzer);
 
         ballHitAnalyzer = new BallHitAnalyzer(new BallHitAnalyzerListener() {
             @Override
@@ -129,7 +129,7 @@ public class CameraFragment extends Fragment implements TrackerResListener {
             }
         });
 
-        analyzer = new FrameAnalyzer(tennisTracker, playerDetector,  playerPoseTracker,playerPoseEstimator, this,ballHitAnalyzer);
+        analyzer = new FrameAnalyzer(tennisTracker, playerDetector,  playerPoseTracker,playerPoseEstimator, courtDetector, this,ballHitAnalyzer);
 
     }
 
