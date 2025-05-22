@@ -35,11 +35,9 @@ The method `calculateSpeed()` calculates ball speed by analyzing recent position
 
 ##### **Formula Used:**
 
-$$
-\text{Speed (m/s)} 
-= 
-\frac{\text{distance (pixels)}}{\text{PIXEL_TO_METER_RATIO}\,\times\,\text{time interval (s)}}
-$$
+
+
+Speed (m/s) = distance (pixels) / (PIXEL_TO_METER_RATIO × time interval (s))
 
 ------
 
@@ -243,6 +241,14 @@ Finally, in light of the segmentation faults and initialization errors we encoun
 These improvements represent a blend of technical refinement, system resilience, and workflow maturity, all of which are essential as we move closer to deploying a production-grade mobile application capable of delivering reliable real-time tennis analytics.
 
 ## Task estimations and velocity tracking
+
+In Sprint 3, our team demonstrated incremental improvement in task execution discipline, but several gaps in estimation accuracy and velocity tracking remain evident. As shown in the burn-down chart, the sprint began with a consistent number of 10 open tasks that remained unchanged during the first few days (May 1–May 4), suggesting either delays in task kick-off or overestimation of early sprint velocity.
+
+A sudden drop to 6 tasks on May 5 indicates a burst of progress, likely triggered by focused effort or resolution of earlier blockers. However, the temporary increase to 7 open tasks on May 9 reveals that a previously completed task may have been reopened or that new scope was introduced mid-sprint. This event underscores the need for more robust definitions of “done” and better risk anticipation during estimation.
+
+During the mid-sprint period (May 9–May 20), the chart reflects stagnation, with little change in remaining task count. This flatline suggests that some tasks were underestimated in complexity, or that resource allocation did not align with planned velocity. Despite this, a final drop on May 22 to just 2 remaining tasks shows the team’s ability to mobilize toward sprint closure, though the concentration of work near the deadline indicates a reactive rather than steady delivery pace.
+
+Going forward, we aim to refine our estimation strategy by incorporating historical velocity trends and using smaller, more measurable sub-tasks. We also plan to increase the frequency of velocity reviews during sprints and improve workload balancing. These changes will help align planned velocity with actual team capacity, leading to more predictable delivery and fewer mid-sprint surprises.
 
 ## Evaluation based on reflection
 

@@ -61,6 +61,17 @@ By **Week09**, the team planned the highest amount of work—46 story points—a
 
 Overall, there is a steady upward trend in both planned and completed story points, indicating improving productivity. The gap between planned and completed work decreases over time, especially in Week09, which shows strong planning-execution alignment. The team should continue refining estimation practices, ensuring workload matches realistic capacity, and identifying early blockers that may limit progress.
 
+### Sprint 3
+![output (2)](https://github.com/user-attachments/assets/4e09bc83-febf-4c65-b2e3-3783ed5a9b6d)
+The Burn-down Chart for Sprint 3 illustrates a more stable and structured workflow compared to previous iterations, yet it still reveals key areas for improvement in task estimation and velocity management. From May 1 to May 4, the remaining tasks plateaued at 10, indicating that the initial days of the sprint were either used for planning, onboarding, or that actionable progress was limited due to blockers or late task assignment.
+
+A significant drop occurred on May 5, reducing the remaining tasks to 6, which suggests a burst of execution and possible task bundling from earlier delays. However, the unexpected rise back to 7 on May 9 highlights that either a new task was added mid-sprint or a previously considered "done" task was reopened due to insufficient completion or review feedback. This disruption indicates that task definitions may not have been precise, and review loops weren’t fully closed during estimation.
+
+Throughout the mid-sprint phase (May 9 to May 15), the remaining tasks stayed static, hinting at stagnation, potential resource misallocation, or underestimation of task complexity. It wasn't until May 22, the end of the sprint, that another sharp drop occurred—bringing the count to 2 remaining tasks. This final push toward closure suggests that task completion was concentrated at the end, rather than evenly distributed, reflecting a reactive execution model.
+
+To improve future velocity tracking, the team must better align planned velocity with realistic capacity and reinforce early delivery discipline. Task estimation sessions should incorporate risk buffers for ambiguous tasks, and mid-sprint check-ins should validate that velocity trends are on track. Breaking complex tasks into finer-grained, independently deliverable units would also help create a more balanced and predictable sprint flow
+
+
 
 ## 3. Sprint Goals/Milestones
 
