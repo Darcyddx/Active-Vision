@@ -17,3 +17,13 @@
 ## What am I doing next? 
 
 - continue to merge the code 
+
+### Xi Ding
+
+## What have I done?
+
+- Debug with the evaluation since there were some errors about outputs
+
+## What am I doing next?
+
+- modify the model architecture and consider reasonalbe data augmentation method to use

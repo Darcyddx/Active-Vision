@@ -100,13 +100,13 @@ To improve future velocity tracking, the team must better align planned velocity
 **Sprint goal**: Detect human poses and classify tennis movements
 
 ### Sprint 3 - Court detection
-| Task	                                                               | Estimation	 | Dependencies	        |
-|---------------------------------------------------------------------|-------------|----------------------|
-| Label dataset for court keypoints detection                         | 	3 SP       | Dataset availability |
-| Train different models on court dataset to test which one is better | 	7 SP       | Model training       |
-| Implement court keypoints detection for Android app                 | 	9 SP       | Model integration    |
-| Replace TrackNetV2 with TrackNetV4 for better ball tracking         | 	8 SP       | -                    |
-| Compute real-time ball speed estimation                             | 	3 SP       | Ball tracking        |
+| Task	                                                               | Estimation	 | Dependencies	        | Task allocation     |
+|---------------------------------------------------------------------|-------------|----------------------| ---------------------|
+| Label dataset for court keypoints detection                         | 	3 SP       | Dataset availability | Peiling Lam |
+| Train different models on court dataset to test which one is better | 	7 SP       | Model training       | Xi Ding |
+| Implement court keypoints detection for Android app                 | 	9 SP       | Model integration    | Xingchen Zhang, Yichi Zhang |
+| Replace TrackNetV2 with TrackNetV4 for better ball tracking         | 	8 SP       | -                    | Zhiyuan Lu |
+| Compute real-time ball speed estimation                             | 	3 SP       | Ball tracking        | Tao Lu |
 **Sprint goal**: Detect court keypoints, implement ball speed calculation
 
 ## 4. Sprint Backlog

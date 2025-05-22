@@ -38,3 +38,13 @@
 ## What am I doing next?
 
 - collaborate with team members and keep working on court detection testing
+
+### Xi Ding
+
+## What have I done?
+
+- explore methods on court detection
+
+## What am I doing next?
+
+- train different models on court dataset to test which one is better

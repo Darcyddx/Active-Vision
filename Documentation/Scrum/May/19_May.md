@@ -18,3 +18,13 @@
 ## What am I doing next? 
 
 - test the actual effects
+
+### Xi Ding
+
+## What have I done?
+
+- set up environment for training
+
+## What am I doing next?
+
+- train the modified model

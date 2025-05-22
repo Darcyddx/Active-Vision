@@ -10,3 +10,13 @@
 ## What am I doing next? 
 
 - handle postprocessing logic for the model prediction
+
+### Xi Ding
+
+## What have I done?
+
+- train the modified model
+
+## What am I doing next?
+
+- evaluate the modified model's performance

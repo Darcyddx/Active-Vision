@@ -28,3 +28,13 @@
 ## What am I doing next?
 
 - collaborate with TIME Lab members and seek for more tech support
+
+### Xi Ding
+
+## What have I done?
+
+- test some models' performance, such as using TrackNet
+
+## What am I doing next?
+
+- modify the model architecture and consider reasonalbe data augmentation method to use

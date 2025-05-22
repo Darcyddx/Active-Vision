@@ -8,3 +8,13 @@
 ## What am I doing next? 
 
 - build qnn android 
+
+### Xi Ding
+
+## What have I done?
+
+- set up environment for training
+
+## What am I doing next?
+
+- train the modified model

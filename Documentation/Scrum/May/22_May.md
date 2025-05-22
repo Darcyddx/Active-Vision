@@ -12,6 +12,15 @@
 
 - test on Android device and solve the bugs if any
 
+### Xi Ding
+
+## What have I done?
+
+- reflect on the modified model trained
+
+## What am I doing next?
+
+- debug with relevant files
 
 ### Xingchen Zhang
 ## What have I done?

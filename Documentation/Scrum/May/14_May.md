@@ -19,6 +19,16 @@
 
 - help with the ball speed calculation testing on Android
 
+### Xi Ding
+
+## What have I done?
+
+- search and record different methods in GitHub about court detection
+
+## What am I doing next?
+
+- train different models on court dataset to test which one is better
+
 ### Zhiyuan Lu
 
 ## What have I done?

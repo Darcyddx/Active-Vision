@@ -38,3 +38,13 @@
 ## What am I doing next?
 
 - try to find out the resolution of the crash problem when court model run on Android
+
+### Xi Ding
+
+## What have I done?
+
+- explore methods on court detection
+
+## What am I doing next?
+
+- train different models on court dataset to test which one is better

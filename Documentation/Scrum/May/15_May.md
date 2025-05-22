@@ -19,6 +19,16 @@
 
 - discuss with tutor for backup deliver plan if we cannot completely resolve the problem
 
+### Xi Ding
+
+## What have I done?
+
+- Choose some representative method on court detection
+
+## What am I doing next?
+
+- test some GitHub project's performance
+
 ### Zhiyuan Lu
 
 ## What have I done?
