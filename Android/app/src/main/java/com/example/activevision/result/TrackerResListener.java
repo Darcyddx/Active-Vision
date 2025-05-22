@@ -12,11 +12,13 @@ public interface TrackerResListener {
     // to get player's location
     void onPlayerDetCallback(List<Bbox> bboxes);
     // to get fps result
+
+//    void onCourtDetCallback(float[][][] courtKps);
     void onPerformanceCallback(long fps);
 
     void onPlayerPoseCallback(List<List<KeyPoint>> frameKps);
 
-//    void onCourtDetCallback(float[][][] courtKps);
+    void onCourtDetCallback(List<float[]> courtKps);
 
     // to get action prediction results
     void onActionPredictCallback(float[] actionProbabilities);

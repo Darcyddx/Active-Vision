@@ -32,7 +32,7 @@ public class FragmentRender extends View {
 
     private final List<List<KeyPoint>> playerKeyPoints = new ArrayList<>();
 
-    private final float[][] courtKeyPoints = new float[14][2];
+    private final List<float[]> courtKeyPoints =  new ArrayList<>();
 
     // Add action probability related fields
     private float[] actionProbabilities = null;
@@ -195,6 +195,7 @@ public class FragmentRender extends View {
         Log.d(TAG, "playerKeyPoints=" + playerKeyPoints);
         Log.d(TAG, "skeleton=" + Arrays.toString(skeleton));       // skeleton 一维打印
         Log.d(TAG, "actionProbabilities=" + Arrays.toString(actionProbabilities));
+        Log.d(TAG, "courtKeypoints=" + courtKeyPoints);
 
         if (actionProbabilities != null && ACTION_LABELS != null && ACTION_COLORS != null){
             for (int i = 0; i < 4; i++) {
@@ -212,6 +213,38 @@ public class FragmentRender extends View {
             }
         }
 
+        // Only draw if we have 14 keypoints
+        if (courtKeyPoints.size() == 14) {
+
+            // Draw court keypoints
+            for (int i = 0; i < 14; i++) {
+                float[] kp = courtKeyPoints.get(i);
+                if (kp != null && kp.length == 2 && kp[0] >= 0 && kp[1] >= 0) {
+                    canvas.drawCircle(kp[0], kp[1], 6f, this.courtkpPaint);
+                }
+            }
+
+            // Draw court lines
+            for (int[] line : this.connections) {
+                int i1 = line[0];
+                int i2 = line[1];
+
+                if (i1 < courtKeyPoints.size() && i2 < courtKeyPoints.size()) {
+                    float[] kp1 = courtKeyPoints.get(i1);
+                    float[] kp2 = courtKeyPoints.get(i2);
+
+                    if (kp1 != null && kp2 != null &&
+                            kp1.length == 2 && kp2.length == 2 &&
+                            kp1[0] >= 0 && kp1[1] >= 0 && kp2[0] >= 0 && kp2[1] >= 0) {
+
+                        canvas.drawLine(kp1[0], kp1[1], kp2[0], kp2[1], this.courtLinePaint);
+                    }
+                }
+            }
+        }
+
+
+        canvas.drawText("FPS: " + fps, 50, 50, mTextColor);
 //        // draw court keypoints
 //        for (int i = 0; i < 14; i++) {
 //            float x = this.courtKeyPoints[i][0];
@@ -319,31 +352,30 @@ public class FragmentRender extends View {
         invalidate();
     }
 
-//    public void renderCourtPos(float[][][] courtKps, int inputWidth, int inputHeight) {
-//        if (courtKps == null) {
-//            invalidate();
-//            return;
-//        }
-//
-//        // Clear old keypoints
-//        for (int i = 0; i < this.courtKeyPoints.length; i++) {
-//            Arrays.fill(this.courtKeyPoints[i], 0f);
-//        }
-//
-//        float scaleX = (float) inputWidth / 640f;
-//        float scaleY = (float) inputHeight / 640f;
-//
-//        float[][] keypoints = courtKps[0]; // [14][3]
-//
-//        for (int i = 0; i < 14; i++) {
-//
-//            this.courtKeyPoints[i][0] = keypoints[i][0] * scaleX;
-//            this.courtKeyPoints[i][1] = keypoints[i][1] * scaleY;
-//        }
-//
-//        // Request redraw of the view
-//        invalidate();
-//    }
+    public void renderCourtPos(List<float[]> courtKps, int inputWidth, int inputHeight) {
+        if (courtKps == null) {
+            invalidate();
+            return;
+        }
+
+        // Clear old keypoints
+        this.courtKeyPoints.clear();
+
+        // Use separate scale factors for width and height
+        float scaleX = (float) getWidth() / inputWidth;
+        float scaleY = (float) getHeight() / inputHeight;
+
+        for (float[] kp : courtKps) {
+            float x = kp[0] * scaleX;
+            float y = kp[1] * scaleY;
+
+            this.courtKeyPoints.add(new float[]{x, y});
+        }
+
+        // Request redraw of the view
+        invalidate();
+    }
+
 
     public void renderPerformanceInfo(long fps) {
         this.fps = fps;

@@ -16,7 +16,7 @@ public class FrameRes {
 
     volatile List<List<KeyPoint>> frameKps;
 
-//    volatile float[][][] courtKps;
+    volatile List<float[]> courtKps;
 
     private final AtomicInteger numTasks;
 
@@ -30,9 +30,9 @@ public class FrameRes {
         this.frameId = frameId;
         this.entryTic = System.currentTimeMillis();
         if (frameId % 3 == 0) {
-            this.numTasks =  new AtomicInteger(3);
+            this.numTasks =  new AtomicInteger(4);
         } else {
-            this.numTasks =  new AtomicInteger(2);
+            this.numTasks =  new AtomicInteger(3);
         }
     }
 
@@ -54,10 +54,10 @@ public class FrameRes {
         taskCompleted.incrementAndGet();
     }
 
-//    public synchronized void setCourtKps(float[][][] courtKps) {
-//        this.courtKps = courtKps;
-//        taskCompleted.incrementAndGet();
-//    }
+    public synchronized void setCourtKps(List<float[]> courtKps) {
+        this.courtKps = courtKps;
+        taskCompleted.incrementAndGet();
+    }
 
 
     public List<BallPos> getBallPositions() {
@@ -72,9 +72,9 @@ public class FrameRes {
         return frameKps;
     }
 
-//    public float[][][] getCourtKps() {
-//        return courtKps;
-//    }
+    public List<float[]> getCourtKps() {
+        return courtKps;
+    }
 
     public boolean isComplete() {
         return taskCompleted.get() == numTasks.get();
