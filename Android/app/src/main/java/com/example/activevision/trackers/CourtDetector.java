@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Pair;
 
-import com.example.activevision.data.Bbox;
-import com.example.activevision.data.KeyPoint;
 import com.example.activevision.tflite_helpers.AIHubDefaults;
 import com.example.activevision.tflite_helpers.TFLiteHelpers;
 import com.example.activevision.utils.ImageOps;
@@ -14,9 +12,7 @@ import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.Delegate;
 import org.tensorflow.lite.Interpreter;
 import org.tensorflow.lite.Tensor;
-import org.tensorflow.lite.support.common.TensorProcessor;
 import org.tensorflow.lite.support.common.ops.CastOp;
-import org.tensorflow.lite.support.common.ops.DequantizeOp;
 import org.tensorflow.lite.support.common.ops.NormalizeOp;
 import org.tensorflow.lite.support.common.ops.QuantizeOp;
 import org.tensorflow.lite.support.image.ImageProcessor;
@@ -24,9 +20,7 @@ import org.tensorflow.lite.support.image.TensorImage;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.nio.MappedByteBuffer;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -55,11 +49,6 @@ public class CourtDetector  implements AutoCloseable {
     private final int inputWidth;
     private final int inputChannels;
 
-    private final int outputHeight;
-
-    private final int outputWidth;
-
-    private final int numJoints;
 
     private final ImageProcessor imageProcessor;
 
@@ -67,35 +56,9 @@ public class CourtDetector  implements AutoCloseable {
 
     private final int INPUT_ZERO_POINT;
 
-    private final float OUTPUT_SCALE;
-
-    private final int OUTPUT_ZERO_POINT;
-
     private final float confThreshold = 0.25f;
 
     private final float keypointConfThreshold = 0.3f;
-
-
-
-//    private final byte[] inputByteArray;
-//
-//    private final float[] inputFloatArray;
-//
-//
-//    private final ByteBuffer inputByteBuffer;
-
-    private final float scoreThresh = 0.3f;
-
-    private int cameraCapturedWidth = 0;
-
-    private int cameraCapturedHeight = 0;
-
-    /**
-     * Buffer to store the most recent 30 frames of keypoint sequences.
-     */
-    private final List<float[]> sequenceBuffer = new ArrayList<>();
-
-    private float[] lastProbabilities = null;
 
     /**
      * The result of the last calculation is the probability results.
@@ -140,42 +103,25 @@ public class CourtDetector  implements AutoCloseable {
         outputShape = outputTensor.shape();
         outputType = outputTensor.dataType();
 
-        OUTPUT_SCALE = outputTensor.quantizationParams().getScale();
-        OUTPUT_ZERO_POINT = outputTensor.quantizationParams().getZeroPoint();
-        assert outputShape.length == 4;
-        assert outputType == DataType.UINT8 || outputType == DataType.INT8 | outputType == DataType.FLOAT32; // U/INT8 (Quantized) and FP32 Output Supported
+        // INPUT
+        inputHeight = inputShape[1];     // should be 640
+        inputWidth = inputShape[2];      // should be 640
+        inputChannels = inputShape[3];   // should be 3
 
-        inputHeight = inputShape[1];
-        inputWidth = inputShape[2];
-        inputChannels = inputShape[3];
-
-        outputHeight = outputShape[1];
-        outputWidth = outputShape[2];
-        numJoints = outputShape[3];
+        assert outputShape.length == 3;
+        assert outputType == DataType.FLOAT32; // Only FP32 supported by your model
 
         if (inputType == DataType.FLOAT32) {
             imageProcessor = new ImageProcessor.Builder()
-                    .add(new NormalizeOp(0.0f, 255.0f))
+                    .add(new NormalizeOp(0.0f, 1.0f))  // Normalize pixel values to [0.0, 1.0]
                     .build();
         } else {
             imageProcessor = new ImageProcessor.Builder()
-                    .add(new NormalizeOp(0.0f, 255.0f))
+                    .add(new NormalizeOp(0.0f, 1.0f))
                     .add(new QuantizeOp(INPUT_ZERO_POINT, INPUT_SCALE))
                     .add(new CastOp(inputType))
                     .build();
         }
-
-//        if (inputType == DataType.UINT8) {
-//            inputByteBuffer = ByteBuffer.allocateDirect(inputHeight * inputWidth * inputChannels);
-//            inputByteBuffer.order(ByteOrder.nativeOrder());
-//            inputByteArray = new byte[inputHeight * inputWidth * inputChannels];
-//            inputFloatArray = null;
-//        } else {
-//            inputByteBuffer = ByteBuffer.allocateDirect(inputHeight * inputWidth * inputChannels * 4);
-//            inputByteBuffer.order(ByteOrder.nativeOrder());
-//            inputFloatArray = new float[inputHeight * inputWidth * 3];
-//            inputByteArray = null;
-//        }
 
     }
 
@@ -215,12 +161,7 @@ public class CourtDetector  implements AutoCloseable {
         if (tfLiteInterpreter != null) {
             tfLiteInterpreter.run(inputBuffer, outputBuffer.getBuffer());
         }
-        if (outputType == DataType.UINT8) {
-            TensorProcessor tensorProcessor = new TensorProcessor.Builder()
-                    .add(new DequantizeOp(OUTPUT_ZERO_POINT, OUTPUT_SCALE))
-                    .build();
-            outputBuffer = tensorProcessor.process(outputBuffer);
-        }
+
         return outputBuffer;
     }
 
