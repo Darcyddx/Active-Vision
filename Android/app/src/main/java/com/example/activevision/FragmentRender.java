@@ -193,6 +193,7 @@ public class FragmentRender extends View {
         Log.d(TAG, "playerKeyPoints=" + playerKeyPoints);
         Log.d(TAG, "skeleton=" + Arrays.toString(skeleton));       // skeleton 一维打印
         Log.d(TAG, "actionProbabilities=" + Arrays.toString(actionProbabilities));
+        Log.d(TAG, "courtKeypoints=" + courtKeyPoints);
 
         if (actionProbabilities != null && ACTION_LABELS != null && ACTION_COLORS != null){
             for (int i = 0; i < 4; i++) {

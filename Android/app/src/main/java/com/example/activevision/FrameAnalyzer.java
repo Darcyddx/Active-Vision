@@ -51,6 +51,8 @@ import java.util.concurrent.locks.ReentrantLock;//add it if it don't have
  */
 public class FrameAnalyzer implements ImageAnalysis.Analyzer {
 
+    private static final String TAG = "FrameAnalyzer";
+
     private final BallTracker tennisTracker;
     private final PlayerDetector playerDetector;
 
@@ -379,11 +381,12 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
                 TensorBuffer outputBuffer = courtDetector.inference(inputBuffer);
                 float[] inf = outputBuffer.getFloatArray();
                 List<float[]> kps = courtDetector.postprocess(inf, inputHeight, inputWidth);
-
+                Log.d(TAG, "courtKeypoints=" + kps);
                 // Store the results for this frame
                 FrameRes frameRes = resultsMap.get(idx);
                 if (frameRes != null) {
                     frameRes.setCourtKps(kps);
+                    Log.d(TAG, "setting courtKeypoints to frameRes=" + kps);
                 }
 
                 // Attempt to retrieve completed results

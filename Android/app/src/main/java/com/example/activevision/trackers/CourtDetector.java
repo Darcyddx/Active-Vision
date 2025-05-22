@@ -2,6 +2,7 @@ package com.example.activevision.trackers;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.util.Pair;
 
 import com.example.activevision.tflite_helpers.AIHubDefaults;
@@ -123,6 +124,8 @@ public class CourtDetector  implements AutoCloseable {
                     .build();
         }
 
+        Log.d(TAG, "Court detector load successful");
+
     }
 
     /**
@@ -161,6 +164,8 @@ public class CourtDetector  implements AutoCloseable {
         if (tfLiteInterpreter != null) {
             tfLiteInterpreter.run(inputBuffer, outputBuffer.getBuffer());
         }
+
+        Log.d(TAG, "Output buffer shape: " + Arrays.toString(outputBuffer.getShape()));
 
         return outputBuffer;
     }
@@ -244,6 +249,8 @@ public class CourtDetector  implements AutoCloseable {
         if (!hasValidKeypoints) {
             return null;
         }
+
+        Log.d(TAG, "Court keypoints: " + keypointsList);
 
         // Apply symmetry resolution if needed
         return resolveSymmetricKeypoints(keypointsList);

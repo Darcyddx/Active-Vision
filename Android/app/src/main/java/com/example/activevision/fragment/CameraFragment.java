@@ -253,7 +253,7 @@ public class CameraFragment extends Fragment implements TrackerResListener {
     }
 
     @Override
-    public void onCourtDetCallback(float[][][] courtKps) {
+    public void onCourtDetCallback(List<float[]> courtKps) {
         requireActivity().runOnUiThread(() -> {
             mFragmentRender.renderCourtPos(courtKps,
                     analyzer.getCameraCapturedWidth(),
