@@ -211,31 +211,32 @@ public class FragmentRender extends View {
             }
         }
 
-        // Only draw if we have at least 14 keypoints
-        if (courtKeyPoints.size() < 14) return;
+        // Only draw if we have 14 keypoints
+        if (courtKeyPoints.size() == 14) {
 
-        // Draw court keypoints
-        for (int i = 0; i < 14; i++) {
-            float[] kp = courtKeyPoints.get(i);
-            if (kp != null && kp.length == 2 && kp[0] >= 0 && kp[1] >= 0) {
-                canvas.drawCircle(kp[0], kp[1], 6f, this.courtkpPaint);
+            // Draw court keypoints
+            for (int i = 0; i < 14; i++) {
+                float[] kp = courtKeyPoints.get(i);
+                if (kp != null && kp.length == 2 && kp[0] >= 0 && kp[1] >= 0) {
+                    canvas.drawCircle(kp[0], kp[1], 6f, this.courtkpPaint);
+                }
             }
-        }
 
-        // Draw court lines
-        for (int[] line : this.connections) {
-            int i1 = line[0];
-            int i2 = line[1];
+            // Draw court lines
+            for (int[] line : this.connections) {
+                int i1 = line[0];
+                int i2 = line[1];
 
-            if (i1 < courtKeyPoints.size() && i2 < courtKeyPoints.size()) {
-                float[] kp1 = courtKeyPoints.get(i1);
-                float[] kp2 = courtKeyPoints.get(i2);
+                if (i1 < courtKeyPoints.size() && i2 < courtKeyPoints.size()) {
+                    float[] kp1 = courtKeyPoints.get(i1);
+                    float[] kp2 = courtKeyPoints.get(i2);
 
-                if (kp1 != null && kp2 != null &&
-                        kp1.length == 2 && kp2.length == 2 &&
-                        kp1[0] >= 0 && kp1[1] >= 0 && kp2[0] >= 0 && kp2[1] >= 0) {
+                    if (kp1 != null && kp2 != null &&
+                            kp1.length == 2 && kp2.length == 2 &&
+                            kp1[0] >= 0 && kp1[1] >= 0 && kp2[0] >= 0 && kp2[1] >= 0) {
 
-                    canvas.drawLine(kp1[0], kp1[1], kp2[0], kp2[1], this.courtLinePaint);
+                        canvas.drawLine(kp1[0], kp1[1], kp2[0], kp2[1], this.courtLinePaint);
+                    }
                 }
             }
         }
