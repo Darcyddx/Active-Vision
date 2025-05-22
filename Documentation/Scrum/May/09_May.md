@@ -29,3 +29,13 @@
 ## What am I doing next?
 
 - help with the court detection testing and player detection testing
+
+### Xi Ding
+
+## What have I done?
+
+- Debug with ball speed tracking
+
+## What am I doing next?
+
+- help with court detection integration

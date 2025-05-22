@@ -19,3 +19,13 @@
 
 - test the runnable version on the mobile phone
 
+### Xi Ding
+
+## What have I done?
+
+- design the poster and pitch 
+
+## What am I doing next?
+
+- draft the delivery plan for the last client meeting
+

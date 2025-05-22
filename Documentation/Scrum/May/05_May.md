@@ -18,3 +18,13 @@
 ## What am I doing next?
 
 - integrate the swing classification model into the dev/keypoints-detection branch to keep the code always updated with the newest version
+
+### Xi Ding
+
+## What have I done?
+
+- design the poster
+
+## What am I doing next?
+
+- draft the delivery plan for the last client meeting

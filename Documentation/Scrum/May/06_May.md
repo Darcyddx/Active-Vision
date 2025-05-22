@@ -19,3 +19,13 @@
 
 - debug my code
 
+### Xi Ding
+
+## What have I done?
+
+- design the poster
+
+## What am I doing next?
+
+- draft the delivery plan for the last client meeting
+
