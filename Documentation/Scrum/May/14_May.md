@@ -8,3 +8,23 @@
 ## What am I doing next? 
 
 - prepare project closure report
+
+### Yichi Zhang
+
+## What have I done?
+
+- write some comment to record the error for further reference
+
+## What am I doing next?
+
+- help with the ball speed calculation testing on Android
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- try to find out the resolution of the crash problem when court model run on Android
+
+## What am I doing next?
+
+- Integrate the latest version of the key-points into the main branch

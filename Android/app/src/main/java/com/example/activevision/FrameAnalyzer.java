@@ -64,6 +64,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
     // Listener to dispatch results and performance metrics
     private final TrackerResListener listener;
 
+    private final BallHitAnalyzer ballHitAnalyzer;
     // Queue to store three consecutive frames for ball tracking
     private final Queue<Bitmap> frameBuffer = new ConcurrentLinkedQueue<>();
     private final ReentrantLock mLock = new ReentrantLock(); // Lock to synchronize frame buffer operations
@@ -127,12 +128,16 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
                          PlayerPoseEstimator playerPoseEstimator,
                          CourtDetector courtDetector,
                          TrackerResListener listener) {
+//                         CourtDetector courtDetector,
+                         TrackerResListener listener,
+                         BallHitAnalyzer ballHitAnalyzer) {
         this.tennisTracker = tennisTracker;
         this.playerDetector = playerDetector;
         this.playerPoseTracker = playerPoseTracker;
         this.playerPoseEstimator = playerPoseEstimator;
         this.courtDetector = courtDetector;
         this.listener = listener;
+        this.ballHitAnalyzer = ballHitAnalyzer;
 
         // Initialize single-thread executors for inference (one for each model)
         playerExecutor = java.util.concurrent.Executors.newSingleThreadExecutor();

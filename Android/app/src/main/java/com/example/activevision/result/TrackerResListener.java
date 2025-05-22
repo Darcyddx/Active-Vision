@@ -22,4 +22,6 @@ public interface TrackerResListener {
 
     // to get action prediction results
     void onActionPredictCallback(float[] actionProbabilities);
+
+    void onShotInfoCallback(String shotType, float speedKmh);
 }

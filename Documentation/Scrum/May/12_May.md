@@ -8,3 +8,23 @@
 ## What am I doing next? 
 
 - find the errors
+
+### Yichi Zhang
+
+## What have I done?
+
+- help with the court detection testing
+
+## What am I doing next?
+
+- collaborate with team members and keep working on court detection testing
+
+### Zhiyuan Lu
+
+## What have I done?
+
+- help with debug procedure of court detection
+
+## What am I doing next?
+
+- looking for existing deployment of ONNX model on Android mobile
