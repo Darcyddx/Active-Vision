@@ -11,3 +11,15 @@
 ## What am I doing next? 
 
 - test on Android device and solve the bugs if any
+
+
+### Xingchen Zhang
+## What have I done?
+
+- write related document to prepare for sprint3
+- deploy the tflite model to android and written all the preprocessing, inference, and postprocessing methods 
+- written unit test for court detection
+
+## What am I doing next? 
+
+- test on Android device to watch the actual effects
