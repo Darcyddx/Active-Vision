@@ -35,11 +35,9 @@ The method `calculateSpeed()` calculates ball speed by analyzing recent position
 
 ##### **Formula Used:**
 
-$$
-\text{Speed (m/s)} 
-= 
-\frac{\text{distance (pixels)}}{\text{PIXEL_TO_METER_RATIO}\,\times\,\text{time interval (s)}}
-$$
+
+
+Speed (m/s) = distance (pixels) / (PIXEL_TO_METER_RATIO × time interval (s))
 
 ------
 
