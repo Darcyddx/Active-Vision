@@ -214,7 +214,7 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
                 });
             });
         } else {
-            playerSkipDetection(frameIdx);
+            courtSkipDetection(frameIdx);
         }
 
 
@@ -354,7 +354,6 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
             if (frameRes != null) {
                 frameRes.setFrameKps(null);
                 frameRes.setPlayerDetList(null);
-                frameRes.setCourtKps(null);
             }
             return;
         }
@@ -364,6 +363,22 @@ public class FrameAnalyzer implements ImageAnalysis.Analyzer {
         if (res != null) {
             res.setPlayerDetList(lastPlayerBboxes);
             res.setFrameKps(lastKeypoints);
+        }
+        retrieveFrameResult();
+
+    }
+
+    private void courtSkipDetection(long frameIdx) {
+        if (lastCourtKeypoints == null) {
+            FrameRes frameRes = resultsMap.get(frameIdx);
+            if (frameRes != null) {
+                frameRes.setCourtKps(null);
+            }
+            return;
+        }
+
+        FrameRes res = resultsMap.get(frameIdx);
+        if (res != null) {
             res.setCourtKps(lastCourtKeypoints);
         }
         retrieveFrameResult();
