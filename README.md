@@ -36,3 +36,6 @@ The **Active Vision** project aims to revolutionize tennis training by leveragin
 
 ## 📩 Contact
 For any inquiries, feel free to reach out via email 📧 or open an issue on GitHub! 🛠
+
+## 📦 Use Active Vision
+Find version v1.0.0 in the release section or follow the [installation guide](./Documentation/Installation_Guide.md) and [user manual](./Documentation/User_Manual.md) for further exploration. 
