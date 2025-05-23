@@ -46,4 +46,3 @@ For current implementation, the App expects to run on Qualcomm Snapdragon with H
 | Redmi Turbo 3 | Snapdragon 8s Gen 3 | NPU + GPU       | 30 FPS      |
 | iQOO Z9 Turbo | Snapdragon 8s Gen 3 | NPU + GPU       | 30 FPS      |
 | Xiaomi 15 Pro | Snapdragon 8 Elite  | NPU + GPU       | 30 FPS      |
-|               |                     |                 |             |
