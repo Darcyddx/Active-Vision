@@ -113,7 +113,7 @@ The `CourtDetector` class is designed for detecting a tennis court or similar sp
 
 The improved implementation replaces the previous ONNX-based model with YOLOv8, a lightweight and high-performing model for keypoint detection. YOLOv8 offers superior accuracy and efficiency, making it ideal for detecting tennis court keypoints. Additionally, YOLOv8 supports direct export to TensorFlow Lite (TFLite) with float16 precision, enabling optimized deployment on resource-constrained devices like mobile phones.
 
-**Key Improvements**  
+**Actionable Improvements**  
 - **Model Selection**: YOLOv8’s architecture is more lightweight and delivers better keypoint detection performance than the previous ONNX model.  
 - **Preprocessing and Inference**: The workflow remains similar, resizing input images to `640x640` and converting them to a 4D tensor (`[1, 640, 640, 3]`). YOLOv8 processes the tensor to output keypoint coordinates directly, streamlining inference.  
 - **Model Export**: Exporting to TFLite with float16 precision reduces model size and inference time, improving performance on Android devices.  
