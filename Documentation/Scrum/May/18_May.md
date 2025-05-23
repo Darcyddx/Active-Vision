@@ -18,3 +18,13 @@
 ## What am I doing next?
 
 - train the modified model
+
+### Xingchen Zhang
+
+## What have I done?
+
+- set up environment for training
+
+## What am I doing next?
+
+- train the modified model
