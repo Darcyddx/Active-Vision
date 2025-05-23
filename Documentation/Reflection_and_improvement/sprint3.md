@@ -251,10 +251,15 @@ During the mid-sprint period (May 9–May 20), the chart reflects stagnation, wi
 Going forward, we aim to refine our estimation strategy by incorporating historical velocity trends and using smaller, more measurable sub-tasks. We also plan to increase the frequency of velocity reviews during sprints and improve workload balancing. These changes will help align planned velocity with actual team capacity, leading to more predictable delivery and fewer mid-sprint surprises.
 
 ## Evaluation based on reflection
+Sprint 3 was a significant step forward for our team, showing growth in technical skills, problem-solving, and team collaboration. By reflecting on our work, we can see what went well, what challenges we faced, and how we can improve for future sprints. Below is a detailed evaluation of our performance, written in simple and clear language to ensure it feels authentic and easy to understand.
+
+Compared to Sprint 1 and Sprint 2, Sprint 3 showed clear improvement. In Sprint 1, we struggled with tasks taking longer than expected because we underestimated their complexity. In Sprint 2, we faced delays due to dependencies between tasks. In Sprint 3, we handled challenges better by communicating more openly and finding practical solutions when problems arose, like the failed attempt to convert our model to TensorFlow Lite (TFLite). This adaptability helped us stay on track and deliver key features.
 
 Sprint 3 demonstrated that the team has grown significantly in handling both technical and collaborative challenges. The ability to adapt when plans failed—such as the TFLite export issue—shows a clear improvement in risk management and problem-solving.
 
-Compared to Sprint 1, where tasks occasionally overran due to underestimated complexity, and Sprint 2, where dependencies caused bottlenecks, Sprint 3 showed better coordination and fallback planning. Team communication was more proactive, leading to quicker resolution of blockers.
+<!-- Compared to Sprint 1, where tasks occasionally overran due to underestimated complexity, and Sprint 2, where dependencies caused bottlenecks, Sprint 3 showed better coordination and fallback planning. Team communication was more proactive, leading to quicker resolution of blockers. -->
+
+Sprint 3 was a turning point for our team. We delivered meaningful features, overcame tough technical challenges, and grew as a collaborative unit. By addressing the challenges—like static calibration, hardware issues, and uneven task progress, we can make future sprints even smoother. Compared to Sprint 1, where tasks occasionally overran due to underestimated complexity, and Sprint 2, where dependencies caused bottlenecks, Sprint 3 showed better coordination and fallback planning. Team communication was more proactive, leading to quicker resolution of blockers. The lessons from Sprint 3 will help us plan better, work smarter, and deliver a high-quality product in our future careers.
 
 Despite unresolved challenges (e.g., static calibration, device compatibility), the features delivered this sprint mark real progress in making the app more intelligent, real-time, and game-aware.
 
