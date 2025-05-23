@@ -38,3 +38,14 @@
 ## What am I doing next?
 
 - Integrate the latest version of the key-points into the main branch
+
+
+### Xingchen Zhang
+
+## What have I done?
+
+- adust the parameters ratio
+
+## What am I doing next?
+
+- Integrate the ballspeed module in projects
