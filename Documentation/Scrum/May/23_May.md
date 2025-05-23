@@ -9,3 +9,12 @@
 ## What am I doing next? 
 
 - attend sprint3 review and project closure meeting
+
+### Xi Ding
+## What have I done?
+
+- compile documentations for the sprint 3
+
+## What am I doing next? 
+
+- attend sprint3 review and project closure meeting
