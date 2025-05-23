@@ -85,7 +85,7 @@ Speed (m/s) = distance (pixels) / (PIXEL_TO_METER_RATIO × time interval (s))
 
 ### Court Detection
 
-#### **Implementation Explanation**
+#### **Previous Implementation Explanation (failed version)**
 
 The `CourtDetector` class is designed for detecting a tennis court or similar sports courts from images using an ONNX deep learning model. The main workflow includes:
 
@@ -108,6 +108,19 @@ The `CourtDetector` class is designed for detecting a tennis court or similar sp
 
 - Extracts the relevant output (keypoints, in this scenario) from inference results.
 - Converts ONNX outputs into usable Java structures (`float[][][]`).
+
+#### **Improved Implementation Explanation (successful version)**
+
+The improved implementation replaces the previous ONNX-based model with YOLOv8, a lightweight and high-performing model for keypoint detection. YOLOv8 offers superior accuracy and efficiency, making it ideal for detecting tennis court keypoints. Additionally, YOLOv8 supports direct export to TensorFlow Lite (TFLite) with float16 precision, enabling optimized deployment on resource-constrained devices like mobile phones.
+
+**Actionable Improvements**  
+- **Model Selection**: YOLOv8’s architecture is more lightweight and delivers better keypoint detection performance than the previous ONNX model.  
+- **Preprocessing and Inference**: The workflow remains similar, resizing input images to `640x640` and converting them to a 4D tensor (`[1, 640, 640, 3]`). YOLOv8 processes the tensor to output keypoint coordinates directly, streamlining inference.  
+- **Model Export**: Exporting to TFLite with float16 precision reduces model size and inference time, improving performance on Android devices.  
+- **Training Strategy**: Due to the limited dataset size, we trained YOLOv8 over three iterations. Initial training resulted in inaccurate keypoint detection, with 3–5 keypoints missing. After researching online and analyzing performance, we conducted two additional training rounds, significantly improving accuracy and robustness.  
+
+**Limitations and Post-processing**  
+Some keypoints detected by YOLOv8 are mirrored, requiring additional post-processing to map them to their correct positions. This step involves applying a transformation to adjust the coordinates, ensuring accurate court representation.
 
 ------
 
